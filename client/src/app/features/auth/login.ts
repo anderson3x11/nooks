@@ -11,10 +11,10 @@ import { AuthShell } from './auth-shell';
   template: `
     <nooks-auth-shell title="Se connecter" subtitle="Pour proposer un lieu et noter ceux des autres.">
       <form [formGroup]="form" (ngSubmit)="submit()">
-        <label class="label-caps mb-1 block text-ink-400" for="login-email">Email</label>
+        <label class="label-caps mb-1.5 block" for="login-email">Email</label>
         <input id="login-email" type="email" class="field" formControlName="email" autocomplete="email" />
 
-        <label class="label-caps mt-4 mb-1 block text-ink-400" for="login-password">Mot de passe</label>
+        <label class="label-caps mt-5 mb-1.5 block" for="login-password">Mot de passe</label>
         <input
           id="login-password"
           type="password"
@@ -24,25 +24,25 @@ import { AuthShell } from './auth-shell';
         />
 
         @if (error()) {
-          <p class="mt-3 text-[13px] text-rust-500">{{ error() }}</p>
+          <p class="mt-3 text-[13px] text-negative">{{ error() }}</p>
         }
 
-        <button type="submit" class="btn btn-ink mt-5 w-full" [disabled]="form.invalid || busy()">
+        <button type="submit" class="btn btn-primary mt-6 w-full" [disabled]="form.invalid || busy()">
           {{ busy() ? 'Connexion…' : 'Se connecter' }}
         </button>
       </form>
 
-      <p class="mt-4 text-center text-[13px] text-ink-600">
+      <p class="mt-4 text-center text-[14px] text-ink-700">
         Pas encore de compte ?
-        <a routerLink="/inscription" class="font-semibold text-signal-700 underline">En créer un</a>
+        <a routerLink="/inscription" class="font-semibold text-ink-900 underline underline-offset-2">En créer un</a>
       </p>
 
-      <div class="rule my-4"></div>
-      <p class="text-center text-[11.5px] leading-relaxed text-ink-400">
+      <div class="divider my-5"></div>
+      <p class="text-center text-[12.5px] leading-relaxed text-ink-500">
         Comptes de démonstration :<br />
-        <span class="font-semibold text-ink-600">admin&#64;nooks.local</span> ou
-        <span class="font-semibold text-ink-600">camille&#64;nooks.local</span><br />
-        mot de passe <span class="font-semibold text-ink-600">Nooks!2026</span>
+        <span class="font-semibold text-ink-900">admin&#64;nooks.local</span> ou
+        <span class="font-semibold text-ink-900">camille&#64;nooks.local</span><br />
+        mot de passe <span class="font-semibold text-ink-900">Nooks!2026</span>
       </p>
     </nooks-auth-shell>
   `,

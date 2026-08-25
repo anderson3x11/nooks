@@ -83,7 +83,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     {
         var client = factory.CreateClient();
 
-        var response = await client.PostAsJsonAsync("/api/places", NewPlace());
+        var response = await client.PostPlaceAsync(NewPlace());
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
@@ -93,7 +93,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     {
         var client = await factory.CreateClient().RegisterAsync("Contributeur");
 
-        var created = await (await client.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await client.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
         var places = await (await client.GetAsync($"/api/places?{ParisBbox}")).ReadAsync<List<PlaceSummaryDto>>();
 
         Assert.Equal(PlaceStatus.Approved, created.Status);
@@ -105,7 +105,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     public async Task Noter_deux_fois_le_meme_lieu_met_a_jour_sa_note_au_lieu_den_creer_une_seconde()
     {
         var client = await factory.CreateClient().RegisterAsync("Noteur");
-        var created = await (await client.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await client.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
 
         var first = await (await client.PutAsJsonAsync($"/api/places/{created.Id}/rating", new RatePlaceRequest(5, "Superbe"))).ReadAsync<PlaceDetailDto>();
         var second = await (await client.PutAsJsonAsync($"/api/places/{created.Id}/rating", new RatePlaceRequest(2, "Finalement non"))).ReadAsync<PlaceDetailDto>();
@@ -121,7 +121,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     public async Task La_moyenne_tient_compte_de_tous_les_votants()
     {
         var author = await factory.CreateClient().RegisterAsync("Auteur");
-        var created = await (await author.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await author.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
 
         await author.PutAsJsonAsync($"/api/places/{created.Id}/rating", new RatePlaceRequest(5, null));
         var other = await factory.CreateClient().RegisterAsync("Autre");
@@ -135,11 +135,37 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     public async Task Une_note_hors_bornes_est_refusee()
     {
         var client = await factory.CreateClient().RegisterAsync("Tricheur");
-        var created = await (await client.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await client.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
 
         var response = await client.PutAsJsonAsync($"/api/places/{created.Id}/rating", new RatePlaceRequest(9, null));
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Un_lieu_sans_photo_est_refuse()
+    {
+        var client = await factory.CreateClient().RegisterAsync("Sans photo");
+
+        var response = await client.PostPlaceAsync(NewPlace(), photoCount: 0);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Les_photos_envoyees_a_la_creation_deviennent_celles_du_lieu()
+    {
+        var client = await factory.CreateClient().RegisterAsync("Photographe");
+
+        var created = await (await client.PostPlaceAsync(NewPlace(), photoCount: 3)).ReadAsync<PlaceDetailDto>();
+
+        Assert.Equal(3, created.Photos.Count);
+        Assert.Single(created.Photos, photo => photo.IsCover);
+
+        // La vignette de couverture est ce qui alimente le marqueur sur la carte.
+        var places = await (await client.GetAsync($"/api/places?{ParisBbox}")).ReadAsync<List<PlaceSummaryDto>>();
+        var onMap = Assert.Single(places, place => place.Id == created.Id);
+        Assert.NotNull(onMap.CoverThumbnailUrl);
     }
 
     [Fact]

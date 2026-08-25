@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
-import { Subject, debounceTime, distinctUntilChanged, filter, switchMap, catchError, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, catchError, debounceTime, distinctUntilChanged, filter, of, switchMap } from 'rxjs';
 import { GeocodeResult } from '../../core/models';
 import { PlacesApi } from '../../core/places-api';
 
@@ -10,14 +10,14 @@ import { PlacesApi } from '../../core/places-api';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="relative w-80">
-      <div class="plate grain flex items-center gap-2 px-3 py-2">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="shrink-0">
-          <circle cx="7" cy="7" r="4.6" stroke="#4a413a" stroke-width="1.5" />
-          <path d="m10.6 10.6 3.2 3.2" stroke="#4a413a" stroke-width="1.5" stroke-linecap="round" />
+      <div class="card flex items-center gap-2.5 rounded-full px-4 py-2.5">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="shrink-0">
+          <circle cx="7" cy="7" r="4.6" stroke="#737373" stroke-width="1.6" />
+          <path d="m10.6 10.6 3.2 3.2" stroke="#737373" stroke-width="1.6" stroke-linecap="round" />
         </svg>
         <input
           type="search"
-          class="w-full bg-transparent text-[14px] text-ink-900 placeholder:text-paper-400 focus:outline-none"
+          class="w-full bg-transparent text-[14.5px] text-ink-900 placeholder:text-ink-400 focus:outline-none"
           placeholder="Chercher une ville…"
           autocomplete="off"
           [value]="query()"
@@ -25,21 +25,21 @@ import { PlacesApi } from '../../core/places-api';
           (keydown.escape)="close()"
         />
         @if (loading()) {
-          <span class="size-3 shrink-0 animate-spin rounded-full border-2 border-paper-300 border-t-signal-500"></span>
+          <span class="size-3.5 shrink-0 animate-spin rounded-full border-2 border-ink-200 border-t-ink-900"></span>
         }
       </div>
 
       @if (results().length > 0) {
-        <ul class="plate grain animate-rise absolute z-20 mt-1 w-full overflow-hidden py-1">
+        <ul class="card card-float animate-rise absolute z-20 mt-2 w-full overflow-hidden p-1.5">
           @for (result of results(); track result.displayName) {
             <li>
               <button
                 type="button"
-                class="w-full cursor-pointer px-3 py-2 text-left text-[13px] leading-snug text-ink-700 transition-colors hover:bg-paper-200"
+                class="w-full cursor-pointer rounded-xl px-3 py-2 text-left transition-colors hover:bg-ink-100"
                 (click)="choose(result)"
               >
-                <span class="font-semibold text-ink-900">{{ shortName(result.displayName) }}</span>
-                <span class="block truncate text-[11px] text-ink-400">{{ result.displayName }}</span>
+                <span class="block text-[14px] font-semibold text-ink-900">{{ shortName(result.displayName) }}</span>
+                <span class="block truncate text-[12px] text-ink-500">{{ result.displayName }}</span>
               </button>
             </li>
           }

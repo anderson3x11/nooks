@@ -27,15 +27,15 @@ const ASTERISK =
 const DOT = 'M6 3.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 1 0 0-5.4Z';
 
 export const CATEGORIES: readonly CategoryStyle[] = [
-  { id: 'Viewpoint', label: 'Point de vue', color: '#dd8438', path: TRIANGLE },
+  { id: 'Viewpoint', label: 'Point de vue', color: '#e07a1f', path: TRIANGLE },
   { id: 'Curiosity', label: 'Curiosité', color: '#7b5bc4', path: ASTERISK },
-  { id: 'Museum', label: 'Musée', color: '#3b6fb6', path: CIRCLE },
-  { id: 'StreetArt', label: 'Street art', color: '#c8483c', path: DIAMOND },
-  { id: 'Nature', label: 'Nature', color: '#4e8b5a', path: HEXAGON },
-  { id: 'Shop', label: 'Boutique', color: '#b4478a', path: SQUARE },
-  { id: 'FoodDrink', label: 'Boire et manger', color: '#b8931f', path: STAR },
-  { id: 'Abandoned', label: 'Abandonné', color: '#6f6d7a', path: PLUS },
-  { id: 'Other', label: 'Autre', color: '#6b6259', path: DOT },
+  { id: 'Museum', label: 'Musée', color: '#2f6fd0', path: CIRCLE },
+  { id: 'StreetArt', label: 'Street art', color: '#d63b32', path: DIAMOND },
+  { id: 'Nature', label: 'Nature', color: '#3f8f52', path: HEXAGON },
+  { id: 'Shop', label: 'Boutique', color: '#b8388f', path: SQUARE },
+  { id: 'FoodDrink', label: 'Boire et manger', color: '#b08307', path: STAR },
+  { id: 'Abandoned', label: 'Abandonné', color: '#6b6a78', path: PLUS },
+  { id: 'Other', label: 'Autre', color: '#5f5f5f', path: DOT },
 ];
 
 const byId = new Map<PlaceCategory, CategoryStyle>(CATEGORIES.map((category) => [category.id, category]));
@@ -44,24 +44,35 @@ export function categoryStyle(id: PlaceCategory): CategoryStyle {
   return byId.get(id) ?? CATEGORIES[CATEGORIES.length - 1];
 }
 
+/** Dimensions de l'icône Leaflet : la pointe de la tige tombe sur la position exacte. */
+export const PIN_SIZE: [number, number] = [46, 60];
+export const PIN_ANCHOR: [number, number] = [23, 60];
+
 /**
- * Goutte ancrée par sa pointe sur la position exacte du lieu.
- * Rendue en chaîne parce que Leaflet injecte lui-même le contenu de ses icônes.
+ * Marqueur : la photo du lieu dans une pastille ronde cerclée de la couleur de
+ * sa catégorie, posée sur une tige. Rendu en chaîne parce que Leaflet injecte
+ * lui-même le contenu de ses icônes.
  */
-export function pinSvg(id: PlaceCategory): string {
+export function pinHtml(id: PlaceCategory, photoUrl: string | null): string {
   const style = categoryStyle(id);
-  return `<svg width="28" height="36" viewBox="0 0 28 36" fill="none" aria-hidden="true">
-    <path d="M14 1.2C7.4 1.2 2 6.6 2 13.2c0 8.4 10.2 19.5 11.1 20.4a1.3 1.3 0 0 0 1.8 0C15.8 32.7 26 21.6 26 13.2 26 6.6 20.6 1.2 14 1.2Z" fill="${style.color}" stroke="#191512" stroke-width="1.4"/>
-    <path d="${style.path}" transform="translate(8 7)" fill="#f5f0e6"/>
-  </svg>`;
+  const inside = photoUrl
+    ? `<img src="${photoUrl}" alt="" loading="lazy" />`
+    : `<svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><path d="${style.path}" fill="${style.color}"/></svg>`;
+
+  return `<div class="nooks-pin__inner" style="--pin-color:${style.color}">
+    <div class="nooks-pin__bubble">${inside}</div>
+    <span class="nooks-pin__stem"></span>
+  </div>`;
 }
 
-/** Épingle provisoire du lieu en cours de création : ambre, réticule, pas une catégorie. */
-export function draftPinSvg(): string {
-  return `<svg width="28" height="36" viewBox="0 0 28 36" fill="none" aria-hidden="true">
-    <path d="M14 1.2C7.4 1.2 2 6.6 2 13.2c0 8.4 10.2 19.5 11.1 20.4a1.3 1.3 0 0 0 1.8 0C15.8 32.7 26 21.6 26 13.2 26 6.6 20.6 1.2 14 1.2Z" fill="#dd8438" stroke="#191512" stroke-width="1.4"/>
-    <g stroke="#191512" stroke-width="1.5" stroke-linecap="round">
-      <path d="M14 8.6v9.2M9.4 13.2h9.2"/>
-    </g>
-  </svg>`;
+/** Épingle provisoire du lieu en cours de création : noire, avec un réticule. */
+export function draftPinHtml(): string {
+  return `<div class="nooks-pin__inner" style="--pin-color:#0a0a0a">
+    <div class="nooks-pin__bubble">
+      <svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true">
+        <path d="M6 1.4v9.2M1.4 6h9.2" stroke="#0a0a0a" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nooks-pin__stem"></span>
+  </div>`;
 }

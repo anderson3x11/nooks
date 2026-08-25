@@ -12,19 +12,17 @@ import { CategorySymbol } from '../../shared/category-symbol';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CategorySymbol],
   template: `
-    <section class="plate grain w-72 overflow-hidden">
-      <header class="flex items-baseline justify-between px-4 pt-3">
-        <h2 class="text-[15px] text-ink-900">Légende & filtres</h2>
+    <section class="card w-80 overflow-hidden">
+      <header class="flex items-center justify-between px-5 pt-4 pb-3">
+        <h2 class="text-[16px]">Filtres</h2>
         @if (isFiltered()) {
-          <button type="button" class="label-caps cursor-pointer text-signal-700 hover:underline" (click)="reset()">
-            Tout afficher
+          <button type="button" class="cursor-pointer text-[13px] font-semibold text-ink-500 hover:text-ink-900" (click)="reset()">
+            Réinitialiser
           </button>
         }
       </header>
 
-      <div class="rule mx-4 mt-2"></div>
-
-      <div class="px-4 pt-3">
+      <div class="px-5 pb-4">
         <input
           type="search"
           class="field"
@@ -34,42 +32,39 @@ import { CategorySymbol } from '../../shared/category-symbol';
         />
       </div>
 
-      <div class="flex flex-col gap-px px-2 py-2">
-        @for (category of categories; track category.id) {
-          <button
-            type="button"
-            class="flex cursor-pointer items-center gap-2.5 rounded-sm px-2 py-1.5 text-left text-[13px] transition-colors duration-150"
-            [class]="isActive(category.id) ? 'bg-ink-900 text-paper-100' : 'text-ink-700 hover:bg-paper-200'"
-            [attr.aria-pressed]="isActive(category.id)"
-            (click)="toggleCategory(category.id)"
-          >
-            <nooks-symbol [category]="category.id" [size]="13" />
-            <span class="flex-1">{{ category.label }}</span>
-            @if (countOf(category.id) > 0) {
-              <span
-                class="text-[11px] tabular-nums"
-                [class]="isActive(category.id) ? 'text-paper-300' : 'text-ink-400'"
-                >{{ countOf(category.id) }}</span
-              >
-            }
-          </button>
-        }
+      <div class="divider"></div>
+
+      <div class="px-5 py-4">
+        <div class="label-caps mb-3">Catégories</div>
+        <div class="flex flex-wrap gap-1.5">
+          @for (category of categories; track category.id) {
+            <button type="button" class="chip" [attr.aria-pressed]="isActive(category.id)" (click)="toggleCategory(category.id)">
+              <nooks-symbol
+                [category]="category.id"
+                [size]="11"
+                [color]="isActive(category.id) ? '#ffffff' : null"
+              />
+              {{ category.label }}
+              @if (countOf(category.id) > 0) {
+                <span class="text-[11.5px] tabular-nums" [class]="isActive(category.id) ? 'text-ink-300' : 'text-ink-400'">
+                  {{ countOf(category.id) }}
+                </span>
+              }
+            </button>
+          }
+        </div>
       </div>
 
-      <div class="rule mx-4"></div>
+      <div class="divider"></div>
 
-      <div class="px-4 py-3">
-        <div class="label-caps mb-2 text-ink-400">Note minimale</div>
-        <div class="flex gap-1">
+      <div class="px-5 py-4">
+        <div class="label-caps mb-3">Note minimale</div>
+        <div class="segment w-full">
           @for (threshold of thresholds; track $index) {
             <button
               type="button"
-              class="flex-1 cursor-pointer rounded-sm border py-1 text-[12px] font-semibold transition-colors duration-150"
-              [class]="
-                filters().minRating === threshold
-                  ? 'border-signal-600 bg-signal-500 text-ink-950'
-                  : 'border-paper-300 text-ink-600 hover:bg-paper-200'
-              "
+              class="flex-1"
+              [attr.aria-pressed]="filters().minRating === threshold"
               (click)="setMinRating(threshold)"
             >
               {{ threshold === null ? 'Toutes' : threshold + '★' }}
@@ -99,12 +94,12 @@ export class FiltersPanel {
     return filters.categories.length > 0 || filters.minRating !== null || filters.text.length > 0;
   }
 
-  protected setText(event: Event): void {
-    this.filtersChanged.emit({ ...this.filters(), text: (event.target as HTMLInputElement).value });
-  }
-
   protected countOf(id: PlaceCategory): number {
     return this.counts()[id] ?? 0;
+  }
+
+  protected setText(event: Event): void {
+    this.filtersChanged.emit({ ...this.filters(), text: (event.target as HTMLInputElement).value });
   }
 
   protected toggleCategory(id: PlaceCategory): void {
@@ -121,6 +116,6 @@ export class FiltersPanel {
   }
 
   protected reset(): void {
-    this.filtersChanged.emit({ ...this.filters(), categories: [], minRating: null, text: '' });
+    this.filtersChanged.emit({ categories: [], minRating: null, text: '' });
   }
 }

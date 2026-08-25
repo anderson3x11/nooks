@@ -36,7 +36,7 @@ public class ModerationTests(NooksApiFactory factory)
         var member = await moderated.CreateClient().RegisterAsync("Proposeur");
         var admin = await moderated.CreateClient().LoginAsync("admin@nooks.local");
 
-        var created = await (await member.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await member.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
         Assert.Equal(PlaceStatus.Pending, created.Status);
 
         var beforeApproval = await (await member.GetAsync($"/api/places?{ParisBbox}")).ReadAsync<List<PlaceSummaryDto>>();
@@ -60,7 +60,7 @@ public class ModerationTests(NooksApiFactory factory)
         var member = await moderated.CreateClient().RegisterAsync("Proposeur rejete");
         var admin = await moderated.CreateClient().LoginAsync("admin@nooks.local");
 
-        var created = await (await member.PostAsJsonAsync("/api/places", NewPlace())).ReadAsync<PlaceDetailDto>();
+        var created = await (await member.PostPlaceAsync(NewPlace())).ReadAsync<PlaceDetailDto>();
         var rejected = await (await admin.PostAsync($"/api/admin/places/{created.Id}/reject", null)).ReadAsync<PlaceDetailDto>();
 
         Assert.Equal(PlaceStatus.Rejected, rejected.Status);

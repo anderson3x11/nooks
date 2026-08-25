@@ -38,8 +38,23 @@ export class PlacesApi {
     return this.http.get<PlaceDetail>(`/api/places/${id}`);
   }
 
-  create(input: CreatePlaceInput): Observable<PlaceDetail> {
-    return this.http.post<PlaceDetail>('/api/places', input);
+  /** Création en multipart : le lieu part avec ses photos, dont la première sert de marqueur. */
+  create(input: CreatePlaceInput, photos: File[]): Observable<PlaceDetail> {
+    const body = new FormData();
+    body.append('name', input.name);
+    body.append('description', input.description);
+    body.append('category', input.category);
+    body.append('latitude', String(input.latitude));
+    body.append('longitude', String(input.longitude));
+    body.append('address', input.address ?? '');
+    body.append('city', input.city);
+    body.append('country', input.country);
+
+    for (const photo of photos) {
+      body.append('photos', photo, photo.name);
+    }
+
+    return this.http.post<PlaceDetail>('/api/places', body);
   }
 
   rate(id: string, stars: number, comment: string | null): Observable<PlaceDetail> {

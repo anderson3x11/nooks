@@ -1,37 +1,34 @@
 @import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
-   Nooks - carnet de terrain
-   Encre chaude pour le chrome, parchemin pour les panneaux, ambre en signal.
+   Nooks
+   Blanc, noir, arrondi. La couleur appartient aux seules catégories de lieux :
+   le reste de l'interface reste neutre pour ne pas leur faire concurrence.
 --------------------------------------------------------------------------- */
 
 @theme {
-  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
-  --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Figtree', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --color-ink-950: #100e0c;
-  --color-ink-900: #191512;
-  --color-ink-800: #241f1b;
-  --color-ink-700: #332c27;
-  --color-ink-600: #4a413a;
-  --color-ink-400: #7d726a;
+  --color-ink-950: #0a0a0a;
+  --color-ink-900: #171717;
+  --color-ink-800: #262626;
+  --color-ink-700: #404040;
+  --color-ink-500: #737373;
+  --color-ink-400: #a3a3a3;
+  --color-ink-300: #d4d4d4;
+  --color-ink-200: #e8e8e8;
+  --color-ink-100: #f3f3f3;
+  --color-ink-50: #fafafa;
 
-  --color-paper-50: #fcfaf6;
-  --color-paper-100: #f5f0e6;
-  --color-paper-200: #e9e0d0;
-  --color-paper-300: #d5c8b1;
-  --color-paper-400: #b7a68a;
+  --color-positive: #17803d;
+  --color-negative: #d4342c;
 
-  --color-signal-300: #f2b077;
-  --color-signal-500: #dd8438;
-  --color-signal-600: #c26d28;
-  --color-signal-700: #9c5619;
+  --radius-card: 20px;
+  --radius-control: 12px;
 
-  --color-moss-500: #4e8b5a;
-  --color-rust-500: #c8483c;
-
-  --shadow-plate: 0 1px 2px rgb(16 14 12 / 0.08), 0 12px 32px -12px rgb(16 14 12 / 0.35);
-  --shadow-lifted: 0 2px 4px rgb(16 14 12 / 0.12), 0 24px 48px -16px rgb(16 14 12 / 0.45);
+  /* Ombres douces et étalées : la profondeur vient de l'étalement, pas du contraste. */
+  --shadow-card: 0 1px 2px rgb(10 10 10 / 0.04), 0 10px 28px -10px rgb(10 10 10 / 0.16);
+  --shadow-float: 0 2px 6px rgb(10 10 10 / 0.06), 0 18px 44px -14px rgb(10 10 10 / 0.24);
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -43,28 +40,25 @@
 
   body {
     margin: 0;
-    background: var(--color-ink-950);
-    color: var(--color-paper-100);
+    background: #fff;
+    color: var(--color-ink-900);
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.5;
+    letter-spacing: -0.006em;
   }
 
   h1,
   h2,
   h3 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    /* L'axe SOFT arrondit les terminaisons, l'axe WONK les fait légèrement dévier :
-       c'est ce qui donne à Fraunces son côté gravé à la main. */
-    font-variation-settings: 'SOFT' 40, 'WONK' 1;
-    letter-spacing: -0.015em;
-    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.024em;
+    line-height: 1.15;
   }
 
   ::selection {
-    background: var(--color-signal-500);
-    color: var(--color-ink-950);
+    background: var(--color-ink-900);
+    color: #fff;
   }
 
   input,
@@ -75,44 +69,35 @@
   }
 
   *:focus-visible {
-    outline: 2px solid var(--color-signal-500);
+    outline: 2px solid var(--color-ink-900);
     outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* Plaque de papier : la surface de base de tous les panneaux flottants. */
-  .plate {
-    background: var(--color-paper-100);
+  /* Carte blanche : surface de base de tous les panneaux flottants. */
+  .card {
+    background: #fff;
     color: var(--color-ink-900);
-    border: 1px solid var(--color-paper-300);
-    border-radius: 4px;
-    box-shadow: var(--shadow-plate);
-    position: relative;
+    border: 1px solid var(--color-ink-200);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
   }
 
-  /* Grain de papier : une trame très légère qui casse l'aplat numérique. */
-  .grain::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: inherit;
-    opacity: 0.35;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+  .card-float {
+    box-shadow: var(--shadow-float);
   }
 
-  .rule {
+  .divider {
     height: 1px;
-    background: linear-gradient(to right, var(--color-paper-300), transparent);
+    background: var(--color-ink-200);
   }
 
   .label-caps {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-ink-500);
   }
 
   .btn {
@@ -120,189 +105,323 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 3px;
-    padding: 0.55rem 1rem;
-    font-size: 13px;
+    border-radius: 999px;
+    padding: 0.6rem 1.1rem;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.01em;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: transform 140ms var(--ease-out-quint), background-color 140ms, color 140ms, border-color 140ms;
+    transition:
+      transform 160ms var(--ease-out-quint),
+      background-color 160ms,
+      color 160ms,
+      border-color 160ms,
+      opacity 160ms;
   }
 
   .btn:active:not(:disabled) {
-    transform: translateY(1px);
+    transform: scale(0.97);
   }
 
   .btn:disabled {
-    opacity: 0.5;
+    opacity: 0.35;
     cursor: not-allowed;
   }
 
-  .btn-signal {
-    background: var(--color-signal-500);
-    color: var(--color-ink-950);
-    border-color: var(--color-signal-600);
+  .btn-primary {
+    background: var(--color-ink-950);
+    color: #fff;
   }
 
-  .btn-signal:hover:not(:disabled) {
-    background: var(--color-signal-300);
-  }
-
-  .btn-ink {
-    background: var(--color-ink-900);
-    color: var(--color-paper-100);
-  }
-
-  .btn-ink:hover:not(:disabled) {
+  .btn-primary:hover:not(:disabled) {
     background: var(--color-ink-700);
   }
 
-  .btn-ghost {
-    background: transparent;
-    color: var(--color-ink-700);
-    border-color: var(--color-paper-300);
+  .btn-secondary {
+    background: #fff;
+    color: var(--color-ink-900);
+    border-color: var(--color-ink-200);
   }
 
-  .btn-ghost:hover:not(:disabled) {
-    background: var(--color-paper-200);
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--color-ink-50);
+  }
+
+  .btn-quiet {
+    background: var(--color-ink-100);
+    color: var(--color-ink-900);
+  }
+
+  .btn-quiet:hover:not(:disabled) {
+    background: var(--color-ink-200);
+  }
+
+  /* Bouton rond flottant, comme les commandes posées sur la carte. */
+  .btn-round {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--color-ink-900);
+    border: 1px solid var(--color-ink-200);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition:
+      transform 160ms var(--ease-out-quint),
+      background-color 160ms;
+  }
+
+  .btn-round:hover {
+    background: var(--color-ink-50);
+  }
+
+  .btn-round:active {
+    transform: scale(0.94);
   }
 
   .field {
     width: 100%;
-    background: var(--color-paper-50);
-    border: 1px solid var(--color-paper-300);
-    border-radius: 3px;
-    padding: 0.55rem 0.7rem;
+    background: var(--color-ink-100);
+    border: 1px solid transparent;
+    border-radius: var(--radius-control);
+    padding: 0.65rem 0.85rem;
     color: var(--color-ink-900);
-    font-size: 14px;
-    transition: border-color 140ms, box-shadow 140ms;
+    font-size: 15px;
+    transition:
+      background-color 160ms,
+      border-color 160ms;
   }
 
   .field::placeholder {
-    color: var(--color-paper-400);
+    color: var(--color-ink-400);
   }
 
   .field:focus {
     outline: none;
-    border-color: var(--color-signal-500);
-    box-shadow: 0 0 0 3px rgb(221 132 56 / 0.18);
+    background: #fff;
+    border-color: var(--color-ink-900);
+  }
+
+  /* Puce de filtre : neutre au repos, noire quand elle est active. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.4rem 0.75rem;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--color-ink-200);
+    background: #fff;
+    color: var(--color-ink-700);
+    transition:
+      background-color 160ms,
+      color 160ms,
+      border-color 160ms,
+      transform 160ms var(--ease-out-quint);
+  }
+
+  .chip:hover {
+    background: var(--color-ink-50);
+  }
+
+  .chip:active {
+    transform: scale(0.97);
+  }
+
+  .chip[aria-pressed='true'] {
+    background: var(--color-ink-950);
+    border-color: var(--color-ink-950);
+    color: #fff;
+  }
+
+  /* Contrôle segmenté : un curseur noir dans une piste grise. */
+  .segment {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--color-ink-100);
+  }
+
+  .segment button {
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-ink-500);
+    cursor: pointer;
+    transition:
+      background-color 160ms,
+      color 160ms;
+  }
+
+  .segment button[aria-pressed='true'] {
+    background: var(--color-ink-950);
+    color: #fff;
   }
 }
 
 @layer utilities {
   .animate-rise {
-    animation: rise 420ms var(--ease-out-quint) both;
+    animation: rise 320ms var(--ease-out-quint) both;
   }
 
-  .animate-slide-in {
-    animation: slide-in 320ms var(--ease-out-quint) both;
+  .animate-panel {
+    animation: panel-in 300ms var(--ease-out-quint) both;
   }
 
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
   }
 
-  @keyframes slide-in {
+  @keyframes panel-in {
     from {
       opacity: 0;
-      transform: translateX(24px);
+      transform: translateX(16px) scale(0.98);
     }
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Leaflet : la carte est le fond de page, ses commandes doivent se fondre
-   dans le reste du chrome plutôt que ressembler à un widget importé.
+   Leaflet : commandes natives refaites pour ressembler au reste du chrome.
 --------------------------------------------------------------------------- */
 
 .leaflet-container {
-  background: var(--color-ink-900);
+  background: var(--color-ink-100);
   font-family: var(--font-sans);
 }
 
 .leaflet-control-zoom {
-  border: 1px solid var(--color-paper-300) !important;
-  border-radius: 4px !important;
-  box-shadow: var(--shadow-plate) !important;
-  overflow: hidden;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .leaflet-control-zoom a {
-  background: var(--color-paper-100) !important;
-  color: var(--color-ink-800) !important;
-  border-bottom-color: var(--color-paper-300) !important;
-  width: 32px !important;
-  height: 32px !important;
-  line-height: 32px !important;
-  font-size: 17px !important;
+  background: #fff !important;
+  color: var(--color-ink-900) !important;
+  border: 1px solid var(--color-ink-200) !important;
+  border-radius: 999px !important;
+  box-shadow: var(--shadow-card) !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 38px !important;
+  font-size: 19px !important;
+  font-weight: 400 !important;
 }
 
 .leaflet-control-zoom a:hover {
-  background: var(--color-paper-200) !important;
+  background: var(--color-ink-50) !important;
 }
 
 .leaflet-control-attribution {
-  background: rgb(245 240 230 / 0.86) !important;
-  color: var(--color-ink-600) !important;
+  background: rgb(255 255 255 / 0.82) !important;
+  color: var(--color-ink-500) !important;
   font-size: 10px !important;
-  padding: 2px 6px !important;
+  padding: 2px 8px !important;
 }
 
 .leaflet-control-attribution a {
-  color: var(--color-signal-700) !important;
+  color: var(--color-ink-700) !important;
 }
 
-/* Marqueur : une goutte dessinée en SVG, pointe vers le bas, ancrée sur le lieu.
-   Attention : Leaflet positionne l'élément du marqueur avec un `transform` en ligne.
-   Toute animation ou tout survol qui touche `transform` doit donc viser le SVG
-   interne, sinon il écrase la position et le marqueur saute à l'origine du calque. */
+/* ---------------------------------------------------------------------------
+   Marqueurs.
+   Attention : Leaflet positionne l'élément du marqueur avec un `transform`
+   en ligne. Toute animation ou tout survol qui touche `transform` doit viser
+   l'enfant, sinon il écrase la position et le marqueur saute à l'origine.
+--------------------------------------------------------------------------- */
+
 .nooks-pin {
   background: none;
   border: none;
 }
 
-.nooks-pin svg {
-  display: block;
+.nooks-pin__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transform-origin: 50% 100%;
-  transition: transform 180ms var(--ease-out-quint);
-  filter: drop-shadow(0 4px 6px rgb(16 14 12 / 0.4));
+  transition: transform 200ms var(--ease-out-quint);
+}
+
+/* Pastille : la photo du lieu, cerclee de la couleur de sa categorie. */
+.nooks-pin__bubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--pin-color);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgb(10 10 10 / 0.28);
+}
+
+.nooks-pin__bubble img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tige : elle relie la pastille au point exact, comme une punaise. */
+.nooks-pin__stem {
+  display: block;
+  width: 3px;
+  height: 14px;
+  margin-top: -1px;
+  background: var(--pin-color);
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 1px 3px rgb(10 10 10 / 0.3);
 }
 
 .nooks-pin:hover {
   z-index: 500 !important;
 }
 
-.nooks-pin:hover svg {
-  transform: scale(1.12);
+.nooks-pin:hover .nooks-pin__inner {
+  transform: scale(1.08);
 }
 
 .nooks-pin--selected {
   z-index: 600 !important;
 }
 
-.nooks-pin--selected svg {
-  transform: scale(1.22);
+.nooks-pin--selected .nooks-pin__inner {
+  transform: scale(1.16);
 }
 
-.nooks-pin--drop svg {
-  animation: pin-drop 420ms var(--ease-out-quint) both;
+.nooks-pin--selected .nooks-pin__bubble {
+  box-shadow:
+    0 0 0 4px rgb(255 255 255 / 0.85),
+    0 4px 14px rgb(10 10 10 / 0.35);
 }
 
-/* Épingle de brouillon : elle respire doucement pour se distinguer des lieux déjà publiés. */
-.nooks-pin--draft svg {
+.nooks-pin--drop .nooks-pin__inner {
+  animation: pin-drop 380ms var(--ease-out-quint) both;
+}
+
+.nooks-pin--draft .nooks-pin__inner {
   animation:
-    pin-drop 420ms var(--ease-out-quint) both,
-    draft-pulse 2.2s ease-in-out 420ms infinite;
+    pin-drop 380ms var(--ease-out-quint) both,
+    draft-pulse 2.2s ease-in-out 380ms infinite;
 }
 
 @keyframes pin-drop {
   from {
     opacity: 0;
-    transform: translateY(-14px) scale(0.85);
+    transform: translateY(-12px) scale(0.86);
   }
 }
 
@@ -312,22 +431,21 @@
   }
 }
 
-/* Mode « poser un point » : la carte prend un réticule et se teinte. */
 .map-picking .leaflet-container {
   cursor: crosshair;
 }
 
-/* Étiquette au survol d'un marqueur : reprend la plaque de papier, sans la flèche par défaut. */
+/* Étiquette au survol d'un marqueur. */
 .nooks-tooltip {
-  background: var(--color-paper-100) !important;
-  color: var(--color-ink-900) !important;
-  border: 1px solid var(--color-paper-300) !important;
-  border-radius: 3px !important;
-  box-shadow: var(--shadow-plate) !important;
+  background: var(--color-ink-950) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: var(--shadow-card) !important;
   font-family: var(--font-sans) !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  padding: 3px 8px !important;
+  padding: 4px 10px !important;
   white-space: nowrap;
 }
 
@@ -335,3 +453,8 @@
   display: none !important;
 }
 
+/* Barre de défilement discrète dans les panneaux. */
+.scroll-quiet {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-300) transparent;
+}

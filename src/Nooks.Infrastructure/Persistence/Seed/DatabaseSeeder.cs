@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Nooks.Core.Abstractions;
 using Nooks.Core.Entities;
 using Nooks.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,7 @@ public static class DatabaseSeeder
 
         await SeedRolesAsync(provider.GetRequiredService<RoleManager<IdentityRole<Guid>>>());
         var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>());
-        var created = await SeedPlacesAsync(context, users, cancellationToken);
+        var created = await SeedPlacesAsync(context, provider.GetRequiredService<IPhotoStorage>(), users, cancellationToken);
 
         logger.LogInformation("Seed terminé : {UserCount} comptes de démonstration, {PlaceCount} lieux ajoutés.", users.Count, created);
     }
@@ -95,7 +96,11 @@ public static class DatabaseSeeder
         return users;
     }
 
-    private static async Task<int> SeedPlacesAsync(NooksDbContext context, List<AppUser> users, CancellationToken cancellationToken)
+    private static async Task<int> SeedPlacesAsync(
+        NooksDbContext context,
+        IPhotoStorage storage,
+        List<AppUser> users,
+        CancellationToken cancellationToken)
     {
         if (await context.Places.AnyAsync(cancellationToken))
         {
@@ -120,6 +125,13 @@ public static class DatabaseSeeder
                 seed.Country,
                 author.Id,
                 PlaceStatus.Approved);
+
+            // Chaque lieu porte une illustration : sans photo, il n'aurait pas de marqueur.
+            using (var illustration = new MemoryStream(SeedPhotoFactory.Create(seed.Category, seed.Name)))
+            {
+                var stored = await storage.SaveAsync(place.Id, illustration, cancellationToken);
+                place.AddPhoto(stored.FileName, stored.ThumbnailFileName, author.Id);
+            }
 
             // Une note par membre au maximum : l'index du tableau détermine qui a noté.
             for (var ratingIndex = 0; ratingIndex < seed.Ratings.Length && ratingIndex < users.Count; ratingIndex++)

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 using Nooks.Api.Auth;
 using Nooks.Api.Contracts;
 using Nooks.Api.Infrastructure;
@@ -7,19 +8,21 @@ using Nooks.Core.Common;
 using Nooks.Core.Dtos;
 using Nooks.Core.Entities;
 using Nooks.Infrastructure.Identity;
-using Microsoft.Extensions.Options;
 
 namespace Nooks.Api.Endpoints;
 
 public static class PlacesEndpoints
 {
+    /// <summary>Nombre de photos accepté en une fois à la création d'un lieu.</summary>
+    private const int MaxPhotosPerPlace = 6;
+
     public static IEndpointRouteBuilder MapPlacesEndpoints(this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/api/places").WithTags("Places");
 
         group.MapGet("/", SearchAsync);
         group.MapGet("/{id:guid}", GetDetailAsync);
-        group.MapPost("/", CreateAsync).RequireAuthorization();
+        group.MapPost("/", CreateAsync).RequireAuthorization().DisableAntiforgery();
         group.MapPut("/{id:guid}/rating", RateAsync).RequireAuthorization();
         group.MapPost("/{id:guid}/photos", UploadPhotoAsync).RequireAuthorization().DisableAntiforgery();
 
@@ -58,14 +61,39 @@ public static class PlacesEndpoints
         return place is null ? Results.NotFound() : Results.Ok(place);
     }
 
+    /// <summary>
+    /// Création en multipart : le lieu et ses photos arrivent ensemble, parce qu'un lieu
+    /// sans photo n'aurait pas de marqueur à afficher sur la carte.
+    /// </summary>
     private static async Task<IResult> CreateAsync(
-        CreatePlaceRequest request,
+        HttpRequest httpRequest,
         ClaimsPrincipal principal,
         IPlaceRepository repository,
+        IPhotoStorage storage,
         IOptions<ModerationOptions> moderation,
         CancellationToken cancellationToken)
     {
-        var status = moderation.Value.AutoApprove ? PlaceStatus.Approved : PlaceStatus.Pending;
+        if (!httpRequest.HasFormContentType)
+        {
+            return Problem("La création d'un lieu attend un formulaire multipart contenant ses photos.");
+        }
+
+        var form = await httpRequest.ReadFormAsync(cancellationToken);
+
+        if (!CreatePlaceRequest.TryParse(form, out var request, out var parseError))
+        {
+            return Problem(parseError!);
+        }
+
+        if (form.Files.Count == 0)
+        {
+            return Problem("Ajoutez au moins une photo : c'est elle qui sert de marqueur sur la carte.");
+        }
+
+        if (form.Files.Count > MaxPhotosPerPlace)
+        {
+            return Problem($"Pas plus de {MaxPhotosPerPlace} photos par lieu.");
+        }
 
         var place = Place.Create(
             request.Name,
@@ -77,7 +105,16 @@ public static class PlacesEndpoints
             request.City,
             request.Country,
             principal.GetUserId(),
-            status);
+            moderation.Value.AutoApprove ? PlaceStatus.Approved : PlaceStatus.Pending);
+
+        // Les fichiers sont écrits avant l'insertion : l'identifiant du lieu existe déjà,
+        // et une erreur d'image doit faire échouer la création plutôt que la laisser à moitié faite.
+        foreach (var file in form.Files)
+        {
+            await using var stream = file.OpenReadStream();
+            var stored = await storage.SaveAsync(place.Id, stream, cancellationToken);
+            place.AddPhoto(stored.FileName, stored.ThumbnailFileName, principal.GetUserId());
+        }
 
         await repository.AddAsync(place, cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
@@ -127,6 +164,9 @@ public static class PlacesEndpoints
 
         return Results.Ok(await repository.GetDetailAsync(id, includeUnapproved: true, cancellationToken));
     }
+
+    private static IResult Problem(string detail)
+        => Results.Problem(detail, statusCode: StatusCodes.Status400BadRequest, title: "Requête invalide");
 
     private static bool TryParseCategories(string? value, out IReadOnlyCollection<PlaceCategory> categories, out string? error)
     {

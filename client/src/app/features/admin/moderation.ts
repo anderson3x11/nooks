@@ -12,76 +12,74 @@ import { CategorySymbol } from '../../shared/category-symbol';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CategorySymbol, RouterLink],
   template: `
-    <div class="min-h-dvh bg-ink-950 px-6 py-8">
+    <div class="min-h-dvh bg-ink-50 px-6 py-10">
       <div class="mx-auto max-w-3xl">
-        <header class="mb-6 flex items-end justify-between">
+        <header class="mb-7 flex items-end justify-between gap-4">
           <div>
-            <h1 class="text-[26px] text-paper-100">Modération</h1>
-            <p class="mt-1 text-[13px] text-ink-400">
+            <h1 class="text-[30px]">Modération</h1>
+            <p class="mt-1.5 text-[14.5px] text-ink-500">
               Les lieux proposés par la communauté, en attente d'une décision.
             </p>
           </div>
-          <a routerLink="/" class="btn btn-ghost border-ink-700 text-paper-300 hover:bg-ink-800">Retour à la carte</a>
+          <a routerLink="/" class="btn btn-secondary shrink-0">Retour à la carte</a>
         </header>
 
-        <nav class="mb-4 flex gap-1">
+        <nav class="segment mb-5">
           @for (tab of tabs; track tab.status) {
-            <button
-              type="button"
-              class="cursor-pointer rounded-sm px-3 py-1.5 text-[12px] font-semibold transition-colors"
-              [class]="status() === tab.status ? 'bg-signal-500 text-ink-950' : 'text-ink-400 hover:bg-ink-800'"
-              (click)="switchTo(tab.status)"
-            >
+            <button type="button" [attr.aria-pressed]="status() === tab.status" (click)="switchTo(tab.status)">
               {{ tab.label }}
             </button>
           }
         </nav>
 
         @if (loading()) {
-          <p class="text-[13px] text-ink-400">Chargement…</p>
+          <p class="text-[14px] text-ink-500">Chargement…</p>
         } @else if (places().length === 0) {
-          <div class="plate grain px-5 py-8 text-center">
-            <p class="text-[14px] text-ink-600">
-              {{
-                status() === 'Pending'
-                  ? 'Rien à valider pour le moment.'
-                  : 'Aucun lieu dans cette catégorie.'
-              }}
+          <div class="card px-6 py-10 text-center">
+            <p class="text-[15px] font-medium">
+              {{ status() === 'Pending' ? 'Rien à valider pour le moment.' : 'Aucun lieu dans cette catégorie.' }}
             </p>
             @if (status() === 'Pending') {
-              <p class="mt-1 text-[12px] text-ink-400">
+              <p class="mt-2 text-[13.5px] text-ink-500">
                 En mode POC, les lieux sont publiés directement. Passez
-                <code class="text-signal-700">Moderation:AutoApprove</code> à <code>false</code> pour les faire
-                passer par ici.
+                <code class="rounded-md bg-ink-100 px-1.5 py-0.5 text-[12.5px]">Moderation:AutoApprove</code>
+                à <code class="rounded-md bg-ink-100 px-1.5 py-0.5 text-[12.5px]">false</code> pour les faire passer
+                par ici.
               </p>
             }
           </div>
         } @else {
-          <ul class="flex flex-col gap-2">
+          <ul class="flex flex-col gap-2.5">
             @for (place of places(); track place.id) {
-              <li class="plate grain flex items-center gap-4 px-4 py-3">
-                <nooks-symbol [category]="place.category" [size]="18" />
+              <li class="card flex items-center gap-4 px-4 py-3.5">
+                @if (place.coverThumbnailUrl) {
+                  <img [src]="place.coverThumbnailUrl" alt="" class="size-12 shrink-0 rounded-xl object-cover" />
+                } @else {
+                  <span class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-ink-100">
+                    <nooks-symbol [category]="place.category" [size]="18" />
+                  </span>
+                }
 
                 <div class="min-w-0 flex-1">
-                  <p class="truncate text-[15px] font-semibold text-ink-900">{{ place.name }}</p>
-                  <p class="text-[12px] text-ink-400">
+                  <p class="truncate text-[15.5px] font-semibold">{{ place.name }}</p>
+                  <p class="text-[13px] text-ink-500">
                     {{ place.city }} · {{ label(place.category) }} · proposé le {{ formatDate(place.createdAt) }}
                   </p>
                 </div>
 
                 @if (place.status === 'Pending') {
                   <div class="flex shrink-0 gap-2">
-                    <button type="button" class="btn btn-ghost" [disabled]="busyId() === place.id" (click)="reject(place)">
+                    <button type="button" class="btn btn-secondary" [disabled]="busyId() === place.id" (click)="reject(place)">
                       Rejeter
                     </button>
-                    <button type="button" class="btn btn-signal" [disabled]="busyId() === place.id" (click)="approve(place)">
+                    <button type="button" class="btn btn-primary" [disabled]="busyId() === place.id" (click)="approve(place)">
                       Approuver
                     </button>
                   </div>
                 } @else {
                   <span
-                    class="label-caps shrink-0"
-                    [class]="place.status === 'Approved' ? 'text-moss-500' : 'text-rust-500'"
+                    class="shrink-0 rounded-full px-3 py-1 text-[12.5px] font-semibold"
+                    [class]="place.status === 'Approved' ? 'bg-positive/10 text-positive' : 'bg-negative/10 text-negative'"
                   >
                     {{ place.status === 'Approved' ? 'Approuvé' : 'Rejeté' }}
                   </span>

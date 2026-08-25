@@ -14,56 +14,91 @@ import { RatingStars } from './rating-stars';
   template: `
     @let item = place();
     @if (item) {
-      <article class="plate grain animate-slide-in flex max-h-full w-96 flex-col overflow-hidden">
-        <header class="relative shrink-0">
-          @if (cover(); as photo) {
-            <img [src]="photo" alt="" class="h-44 w-full object-cover" />
+      <article class="card card-float animate-panel flex max-h-full w-[26rem] flex-col overflow-hidden">
+        <!-- Carrousel : la première photo est celle du marqueur, les autres suivent. -->
+        <header class="relative shrink-0 bg-ink-100">
+          @if (photos().length > 0) {
+            <img [src]="photos()[index()].url" alt="" class="h-56 w-full object-cover" />
+
+            @if (photos().length > 1) {
+              <button
+                type="button"
+                class="btn-round absolute top-1/2 left-3 size-8 -translate-y-1/2"
+                aria-label="Photo précédente"
+                (click)="step(-1)"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M7.5 1.5 3 6l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="btn-round absolute top-1/2 right-3 size-8 -translate-y-1/2"
+                aria-label="Photo suivante"
+                (click)="step(1)"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M4.5 1.5 9 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+
+              <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+                @for (photo of photos(); track photo.id; let i = $index) {
+                  <span
+                    class="size-1.5 rounded-full transition-colors"
+                    [class]="i === index() ? 'bg-white' : 'bg-white/45'"
+                  ></span>
+                }
+              </div>
+            }
           } @else {
-            <div
-              class="flex h-24 w-full items-center justify-center"
-              [style.background]="'linear-gradient(135deg, ' + tint() + '22, ' + tint() + '08)'"
-            >
-              <nooks-symbol [category]="item.category" [size]="34" />
+            <div class="flex h-32 w-full items-center justify-center">
+              <nooks-symbol [category]="item.category" [size]="30" />
             </div>
           }
 
           <button
             type="button"
-            class="absolute top-2 right-2 flex size-7 cursor-pointer items-center justify-center rounded-full bg-paper-100/90 text-ink-700 shadow-sm transition-colors hover:bg-paper-200"
+            class="btn-round absolute top-3 right-3 size-8"
             aria-label="Fermer la fiche"
             (click)="closed.emit()"
           >
             <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
-              <path d="M1 1 11 11M11 1 1 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              <path d="M1 1 11 11M11 1 1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
             </svg>
           </button>
         </header>
 
-        <div class="min-h-0 flex-1 overflow-y-auto">
-          <div class="px-5 pt-4">
-            <div class="mb-2 flex items-center gap-1.5">
-              <nooks-symbol [category]="item.category" [size]="11" />
-              <span class="label-caps" [style.color]="tint()">{{ categoryLabel() }}</span>
-              <span class="text-ink-400">·</span>
-              <span class="text-[11px] text-ink-400">{{ item.city }}</span>
+        <div class="scroll-quiet min-h-0 flex-1 overflow-y-auto">
+          <div class="px-5 pt-5">
+            <div class="mb-2.5 flex items-center gap-2">
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-semibold"
+                [style.background]="tint() + '18'"
+                [style.color]="tint()"
+              >
+                <nooks-symbol [category]="item.category" [size]="10" />
+                {{ categoryLabel() }}
+              </span>
+              <span class="text-[13px] text-ink-500">{{ item.city }}</span>
             </div>
 
-            <h2 class="text-[22px] leading-tight text-ink-900">{{ item.name }}</h2>
+            <h2 class="text-[24px]">{{ item.name }}</h2>
 
-            <div class="mt-2">
+            <div class="mt-2.5">
               <nooks-stars [value]="item.averageRating" [count]="item.ratingCount" />
             </div>
 
-            <p class="mt-3 text-[14px] leading-relaxed text-ink-700">{{ item.description }}</p>
+            <p class="mt-4 text-[14.5px] leading-relaxed text-ink-700">{{ item.description }}</p>
 
             @if (item.address) {
-              <p class="mt-3 flex items-start gap-1.5 text-[12px] text-ink-400">
-                <svg width="12" height="12" viewBox="0 0 12 12" class="mt-0.5 shrink-0" aria-hidden="true">
+              <p class="mt-4 flex items-start gap-2 text-[13px] text-ink-500">
+                <svg width="13" height="13" viewBox="0 0 12 12" class="mt-0.5 shrink-0" aria-hidden="true">
                   <path
                     d="M6 1a3.6 3.6 0 0 0-3.6 3.6C2.4 7.2 6 11 6 11s3.6-3.8 3.6-6.4A3.6 3.6 0 0 0 6 1Z"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="1.1"
+                    stroke-width="1.2"
                   />
                   <circle cx="6" cy="4.6" r="1.2" fill="currentColor" />
                 </svg>
@@ -71,64 +106,66 @@ import { RatingStars } from './rating-stars';
               </p>
             }
 
-            <p class="mt-1 text-[12px] text-ink-400">
-              Proposé par <span class="font-semibold text-ink-600">{{ item.createdByDisplayName }}</span> le
-              {{ formatDate(item.createdAt) }}
+            <p class="mt-4 flex items-center gap-2 text-[13px] text-ink-500">
+              <span class="flex size-6 items-center justify-center rounded-full bg-ink-900 text-[11px] font-bold text-white">
+                {{ initial(item.createdByDisplayName) }}
+              </span>
+              Proposé par <span class="font-semibold text-ink-900">{{ item.createdByDisplayName }}</span>
+              le {{ formatDate(item.createdAt) }}
             </p>
           </div>
 
-          @if (item.photos.length > 0) {
-            <div class="mt-4 flex gap-1.5 overflow-x-auto px-5 pb-1">
-              @for (photo of item.photos; track photo.id) {
-                <img [src]="photo.thumbnailUrl" alt="" class="size-16 shrink-0 rounded-sm object-cover" />
-              }
-            </div>
-          }
+          <div class="divider mt-5"></div>
 
-          <div class="rule mx-5 my-4"></div>
-
-          <div class="px-5 pb-5">
+          <div class="px-5 py-5">
             @if (auth.isSignedIn()) {
-              <div class="label-caps mb-2 text-ink-400">{{ myRating() ? 'Votre note' : 'Noter ce lieu' }}</div>
-              <nooks-stars [value]="myRating()?.stars ?? 0" [size]="20" [interactive]="true" (rated)="submit($event)" />
+              <div class="label-caps mb-2">{{ myRating() ? 'Votre note' : 'Noter ce lieu' }}</div>
+              <nooks-stars [value]="myRating()?.stars ?? 0" [size]="22" [interactive]="true" (rated)="submit($event)" />
 
               <textarea
                 rows="2"
-                class="field mt-2 resize-none"
+                class="field mt-3 resize-none"
                 placeholder="Un mot sur ce lieu (facultatif)"
                 [value]="comment()"
                 (input)="comment.set($any($event.target).value)"
               ></textarea>
 
-              <div class="mt-2 flex items-center gap-2">
-                <label class="btn btn-ghost">
+              <div class="mt-3 flex items-center gap-3">
+                <label class="btn btn-secondary cursor-pointer">
                   Ajouter une photo
                   <input type="file" accept="image/*" class="hidden" (change)="pickPhoto($event)" />
                 </label>
                 @if (busy()) {
-                  <span class="text-[12px] text-ink-400">Envoi…</span>
+                  <span class="text-[13px] text-ink-500">Envoi…</span>
                 }
               </div>
             } @else {
-              <p class="text-[13px] text-ink-600">
-                <a routerLink="/connexion" class="font-semibold text-signal-700 underline">Connectez-vous</a>
+              <p class="text-[14px] text-ink-700">
+                <a routerLink="/connexion" class="font-semibold text-ink-900 underline underline-offset-2">Connectez-vous</a>
                 pour noter ce lieu ou y ajouter une photo.
               </p>
             }
 
             @if (item.ratings.length > 0) {
-              <div class="rule my-4"></div>
-              <div class="label-caps mb-2 text-ink-400">Avis</div>
-              <ul class="flex flex-col gap-3">
+              <div class="divider my-5"></div>
+              <div class="label-caps mb-3">{{ item.ratings.length }} avis</div>
+              <ul class="flex flex-col gap-4">
                 @for (rating of item.ratings; track rating.id) {
-                  <li>
-                    <div class="flex items-center gap-2">
-                      <span class="text-[13px] font-semibold text-ink-900">{{ rating.userDisplayName }}</span>
-                      <nooks-stars [value]="rating.stars" [size]="11" />
+                  <li class="flex gap-3">
+                    <span
+                      class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-ink-100 text-[12px] font-bold text-ink-700"
+                    >
+                      {{ initial(rating.userDisplayName) }}
+                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2">
+                        <span class="text-[14px] font-semibold">{{ rating.userDisplayName }}</span>
+                        <nooks-stars [value]="rating.stars" [size]="11" />
+                      </div>
+                      @if (rating.comment) {
+                        <p class="mt-0.5 text-[14px] leading-snug text-ink-700">{{ rating.comment }}</p>
+                      }
                     </div>
-                    @if (rating.comment) {
-                      <p class="mt-0.5 text-[13px] leading-snug text-ink-600">{{ rating.comment }}</p>
-                    }
                   </li>
                 }
               </ul>
@@ -150,18 +187,22 @@ export class PlaceDetailPanel {
   readonly photoPicked = output<File>();
 
   protected readonly comment = signal('');
+  protected readonly index = signal(0);
+
+  /** Photo de couverture en tête, le reste ensuite : c'est l'ordre du carrousel. */
+  protected readonly photos = computed(() =>
+    [...(this.place()?.photos ?? [])].sort((a, b) => Number(b.isCover) - Number(a.isCover)),
+  );
 
   protected readonly tint = computed(() => {
     const item = this.place();
-    return item ? categoryStyle(item.category).color : '#6b6259';
+    return item ? categoryStyle(item.category).color : '#737373';
   });
 
   protected readonly categoryLabel = computed(() => {
     const item = this.place();
     return item ? categoryStyle(item.category).label : '';
   });
-
-  protected readonly cover = computed(() => this.place()?.photos.find((photo) => photo.isCover)?.url ?? null);
 
   /** L'avis déjà laissé par le membre connecté, s'il y en a un. */
   protected readonly myRating = computed(() => {
@@ -170,11 +211,19 @@ export class PlaceDetailPanel {
   });
 
   constructor() {
-    // Changer de lieu remet le brouillon de commentaire à celui déjà écrit ici, ou à vide.
+    // Changer de lieu remet le carrousel au début et recharge le commentaire déjà écrit.
     effect(() => {
       this.place();
+      this.index.set(0);
       this.comment.set(this.myRating()?.comment ?? '');
     });
+  }
+
+  protected step(direction: number): void {
+    const total = this.photos().length;
+    if (total > 0) {
+      this.index.update((current) => (current + direction + total) % total);
+    }
   }
 
   protected submit(stars: number): void {
@@ -189,6 +238,10 @@ export class PlaceDetailPanel {
       this.photoPicked.emit(file);
     }
     input.value = '';
+  }
+
+  protected initial(name: string): string {
+    return name.trim().charAt(0).toUpperCase();
   }
 
   protected formatDate(value: string): string {
