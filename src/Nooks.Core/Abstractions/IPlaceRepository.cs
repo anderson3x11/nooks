@@ -15,6 +15,13 @@ public interface IPlaceRepository
 
     Task<IReadOnlyList<PlaceSummaryDto>> GetByStatusAsync(PlaceStatus status, CancellationToken cancellationToken);
 
+    /// <summary>Lieux déjà connus autour d'un point, pour repérer les redites.</summary>
+    Task<IReadOnlyList<PlaceSummaryDto>> FindNearbyAsync(
+        double latitude,
+        double longitude,
+        double radiusInMeters,
+        CancellationToken cancellationToken);
+
     Task AddAsync(Place place, CancellationToken cancellationToken);
 
     Task SaveChangesAsync(CancellationToken cancellationToken);

@@ -69,13 +69,20 @@ public class ModerationTests(NooksApiFactory factory)
         Assert.DoesNotContain(visible, place => place.Id == created.Id);
     }
 
-    private static CreatePlaceRequest NewPlace() => new(
-        "Passage à valider",
-        "Une cour intérieure remplie de mosaïques, repérée par hasard.",
-        PlaceCategory.Curiosity,
-        48.8650,
-        2.3550,
-        null,
-        "Paris",
-        "France");
+    private static int _counter;
+
+    /// <summary>Un lieu distinct par test, pour ne pas déclencher la détection de doublons.</summary>
+    private static CreatePlaceRequest NewPlace()
+    {
+        var index = Interlocked.Increment(ref _counter);
+        return new CreatePlaceRequest(
+            $"Passage à valider n{index:D2}",
+            "Une cour intérieure remplie de mosaïques, repérée par hasard.",
+            PlaceCategory.Curiosity,
+            48.8100 + index * 0.002,
+            2.3550,
+            null,
+            "Paris",
+            "France");
+    }
 }

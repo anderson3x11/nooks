@@ -41,7 +41,11 @@ public static class ApiClientExtensions
     /// Poste un lieu comme le fait le front : en multipart, avec au moins une photo.
     /// L'image vient du générateur du seed, c'est un vrai PNG décodable.
     /// </summary>
-    public static Task<HttpResponseMessage> PostPlaceAsync(this HttpClient client, CreatePlaceRequest request, int photoCount = 1)
+    public static Task<HttpResponseMessage> PostPlaceAsync(
+        this HttpClient client,
+        CreatePlaceRequest request,
+        int photoCount = 1,
+        bool force = false)
     {
         var content = new MultipartFormDataContent
         {
@@ -54,6 +58,11 @@ public static class ApiClientExtensions
             { new StringContent(request.City), "city" },
             { new StringContent(request.Country), "country" },
         };
+
+        if (force)
+        {
+            content.Add(new StringContent("true"), "force");
+        }
 
         for (var i = 0; i < photoCount; i++)
         {

@@ -26,7 +26,8 @@ public sealed record PlaceSummaryDto(
     int RatingCount,
     PlaceStatus Status,
     DateTimeOffset CreatedAt,
-    string? CoverThumbnailUrl);
+    string? CoverThumbnailUrl,
+    bool SuspectedDuplicate);
 
 public sealed record PlaceDetailDto(
     Guid Id,
@@ -43,6 +44,7 @@ public sealed record PlaceDetailDto(
     int RatingCount,
     DateTimeOffset CreatedAt,
     string CreatedByDisplayName,
+    bool SuspectedDuplicate,
     IReadOnlyList<PlacePhotoDto> Photos,
     IReadOnlyList<PlaceRatingDto> Ratings);
 
@@ -54,4 +56,6 @@ public sealed record PlaceRatingDto(
     string UserDisplayName,
     int Stars,
     string? Comment,
-    DateTimeOffset UpdatedAt);
+    DateTimeOffset CreatedAt,
+    DateTimeOffset UpdatedAt,
+    bool IsEdited);

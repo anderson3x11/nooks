@@ -190,13 +190,24 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
         Assert.True(lyon.MinLat < lyon.MaxLat);
     }
 
-    private static CreatePlaceRequest NewPlace() => new(
-        "Atelier secret",
-        "Un atelier d'artiste ouvert un samedi sur deux, derrière une porte cochère.",
-        PlaceCategory.Curiosity,
-        48.8600,
-        2.3700,
-        "12 rue imaginaire",
-        "Paris",
-        "France");
+    private static int _counter;
+
+    /// <summary>
+    /// Chaque test travaille sur un lieu qui lui est propre, à plus de 200 m des autres, avec un nom qui survit
+    /// à la normalisation (les mots d'une lettre y disparaissent) :
+    /// la détection de doublons refuserait sinon la deuxième création identique.
+    /// </summary>
+    private static CreatePlaceRequest NewPlace()
+    {
+        var index = Interlocked.Increment(ref _counter);
+        return new CreatePlaceRequest(
+            $"Atelier secret n{index:D2}",
+            "Un atelier d'artiste ouvert un samedi sur deux, derrière une porte cochère.",
+            PlaceCategory.Curiosity,
+            48.8600 + index * 0.002,
+            2.3700,
+            "12 rue imaginaire",
+            "Paris",
+            "France");
+    }
 }

@@ -39,7 +39,7 @@ export class PlacesApi {
   }
 
   /** Création en multipart : le lieu part avec ses photos, dont la première sert de marqueur. */
-  create(input: CreatePlaceInput, photos: File[]): Observable<PlaceDetail> {
+  create(input: CreatePlaceInput, photos: File[], force = false): Observable<PlaceDetail> {
     const body = new FormData();
     body.append('name', input.name);
     body.append('description', input.description);
@@ -50,11 +50,26 @@ export class PlacesApi {
     body.append('city', input.city);
     body.append('country', input.country);
 
+    if (force) {
+      body.append('force', 'true');
+    }
+
     for (const photo of photos) {
       body.append('photos', photo, photo.name);
     }
 
     return this.http.post<PlaceDetail>('/api/places', body);
+  }
+
+  /** Lieux déjà connus qui ressemblent à celui qu'on s'apprête à proposer. */
+  findSimilar(input: Pick<CreatePlaceInput, 'name' | 'category' | 'latitude' | 'longitude'>): Observable<PlaceSummary[]> {
+    const params = new HttpParams()
+      .set('latitude', input.latitude)
+      .set('longitude', input.longitude)
+      .set('name', input.name)
+      .set('category', input.category);
+
+    return this.http.get<PlaceSummary[]>('/api/places/similar', { params });
   }
 
   rate(id: string, stars: number, comment: string | null): Observable<PlaceDetail> {

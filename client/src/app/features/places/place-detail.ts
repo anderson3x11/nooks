@@ -158,9 +158,15 @@ import { RatingStars } from './rating-stars';
                       {{ initial(rating.userDisplayName) }}
                     </span>
                     <div class="min-w-0">
-                      <div class="flex items-center gap-2">
+                      <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                         <span class="text-[14px] font-semibold">{{ rating.userDisplayName }}</span>
                         <nooks-stars [value]="rating.stars" [size]="11" />
+                        <span class="text-[12px] text-ink-400">
+                          {{ formatDate(rating.updatedAt) }}
+                          @if (rating.isEdited) {
+                            · modifié
+                          }
+                        </span>
                       </div>
                       @if (rating.comment) {
                         <p class="mt-0.5 text-[14px] leading-snug text-ink-700">{{ rating.comment }}</p>

@@ -30,6 +30,12 @@ public sealed class Place
     public DateTimeOffset CreatedAt { get; private set; }
     public DateTimeOffset? ReviewedAt { get; private set; }
 
+    /// <summary>
+    /// L'auteur a maintenu sa proposition malgré un lieu semblable à proximité.
+    /// Le lieu passe alors systématiquement par la file de modération.
+    /// </summary>
+    public bool SuspectedDuplicate { get; private set; }
+
     /// <summary>Moyenne dénormalisée, recalculée par <see cref="RecalculateRating"/>.</summary>
     public double AverageRating { get; private set; }
     public int RatingCount { get; private set; }
@@ -87,6 +93,17 @@ public sealed class Place
             CreatedAt = DateTimeOffset.UtcNow,
             ReviewedAt = status == PlaceStatus.Approved ? DateTimeOffset.UtcNow : null
         };
+    }
+
+    /// <summary>
+    /// Marque la proposition comme redite possible : elle attend une décision humaine,
+    /// même quand la modération automatique est active.
+    /// </summary>
+    public void FlagAsPossibleDuplicate()
+    {
+        SuspectedDuplicate = true;
+        Status = PlaceStatus.Pending;
+        ReviewedAt = null;
     }
 
     public void Approve()

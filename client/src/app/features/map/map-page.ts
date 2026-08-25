@@ -100,8 +100,10 @@ const BASEMAP_KEY = 'nooks.basemap';
                 [position]="draft()"
                 [busy]="saving()"
                 [error]="error()"
+                [rejectedAs]="duplicates()"
                 (submitted)="createPlace($event)"
                 (cancelled)="cancelAdding()"
+                (openExisting)="showExisting($event)"
               />
             } @else if (detail()) {
               <nooks-place-detail
@@ -190,6 +192,8 @@ export class MapPage {
   protected readonly saving = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly banner = signal<string | null>(null);
+  /** Lieux semblables renvoyés par le serveur quand il refuse la publication. */
+  protected readonly duplicates = signal<PlaceSummary[]>([]);
 
   protected readonly basemaps = BASEMAPS;
   protected readonly basemapOpen = signal(false);
@@ -261,6 +265,7 @@ export class MapPage {
 
     this.closeDetail();
     this.error.set(null);
+    this.duplicates.set([]);
     this.draft.set(null);
     this.mode.set('adding');
     this.flash('Cliquez sur la carte pour poser le point du lieu.');
@@ -271,6 +276,13 @@ export class MapPage {
     this.draft.set(null);
     this.map()?.showDraftPin(null);
     this.error.set(null);
+    this.duplicates.set([]);
+  }
+
+  /** Depuis l'avertissement anti-doublon : on quitte le formulaire pour le lieu existant. */
+  protected showExisting(id: string): void {
+    this.cancelAdding();
+    this.openPlace(id);
   }
 
   protected onMapClicked(point: { latitude: number; longitude: number }): void {
@@ -283,11 +295,11 @@ export class MapPage {
     this.banner.set(null);
   }
 
-  protected createPlace(payload: { input: CreatePlaceInput; photos: File[] }): void {
+  protected createPlace(payload: { input: CreatePlaceInput; photos: File[]; force: boolean }): void {
     this.saving.set(true);
     this.error.set(null);
 
-    this.api.create(payload.input, payload.photos).subscribe({
+    this.api.create(payload.input, payload.photos, payload.force).subscribe({
       next: (created) => {
         this.saving.set(false);
         this.cancelAdding();
@@ -303,6 +315,15 @@ export class MapPage {
       },
       error: (response) => {
         this.saving.set(false);
+
+        // 409 : le serveur a trouvé des lieux semblables. Le formulaire les affiche
+        // et le prochain envoi passera outre, avec vérification par un modérateur.
+        if (response?.status === 409) {
+          this.duplicates.set(response.error?.candidates ?? []);
+          this.error.set(null);
+          return;
+        }
+
         this.error.set(readError(response, 'La publication du lieu a échoué.'));
       },
     });

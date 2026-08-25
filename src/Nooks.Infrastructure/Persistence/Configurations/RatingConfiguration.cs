@@ -13,6 +13,7 @@ public sealed class RatingConfiguration : IEntityTypeConfiguration<Rating>
         builder.Property(r => r.Id).ValueGeneratedNever();
 
         builder.Property(r => r.Comment).HasMaxLength(Rating.MaxCommentLength);
+        builder.Ignore(r => r.IsEdited);
 
         // Un membre ne peut noter un lieu qu'une seule fois.
         builder.HasIndex(r => new { r.PlaceId, r.UserId }).IsUnique();

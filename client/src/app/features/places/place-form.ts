@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { startWith } from 'rxjs';
+import { Subject, catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 import { CATEGORIES } from '../../core/categories';
-import { CreatePlaceInput, PlaceCategory } from '../../core/models';
+import { CreatePlaceInput, PlaceCategory, PlaceSummary } from '../../core/models';
+import { PlacesApi } from '../../core/places-api';
 import { CategorySymbol } from '../../shared/category-symbol';
 
 /** Une photo choisie, avec son aperçu local pour l'afficher avant l'envoi. */
@@ -11,6 +12,8 @@ interface PickedPhoto {
   file: File;
   preview: string;
 }
+
+const MAX_PHOTOS = 6;
 
 /**
  * Proposition d'un lieu. La position ne se saisit pas au clavier : on la pose
@@ -58,6 +61,47 @@ interface PickedPhoto {
             <span class="font-semibold">Cliquez sur la carte pour poser le point du lieu.</span>
           }
         </div>
+
+        <!-- Anti-doublon : on prévient et on propose d'aller enrichir l'existant. -->
+        @if (duplicates().length > 0) {
+          <div class="mb-5 rounded-2xl border border-ink-200 bg-ink-50 p-3.5">
+            <p class="text-[13.5px] leading-snug font-semibold">Ce lieu existe peut-être déjà</p>
+            <p class="mt-1 text-[13px] leading-snug text-ink-500">
+              Plutôt que d'en créer un second, vous pouvez le noter, y laisser un avis ou y ajouter vos photos.
+            </p>
+
+            <ul class="mt-3 flex flex-col gap-1.5">
+              @for (candidate of duplicates(); track candidate.id) {
+                <li>
+                  <button
+                    type="button"
+                    class="flex w-full cursor-pointer items-center gap-2.5 rounded-xl bg-white p-1.5 text-left transition-colors hover:bg-ink-100"
+                    (click)="openExisting.emit(candidate.id)"
+                  >
+                    @if (candidate.coverThumbnailUrl) {
+                      <img [src]="candidate.coverThumbnailUrl" alt="" class="size-9 shrink-0 rounded-lg object-cover" />
+                    } @else {
+                      <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-ink-100">
+                        <nooks-symbol [category]="candidate.category" [size]="14" />
+                      </span>
+                    }
+                    <span class="min-w-0 flex-1">
+                      <span class="block truncate text-[13.5px] font-semibold">{{ candidate.name }}</span>
+                      <span class="block text-[12px] text-ink-500">{{ candidate.city }}</span>
+                    </span>
+                    <svg width="12" height="12" viewBox="0 0 12 12" class="shrink-0 text-ink-400" aria-hidden="true">
+                      <path d="M4.5 1.5 9 6l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                </li>
+              }
+            </ul>
+
+            <p class="mt-3 text-[12px] leading-snug text-ink-500">
+              Si votre lieu est bien différent, publiez-le : un modérateur vérifiera avant sa mise en ligne.
+            </p>
+          </div>
+        }
 
         <label class="label-caps mb-1.5 block" for="place-name">Nom</label>
         <input id="place-name" class="field" formControlName="name" placeholder="Le jardin des poètes" />
@@ -148,7 +192,13 @@ interface PickedPhoto {
 
       <footer class="shrink-0 px-5 py-4">
         <button type="submit" class="btn btn-primary w-full" [disabled]="!canSubmit()">
-          {{ busy() ? 'Publication…' : 'Publier le lieu' }}
+          @if (busy()) {
+            Publication…
+          } @else if (duplicates().length > 0) {
+            Publier quand même
+          } @else {
+            Publier le lieu
+          }
         </button>
         @if (!position() || photos().length === 0) {
           <p class="mt-2 text-center text-[12px] text-ink-500">
@@ -161,16 +211,24 @@ interface PickedPhoto {
 })
 export class PlaceForm {
   private readonly fb = inject(FormBuilder);
+  private readonly api = inject(PlacesApi);
 
   readonly position = input<{ latitude: number; longitude: number } | null>(null);
   readonly busy = input(false);
   readonly error = input<string | null>(null);
+  /** Doublons renvoyés par le serveur au moment de la publication. */
+  readonly rejectedAs = input<PlaceSummary[]>([]);
 
-  readonly submitted = output<{ input: CreatePlaceInput; photos: File[] }>();
+  readonly submitted = output<{ input: CreatePlaceInput; photos: File[]; force: boolean }>();
   readonly cancelled = output<void>();
+  readonly openExisting = output<string>();
 
   protected readonly categories = CATEGORIES;
   protected readonly photos = signal<PickedPhoto[]>([]);
+  private readonly found = signal<PlaceSummary[]>([]);
+
+  /** Ce que le serveur a refusé prime sur ce que la recherche anticipée a trouvé. */
+  protected readonly duplicates = computed(() => (this.rejectedAs().length > 0 ? this.rejectedAs() : this.found()));
 
   protected readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
@@ -182,10 +240,46 @@ export class PlaceForm {
   });
 
   private readonly formStatus = toSignalStatus(this.form);
+  private readonly lookup = new Subject<CreatePlaceInput>();
 
   protected readonly canSubmit = computed(
     () => this.position() !== null && this.photos().length > 0 && this.formStatus() === 'VALID' && !this.busy(),
   );
+
+  private readonly nameValue = toSignal(
+    this.form.controls.name.valueChanges.pipe(startWith(this.form.controls.name.value)),
+    { initialValue: '' },
+  );
+
+  private readonly categoryValue = toSignal(
+    this.form.controls.category.valueChanges.pipe(startWith(this.form.controls.category.value)),
+    { initialValue: 'Curiosity' as PlaceCategory },
+  );
+
+  constructor() {
+    this.lookup
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged((a, b) => a.name === b.name && a.category === b.category && a.latitude === b.latitude && a.longitude === b.longitude),
+        switchMap((input) => this.api.findSimilar(input).pipe(catchError(() => of([] as PlaceSummary[])))),
+        takeUntilDestroyed(),
+      )
+      .subscribe((found) => this.found.set(found));
+
+    // Dès qu'un nom et un point sont posés, on va voir si le lieu existe déjà.
+    effect(() => {
+      const point = this.position();
+      const name = this.nameValue();
+      const category = this.categoryValue();
+
+      if (!point || name.trim().length < 3) {
+        this.found.set([]);
+        return;
+      }
+
+      this.lookup.next({ ...this.draft(), name, category, latitude: point.latitude, longitude: point.longitude });
+    });
+  }
 
   protected addPhotos(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -212,24 +306,27 @@ export class PlaceForm {
       return;
     }
 
-    const value = this.form.getRawValue();
     this.submitted.emit({
-      input: {
-        name: value.name.trim(),
-        description: value.description.trim(),
-        category: value.category,
-        latitude: point.latitude,
-        longitude: point.longitude,
-        address: value.address.trim() || null,
-        city: value.city.trim(),
-        country: value.country.trim(),
-      },
+      input: { ...this.draft(), latitude: point.latitude, longitude: point.longitude },
       photos: this.photos().map((photo) => photo.file),
+      force: this.duplicates().length > 0,
     });
   }
-}
 
-const MAX_PHOTOS = 6;
+  private draft(): CreatePlaceInput {
+    const value = this.form.getRawValue();
+    return {
+      name: value.name.trim(),
+      description: value.description.trim(),
+      category: value.category,
+      latitude: 0,
+      longitude: 0,
+      address: value.address.trim() || null,
+      city: value.city.trim(),
+      country: value.country.trim(),
+    };
+  }
+}
 
 /** L'état de validité d'un formulaire réactif, exposé en signal pour le template. */
 function toSignalStatus(control: AbstractControl) {

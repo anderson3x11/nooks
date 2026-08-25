@@ -61,7 +61,14 @@ import { CategorySymbol } from '../../shared/category-symbol';
                 }
 
                 <div class="min-w-0 flex-1">
-                  <p class="truncate text-[15.5px] font-semibold">{{ place.name }}</p>
+                  <p class="flex items-center gap-2 truncate text-[15.5px] font-semibold">
+                    {{ place.name }}
+                    @if (place.suspectedDuplicate) {
+                      <span class="shrink-0 rounded-full bg-ink-950 px-2 py-0.5 text-[11px] font-semibold text-white">
+                        Doublon possible
+                      </span>
+                    }
+                  </p>
                   <p class="text-[13px] text-ink-500">
                     {{ place.city }} · {{ label(place.category) }} · proposé le {{ formatDate(place.createdAt) }}
                   </p>

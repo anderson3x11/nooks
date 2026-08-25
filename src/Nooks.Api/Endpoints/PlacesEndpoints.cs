@@ -21,6 +21,7 @@ public static class PlacesEndpoints
         var group = app.MapGroup("/api/places").WithTags("Places");
 
         group.MapGet("/", SearchAsync);
+        group.MapGet("/similar", FindSimilarAsync).RequireAuthorization();
         group.MapGet("/{id:guid}", GetDetailAsync);
         group.MapPost("/", CreateAsync).RequireAuthorization().DisableAntiforgery();
         group.MapPut("/{id:guid}/rating", RateAsync).RequireAuthorization();
@@ -49,6 +50,43 @@ public static class PlacesEndpoints
 
         var query = new PlaceSearchQuery(bounds, parsedCategories, minRating, q);
         return Results.Ok(await repository.SearchAsync(query, cancellationToken));
+    }
+
+    /// <summary>
+    /// Lieux déjà connus qui ressemblent à celui qu'on s'apprête à proposer.
+    /// Le formulaire l'appelle en amont pour avertir plutôt que de refuser au dernier moment.
+    /// </summary>
+    private static async Task<IResult> FindSimilarAsync(
+        double latitude,
+        double longitude,
+        string name,
+        PlaceCategory category,
+        IPlaceRepository repository,
+        CancellationToken cancellationToken)
+        => Results.Ok(await FindDuplicatesAsync(repository, name, category, latitude, longitude, cancellationToken));
+
+    private static async Task<IReadOnlyList<PlaceSummaryDto>> FindDuplicatesAsync(
+        IPlaceRepository repository,
+        string name,
+        PlaceCategory category,
+        double latitude,
+        double longitude,
+        CancellationToken cancellationToken)
+    {
+        var nearby = await repository.FindNearbyAsync(
+            latitude,
+            longitude,
+            PlaceMatching.SearchRadiusInMeters,
+            cancellationToken);
+
+        return
+        [
+            .. nearby.Where(candidate => PlaceMatching.LooksLikeDuplicate(
+                name,
+                candidate.Category == category,
+                candidate.Name,
+                PlaceMatching.DistanceInMeters(latitude, longitude, candidate.Latitude, candidate.Longitude))),
+        ];
     }
 
     private static async Task<IResult> GetDetailAsync(
@@ -95,6 +133,26 @@ public static class PlacesEndpoints
             return Problem($"Pas plus de {MaxPhotosPerPlace} photos par lieu.");
         }
 
+        // L'auteur peut passer outre l'avertissement, mais sa proposition part alors
+        // en vérification manuelle : c'est le compromis entre confiance et anti-flood.
+        var insists = string.Equals(form["force"].ToString(), "true", StringComparison.OrdinalIgnoreCase);
+        var duplicates = await FindDuplicatesAsync(
+            repository,
+            request.Name,
+            request.Category,
+            request.Latitude,
+            request.Longitude,
+            cancellationToken);
+
+        if (duplicates.Count > 0 && !insists)
+        {
+            return Results.Json(
+                new DuplicateWarning(
+                    "Ce lieu semble déjà présent sur la carte. Notez-le ou complétez-le plutôt que d'en créer un second.",
+                    duplicates),
+                statusCode: StatusCodes.Status409Conflict);
+        }
+
         var place = Place.Create(
             request.Name,
             request.Description,
@@ -106,6 +164,11 @@ public static class PlacesEndpoints
             request.Country,
             principal.GetUserId(),
             moderation.Value.AutoApprove ? PlaceStatus.Approved : PlaceStatus.Pending);
+
+        if (duplicates.Count > 0)
+        {
+            place.FlagAsPossibleDuplicate();
+        }
 
         // Les fichiers sont écrits avant l'insertion : l'identifiant du lieu existe déjà,
         // et une erreur d'image doit faire échouer la création plutôt que la laisser à moitié faite.
@@ -164,6 +227,9 @@ public static class PlacesEndpoints
 
         return Results.Ok(await repository.GetDetailAsync(id, includeUnapproved: true, cancellationToken));
     }
+
+    /// <summary>Réponse 409 : la proposition ressemble à un lieu déjà présent.</summary>
+    public sealed record DuplicateWarning(string Detail, IReadOnlyList<PlaceSummaryDto> Candidates);
 
     private static IResult Problem(string detail)
         => Results.Problem(detail, statusCode: StatusCodes.Status400BadRequest, title: "Requête invalide");

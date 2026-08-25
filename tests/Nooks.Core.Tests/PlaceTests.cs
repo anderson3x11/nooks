@@ -111,6 +111,54 @@ public class PlaceTests
     }
 
     [Fact]
+    public void Un_avis_tout_juste_publie_nest_pas_marque_comme_modifie()
+    {
+        var place = CreatePlace();
+
+        var rating = place.AddOrUpdateRating(Guid.NewGuid(), 4, "Très joli.");
+
+        Assert.False(rating.IsEdited);
+        Assert.Equal(rating.CreatedAt, rating.UpdatedAt);
+    }
+
+    [Fact]
+    public void Retoucher_son_avis_le_marque_comme_modifie()
+    {
+        var place = CreatePlace();
+        var userId = Guid.NewGuid();
+
+        place.AddOrUpdateRating(userId, 4, "Très joli.");
+        var rating = place.AddOrUpdateRating(userId, 2, "Finalement décevant.");
+
+        Assert.True(rating.IsEdited);
+        Assert.True(rating.UpdatedAt > rating.CreatedAt);
+    }
+
+    [Fact]
+    public void Renvoyer_le_meme_avis_ne_le_marque_pas_comme_modifie()
+    {
+        var place = CreatePlace();
+        var userId = Guid.NewGuid();
+
+        place.AddOrUpdateRating(userId, 4, "Très joli.");
+        var rating = place.AddOrUpdateRating(userId, 4, "  Très joli.  ");
+
+        Assert.False(rating.IsEdited);
+    }
+
+    [Fact]
+    public void Un_lieu_signale_comme_doublon_repasse_en_attente()
+    {
+        var place = CreatePlace();
+
+        place.FlagAsPossibleDuplicate();
+
+        Assert.True(place.SuspectedDuplicate);
+        Assert.Equal(PlaceStatus.Pending, place.Status);
+        Assert.Null(place.ReviewedAt);
+    }
+
+    [Fact]
     public void La_premiere_photo_devient_la_photo_de_couverture()
     {
         var place = CreatePlace();

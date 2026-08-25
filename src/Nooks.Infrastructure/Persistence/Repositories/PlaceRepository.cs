@@ -1,4 +1,5 @@
 using Nooks.Core.Abstractions;
+using Nooks.Core.Common;
 using Nooks.Core.Dtos;
 using Nooks.Core.Entities;
 using Nooks.Infrastructure.Storage;
@@ -49,7 +50,8 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
                 p.RatingCount,
                 p.Status,
                 p.CreatedAt,
-                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault()))
+                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault(),
+                p.SuspectedDuplicate))
             .ToListAsync(cancellationToken);
 
         return [.. rows.Select(ToSummary)];
@@ -72,10 +74,55 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
                 p.RatingCount,
                 p.Status,
                 p.CreatedAt,
-                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault()))
+                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault(),
+                p.SuspectedDuplicate))
             .ToListAsync(cancellationToken);
 
         return [.. rows.Select(ToSummary)];
+    }
+
+    public async Task<IReadOnlyList<PlaceSummaryDto>> FindNearbyAsync(
+        double latitude,
+        double longitude,
+        double radiusInMeters,
+        CancellationToken cancellationToken)
+    {
+        // Un degré de latitude vaut environ 111 320 m ; en longitude, cela se resserre
+        // vers les pôles. On encadre large en degrés, puis on affine au mètre en mémoire.
+        var latitudeSpan = radiusInMeters / 111_320d;
+        var longitudeSpan = latitudeSpan / Math.Max(0.01, Math.Cos(latitude * Math.PI / 180));
+
+        var envelope = new GeoBounds(
+            longitude - longitudeSpan,
+            latitude - latitudeSpan,
+            longitude + longitudeSpan,
+            latitude + latitudeSpan).ToPolygon();
+
+        var rows = await context.Places
+            .AsNoTracking()
+            .Where(p => p.Status != PlaceStatus.Rejected)
+            .Where(p => p.Location.Intersects(envelope))
+            .Select(p => new SummaryRow(
+                p.Id,
+                p.Name,
+                p.Category,
+                p.Location.Y,
+                p.Location.X,
+                p.City,
+                p.AverageRating,
+                p.RatingCount,
+                p.Status,
+                p.CreatedAt,
+                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault(),
+                p.SuspectedDuplicate))
+            .ToListAsync(cancellationToken);
+
+        return
+        [
+            .. rows
+                .Where(row => PlaceMatching.DistanceInMeters(latitude, longitude, row.Latitude, row.Longitude) <= radiusInMeters)
+                .Select(ToSummary),
+        ];
     }
 
     public async Task<PlaceDetailDto?> GetDetailAsync(Guid id, bool includeUnapproved, CancellationToken cancellationToken)
@@ -112,6 +159,7 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
             place.RatingCount,
             place.CreatedAt,
             Name(displayNames, place.CreatedByUserId),
+            place.SuspectedDuplicate,
             [.. place.Photos
                 .OrderByDescending(photo => photo.IsCover)
                 .ThenBy(photo => photo.CreatedAt)
@@ -128,7 +176,9 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
                     Name(displayNames, rating.UserId),
                     rating.Stars,
                     rating.Comment,
-                    rating.UpdatedAt))]);
+                    rating.CreatedAt,
+                    rating.UpdatedAt,
+                    rating.IsEdited))]);
     }
 
     public Task<Place?> GetForUpdateAsync(Guid id, CancellationToken cancellationToken)
@@ -157,7 +207,8 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
         row.RatingCount,
         row.Status,
         row.CreatedAt,
-        row.CoverThumbnailFileName is null ? null : PhotoUrls.For(row.Id, row.CoverThumbnailFileName));
+        row.CoverThumbnailFileName is null ? null : PhotoUrls.For(row.Id, row.CoverThumbnailFileName),
+        row.SuspectedDuplicate);
 
     /// <summary>Projection intermédiaire : l'URL des photos se construit en mémoire, pas en SQL.</summary>
     private sealed record SummaryRow(
@@ -171,5 +222,6 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
         int RatingCount,
         PlaceStatus Status,
         DateTimeOffset CreatedAt,
-        string? CoverThumbnailFileName);
+        string? CoverThumbnailFileName,
+        bool SuspectedDuplicate);
 }

@@ -23,6 +23,8 @@ export interface PlaceSummary {
   status: PlaceStatus;
   createdAt: string;
   coverThumbnailUrl: string | null;
+  /** L'auteur a maintenu sa proposition malgré un lieu semblable à proximité. */
+  suspectedDuplicate: boolean;
 }
 
 export interface PlacePhoto {
@@ -38,7 +40,10 @@ export interface PlaceRating {
   userDisplayName: string;
   stars: number;
   comment: string | null;
+  createdAt: string;
   updatedAt: string;
+  /** L'avis a été retouché après sa publication. */
+  isEdited: boolean;
 }
 
 export interface PlaceDetail {
@@ -56,6 +61,7 @@ export interface PlaceDetail {
   ratingCount: number;
   createdAt: string;
   createdByDisplayName: string;
+  suspectedDuplicate: boolean;
   photos: PlacePhoto[];
   ratings: PlaceRating[];
 }
