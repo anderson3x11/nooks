@@ -22,6 +22,13 @@ public sealed class Rating
     public DateTimeOffset CreatedAt { get; private set; }
     public DateTimeOffset UpdatedAt { get; private set; }
 
+    /// <summary>Date de retrait par la modération. Nulle tant que l'avis est visible.</summary>
+    public DateTimeOffset? RemovedAt { get; private set; }
+    public Guid? RemovedByUserId { get; private set; }
+
+    /// <summary>Un avis retiré disparaît de la fiche mais reste en base, restaurable.</summary>
+    public bool IsRemoved => RemovedAt is not null;
+
     /// <summary>Vrai dès que l'avis a été retouché après sa publication.</summary>
     public bool IsEdited => UpdatedAt > CreatedAt;
 
@@ -47,6 +54,11 @@ public sealed class Rating
 
     public void Update(int stars, string? comment)
     {
+        if (IsRemoved)
+        {
+            throw new DomainException("Votre avis a été retiré par la modération et ne peut plus être modifié.");
+        }
+
         var normalized = Normalize(comment);
 
         // Renvoyer le même avis à l'identique ne le marque pas comme modifié.
@@ -57,6 +69,19 @@ public sealed class Rating
 
         Apply(stars, normalized);
         UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    /// <summary>Retire l'avis de la fiche publique sans le détruire.</summary>
+    public void Remove(Guid moderatorId)
+    {
+        RemovedAt = DateTimeOffset.UtcNow;
+        RemovedByUserId = moderatorId;
+    }
+
+    public void Restore()
+    {
+        RemovedAt = null;
+        RemovedByUserId = null;
     }
 
     private void Apply(int stars, string? comment)

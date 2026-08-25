@@ -15,6 +15,9 @@ public sealed class PlacePhotoConfiguration : IEntityTypeConfiguration<PlacePhot
         builder.Property(p => p.FileName).HasMaxLength(120).IsRequired();
         builder.Property(p => p.ThumbnailFileName).HasMaxLength(120).IsRequired();
 
+        builder.Property(p => p.Attribution).HasMaxLength(300);
+        builder.Property(p => p.SourceUrl).HasMaxLength(500);
+
         builder.HasIndex(p => p.PlaceId);
     }
 }

@@ -12,7 +12,8 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Musée des Arts forains"
  },
  {
   "name": "Petite Ceinture du 15e",
@@ -26,7 +27,8 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Ligne de Petite Ceinture"
  },
  {
   "name": "Rue Crémieux",
@@ -41,7 +43,8 @@
    4,
    3,
    4
-  ]
+  ],
+  "wikipedia": "Rue Crémieux"
  },
  {
   "name": "Musée de la Chasse et de la Nature",
@@ -55,7 +58,8 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Musée de la Chasse et de la Nature"
  },
  {
   "name": "Galerie Vivienne",
@@ -69,7 +73,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Galerie Vivienne"
  },
  {
   "name": "Shakespeare and Company",
@@ -84,7 +89,8 @@
    4,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Shakespeare and Company (librairie)"
  },
  {
   "name": "Le Mur des Je t'aime",
@@ -98,7 +104,8 @@
   "ratings": [
    3,
    4
-  ]
+  ],
+  "wikipedia": "Le Mur des je t'aime"
  },
  {
   "name": "Temple de la Sibylle",
@@ -113,7 +120,8 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Parc des Buttes-Chaumont"
  },
  {
   "name": "Deyrolle",
@@ -127,7 +135,8 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Deyrolle"
  },
  {
   "name": "Musée Fragonard d'Alfort",
@@ -141,7 +150,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Musée Fragonard d'Alfort"
  },
  {
   "name": "Cimetière des chiens d'Asnières",
@@ -155,7 +165,8 @@
   "ratings": [
    4,
    3
-  ]
+  ],
+  "wikipedia": "Cimetière des chiens d'Asnières-sur-Seine"
  },
  {
   "name": "La Pagode de la Maison Loo",
@@ -169,7 +180,8 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Maison Loo"
  },
  {
   "name": "Musée Curie",
@@ -183,7 +195,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Musée Curie"
  },
  {
   "name": "Longue Traboule du Vieux Lyon",
@@ -198,7 +211,8 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Traboule"
  },
  {
   "name": "Mur des Canuts",
@@ -212,7 +226,8 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Mur des Canuts"
  },
  {
   "name": "Fresque des Lyonnais",
@@ -227,7 +242,8 @@
    4,
    4,
    4
-  ]
+  ],
+  "wikipedia": "Fresque des Lyonnais"
  },
  {
   "name": "Jardin Rosa Mir",
@@ -241,7 +257,8 @@
   "ratings": [
    5,
    5
-  ]
+  ],
+  "wikipedia": "Jardin Rosa Mir"
  },
  {
   "name": "Musée Cinéma et Miniature",
@@ -256,7 +273,8 @@
    4,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Musée Cinéma et Miniature"
  },
  {
   "name": "Esplanade de Fourvière",
@@ -271,7 +289,8 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Basilique Notre-Dame de Fourvière"
  },
  {
   "name": "Halles de Lyon Paul Bocuse",
@@ -285,7 +304,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Halles de Lyon-Paul Bocuse"
  },
  {
   "name": "Vallon des Auffes",
@@ -300,7 +320,8 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Vallon des Auffes"
  },
  {
   "name": "Calanque de Sugiton",
@@ -314,7 +335,8 @@
   "ratings": [
    5,
    5
-  ]
+  ],
+  "wikipedia": "Calanque de Sugiton"
  },
  {
   "name": "Cours Julien",
@@ -329,7 +351,8 @@
    4,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Cours Julien"
  },
  {
   "name": "Palais Longchamp",
@@ -343,7 +366,8 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Palais Longchamp"
  },
  {
   "name": "Parvis de Notre-Dame de la Garde",
@@ -358,7 +382,8 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Basilique Notre-Dame de la Garde"
  },
  {
   "name": "Château d'If",
@@ -372,7 +397,8 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Château d'If"
  },
  {
   "name": "Bassins des Lumières",
@@ -387,7 +413,8 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Bassins des Lumières"
  },
  {
   "name": "Marché des Capucins",
@@ -401,7 +428,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Marché des Capucins (Bordeaux)"
  },
  {
   "name": "Miroir d'eau",
@@ -416,7 +444,8 @@
    4,
    4,
    4
-  ]
+  ],
+  "wikipedia": "Miroir d'eau (Bordeaux)"
  },
  {
   "name": "Darwin Écosystème",
@@ -430,7 +459,8 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Darwin (écosystème)"
  },
  {
   "name": "Flèche Saint-Michel",
@@ -444,11 +474,12 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Basilique Saint-Michel de Bordeaux"
  },
  {
   "name": "Le Vieux-Lille souterrain",
-  "description": "Sous les pavés du Vieux-Lille, des caves voutées du XVIIe reconverties en bars et en salles de concert. On y descend par des escaliers raides que rien ne signale depuis la rue.",
+  "description": "Sous les pavés du Vieux-Lille, des caves voûtées du XVIIe reconverties en bars et en salles de concert. On y descend par des escaliers raides que rien ne signale depuis la rue.",
   "category": "Curiosity",
   "latitude": 50.641,
   "longitude": 3.063,
@@ -458,11 +489,12 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Vieux-Lille"
  },
  {
   "name": "Maison Folie de Wazemmes",
-  "description": "Une ancienne filature textile devenue lieu culturel, avec sa cheminee d'usine conservee et son hammam d'epoque. Programmation gratuite une bonne partie de l'annee.",
+  "description": "Une ancienne filature textile devenue lieu culturel, avec sa cheminée d'usine conservée et son hammam d'époque. Programmation gratuite une bonne partie de l'année.",
   "category": "Curiosity",
   "latitude": 50.626,
   "longitude": 3.051,
@@ -473,11 +505,12 @@
    4,
    4,
    3
-  ]
+  ],
+  "wikipedia": "Maison folie de Wazemmes"
  },
  {
-  "name": "Marche de Wazemmes",
-  "description": "Le marche le plus melange de Lille, ou les etals d'epices croisent les brocanteurs. Le dimanche matin, la place deborde jusque dans les rues adjacentes.",
+  "name": "Marché de Wazemmes",
+  "description": "Le marché le plus mélangé de Lille, où les étals d'épices croisent les brocanteurs. Le dimanche matin, la place déborde jusque dans les rues adjacentes.",
   "category": "FoodDrink",
   "latitude": 50.628,
   "longitude": 3.049,
@@ -487,11 +520,12 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Wazemmes"
  },
  {
-  "name": "Beffroi de l'Hotel de Ville",
-  "description": "104 metres, un ascenseur puis 100 marches, et toute la plaine flamande sous les yeux. Par temps clair on distingue les terrils du bassin minier.",
+  "name": "Beffroi de l'hôtel de ville",
+  "description": "104 mètres, un ascenseur puis 100 marches, et toute la plaine flamande sous les yeux. Par temps clair on distingue les terrils du bassin minier.",
   "category": "Viewpoint",
   "latitude": 50.627,
   "longitude": 3.068,
@@ -502,11 +536,12 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Beffroi de l'hôtel de ville de Lille"
  },
  {
   "name": "Les Abattoirs",
-  "description": "Les anciens abattoirs de Toulouse transformes en musee d'art moderne, avec le rideau de scene peint par Picasso pour une piece de Romain Rolland.",
+  "description": "Les anciens abattoirs de Toulouse transformés en musée d'art moderne, avec le rideau de scène peint par Picasso pour une pièce de Romain Rolland.",
   "category": "Museum",
   "latitude": 43.596,
   "longitude": 1.43,
@@ -516,11 +551,12 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Les Abattoirs"
  },
  {
-  "name": "La Cite de l'Espace",
-  "description": "Une fusee Ariane 5 grandeur nature plantee dans un parc, et le module Mir dans lequel on entre vraiment. Prevoir la journee entiere.",
+  "name": "La Cité de l'Espace",
+  "description": "Une fusée Ariane 5 grandeur nature plantée dans un parc, et le module Mir dans lequel on entre vraiment. Prévoir la journée entière.",
   "category": "Museum",
   "latitude": 43.586,
   "longitude": 1.495,
@@ -531,11 +567,12 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Cité de l'espace"
  },
  {
-  "name": "Le Chateau d'Eau",
-  "description": "Un chateau d'eau de brique de 1822 devenu l'une des premieres galeries photo d'Europe, a la tete du Pont-Neuf. Minuscule et pointu.",
+  "name": "Le Château d'Eau",
+  "description": "Un château d'eau de brique de 1822 devenu l'une des premières galeries photo d'Europe, à la tête du Pont-Neuf. Minuscule et pointu.",
   "category": "Curiosity",
   "latitude": 43.596,
   "longitude": 1.44,
@@ -545,11 +582,12 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Galerie municipale du Château d'Eau"
  },
  {
   "name": "Quai de la Daurade",
-  "description": "Les marches au bord de la Garonne ou tout Toulouse vient boire un verre au coucher du soleil, avec la brique rose du Pont-Neuf en face.",
+  "description": "Les marches au bord de la Garonne où tout Toulouse vient boire un verre au coucher du soleil, avec la brique rose du Pont-Neuf en face.",
   "category": "Viewpoint",
   "latitude": 43.599,
   "longitude": 1.44,
@@ -560,11 +598,12 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Pont-Neuf (Toulouse)"
  },
  {
   "name": "Le Passage Pommeraye",
-  "description": "Une galerie marchande de 1843 sur trois niveaux relies par un escalier monumental, eclairee par une verriere. Le decor de plusieurs films francais.",
+  "description": "Une galerie marchande de 1843 sur trois niveaux reliés par un escalier monumental, éclairée par une verrière. Le décor de plusieurs films français.",
   "category": "Shop",
   "latitude": 47.213,
   "longitude": -1.558,
@@ -575,11 +614,12 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Passage Pommeraye"
  },
  {
-  "name": "Les Machines de l'Ile",
-  "description": "Le Grand Elephant de douze metres qui promene quarante passagers sur l'ancien chantier naval, et la galerie ou les machines s'essaient devant vous.",
+  "name": "Les Machines de l'Île",
+  "description": "Le Grand Éléphant de douze mètres qui promène quarante passagers sur l'ancien chantier naval, et la galerie où les machines s'essaient devant vous.",
   "category": "Curiosity",
   "latitude": 47.207,
   "longitude": -1.565,
@@ -589,11 +629,12 @@
   "ratings": [
    5,
    5
-  ]
+  ],
+  "wikipedia": "Les Machines de l'île"
  },
  {
   "name": "Le Lieu Unique",
-  "description": "L'ancienne biscuiterie LU, avec sa tour surmontee d'un dome, devenue scene nationale. Bar, hammam, librairie et concerts dans le meme batiment.",
+  "description": "L'ancienne biscuiterie LU, avec sa tour surmontée d'un dôme, devenue scène nationale. Bar, hammam, librairie et concerts dans le même bâtiment.",
   "category": "Curiosity",
   "latitude": 47.216,
   "longitude": -1.546,
@@ -604,11 +645,12 @@
    4,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Lieu unique"
  },
  {
   "name": "Le Jardin des Plantes",
-  "description": "Sept hectares en plein centre, avec des sculptures d'enfants geants endormis dans les massifs et des serres tropicales gratuites.",
+  "description": "Sept hectares en plein centre, avec des sculptures d'enfants géants endormis dans les massifs et des serres tropicales gratuites.",
   "category": "Nature",
   "latitude": 47.219,
   "longitude": -1.542,
@@ -618,11 +660,12 @@
   "ratings": [
    4,
    5
-  ]
+  ],
+  "wikipedia": "Jardin des plantes de Nantes"
  },
  {
   "name": "La Petite France",
-  "description": "Le quartier des tanneurs, avec ses maisons a colombages penchees sur les canaux et ses ponts couverts. Vient tot, il se remplit vite.",
+  "description": "Le quartier des tanneurs, avec ses maisons à colombages penchées sur les canaux et ses ponts couverts. Venez tôt, il se remplit vite.",
   "category": "Curiosity",
   "latitude": 48.58,
   "longitude": 7.74,
@@ -632,11 +675,12 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Petite France (Strasbourg)"
  },
  {
-  "name": "Plateforme de la cathedrale",
-  "description": "330 marches jusqu'a la terrasse de la fleche, a 66 metres. Les toits rouges, le Rhin, et la Foret-Noire au loin.",
+  "name": "Plateforme de la cathédrale",
+  "description": "330 marches jusqu'à la terrasse de la flèche, à 66 mètres. Les toits rouges, le Rhin, et la Forêt-Noire au loin.",
   "category": "Viewpoint",
   "latitude": 48.582,
   "longitude": 7.751,
@@ -647,11 +691,12 @@
    5,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Cathédrale Notre-Dame de Strasbourg"
  },
  {
   "name": "Le Palais Rohan",
-  "description": "Trois musees dans un palais episcopal du XVIIIe : arts decoratifs, beaux-arts et archeologie. Les appartements des cardinaux valent a eux seuls la visite.",
+  "description": "Trois musées dans un palais épiscopal du XVIIIe : arts décoratifs, beaux-arts et archéologie. Les appartements des cardinaux valent à eux seuls la visite.",
   "category": "Museum",
   "latitude": 48.581,
   "longitude": 7.752,
@@ -661,7 +706,8 @@
   "ratings": [
    4,
    4
-  ]
+  ],
+  "wikipedia": "Palais Rohan (Strasbourg)"
  },
  {
   "name": "Le Vieux-Nice au petit matin",
@@ -676,11 +722,12 @@
    4,
    5,
    4
-  ]
+  ],
+  "wikipedia": "Vieux-Nice"
  },
  {
-  "name": "Colline du Chateau",
-  "description": "Une cascade artificielle, des ruines medievales et la meilleure vue sur la baie des Anges. Ascenseur gratuit depuis la promenade.",
+  "name": "Colline du Château",
+  "description": "Une cascade artificielle, des ruines médiévales et la meilleure vue sur la baie des Anges. Ascenseur gratuit depuis la promenade.",
   "category": "Viewpoint",
   "latitude": 43.695,
   "longitude": 7.28,
@@ -690,11 +737,12 @@
   "ratings": [
    5,
    5
-  ]
+  ],
+  "wikipedia": "Colline du Château"
  },
  {
-  "name": "Musee Marc Chagall",
-  "description": "Un musee concu avec le peintre de son vivant, autour du cycle du Message Biblique. Petit, lumineux, et jamais bonde.",
+  "name": "Musée Marc Chagall",
+  "description": "Un musée conçu avec le peintre de son vivant, autour du cycle du Message Biblique. Petit, lumineux, et jamais bondé.",
   "category": "Museum",
   "latitude": 43.705,
   "longitude": 7.266,
@@ -704,11 +752,12 @@
   "ratings": [
    5,
    4
-  ]
+  ],
+  "wikipedia": "Musée national Marc-Chagall"
  },
  {
   "name": "Les Portes Mordelaises",
-  "description": "L'ancienne entree ceremonielle de Rennes, ou les ducs de Bretagne pretaient serment. Les remparts se longent gratuitement.",
+  "description": "L'ancienne entrée cérémonielle de Rennes, où les ducs de Bretagne prêtaient serment. Les remparts se longent gratuitement.",
   "category": "Curiosity",
   "latitude": 48.112,
   "longitude": -1.683,
@@ -718,11 +767,12 @@
   "ratings": [
    4,
    3
-  ]
+  ],
+  "wikipedia": "Portes mordelaises"
  },
  {
-  "name": "Marche des Lices",
-  "description": "L'un des plus grands marches de France le samedi matin, et la galette-saucisse qu'on mange debout entre deux etals.",
+  "name": "Marché des Lices",
+  "description": "L'un des plus grands marchés de France le samedi matin, et la galette-saucisse qu'on mange debout entre deux étals.",
   "category": "FoodDrink",
   "latitude": 48.111,
   "longitude": -1.682,
@@ -733,6 +783,7 @@
    5,
    4,
    5
-  ]
+  ],
+  "wikipedia": "Place des Lices (Rennes)"
  }
 ]

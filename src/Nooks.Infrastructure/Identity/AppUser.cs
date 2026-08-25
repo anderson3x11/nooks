@@ -6,7 +6,16 @@ public sealed class AppUser : IdentityUser<Guid>
 {
     public const int MaxDisplayNameLength = 60;
 
+    public const int MaxBioLength = 400;
+
     public string DisplayName { get; set; } = null!;
+
+    /// <summary>Quelques lignes de présentation sur la page du membre.</summary>
+    public string? Bio { get; set; }
+
+    /// <summary>Nom du fichier d'avatar dans le dossier des envois, sans chemin.</summary>
+    public string? AvatarFileName { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 }
 

@@ -41,6 +41,42 @@ public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : I
         return new StoredPhoto(fileName, thumbnailFileName);
     }
 
+    public async Task<string> SaveAvatarAsync(Guid userId, Stream content, CancellationToken cancellationToken)
+    {
+        var bytes = await ReadWithLimitAsync(content, _options.MaxSizeInBytes, cancellationToken);
+
+        if (!LooksLikeSupportedImage(bytes))
+        {
+            throw new DomainException("Format non supporté. Envoyez une image JPEG, PNG ou WebP.");
+        }
+
+        using var bitmap = SKBitmap.Decode(bytes)
+            ?? throw new DomainException("Image illisible ou corrompue.");
+
+        var directory = Path.Combine(_options.RootPath, PhotoUrls.AvatarFolder, userId.ToString());
+        Directory.CreateDirectory(directory);
+
+        // Un avatar est toujours affiché dans un rond : on recadre au carré une bonne
+        // fois plutôt que de laisser le navigateur rogner une image de travers.
+        using var square = CropToSquare(bitmap);
+
+        var fileName = $"{Guid.NewGuid():N}.webp";
+        await WriteResizedAsync(square, Path.Combine(directory, fileName), _options.AvatarDimension, cancellationToken);
+
+        return fileName;
+    }
+
+    private static SKBitmap CropToSquare(SKBitmap source)
+    {
+        var side = Math.Min(source.Width, source.Height);
+        var left = (source.Width - side) / 2;
+        var top = (source.Height - side) / 2;
+
+        var square = new SKBitmap(side, side);
+        source.ExtractSubset(square, SKRectI.Create(left, top, side, side));
+        return square;
+    }
+
     private async Task WriteResizedAsync(SKBitmap source, string path, int maxDimension, CancellationToken cancellationToken)
     {
         var scale = Math.Min(1d, (double)maxDimension / Math.Max(source.Width, source.Height));

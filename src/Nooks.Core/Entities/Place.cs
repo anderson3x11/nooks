@@ -136,22 +136,56 @@ public sealed class Place
         return existing;
     }
 
-    public PlacePhoto AddPhoto(string fileName, string thumbnailFileName, Guid uploadedByUserId)
+    public PlacePhoto AddPhoto(
+        string fileName,
+        string thumbnailFileName,
+        Guid uploadedByUserId,
+        string? attribution = null,
+        string? sourceUrl = null)
     {
         var isCover = _photos.Count == 0;
-        var photo = PlacePhoto.Create(Id, fileName, thumbnailFileName, uploadedByUserId, isCover);
+        var photo = PlacePhoto.Create(Id, fileName, thumbnailFileName, uploadedByUserId, isCover, attribution, sourceUrl);
         _photos.Add(photo);
         return photo;
     }
 
-    /// <summary>Remet la moyenne et le compteur en phase avec les notes chargées.</summary>
+    /// <summary>Retire un avis de la fiche publique. La moyenne cesse aussitôt d'en tenir compte.</summary>
+    public void RemoveRating(Guid ratingId, Guid moderatorId)
+    {
+        Find(ratingId).Remove(moderatorId);
+        RecalculateRating();
+    }
+
+    public void RestoreRating(Guid ratingId)
+    {
+        Find(ratingId).Restore();
+        RecalculateRating();
+    }
+
+    /// <summary>Suppression définitive, pour le spam pur qu'il est inutile de conserver.</summary>
+    public void DeleteRating(Guid ratingId)
+    {
+        _ratings.Remove(Find(ratingId));
+        RecalculateRating();
+    }
+
+    /// <summary>
+    /// Remet la moyenne et le compteur en phase avec les notes chargées.
+    /// Les avis retirés par la modération n'y comptent plus.
+    /// </summary>
     public void RecalculateRating()
     {
-        RatingCount = _ratings.Count;
+        var visible = _ratings.Where(rating => !rating.IsRemoved).ToList();
+
+        RatingCount = visible.Count;
         AverageRating = RatingCount == 0
             ? 0
-            : Math.Round(_ratings.Average(r => (double)r.Stars), 2, MidpointRounding.AwayFromZero);
+            : Math.Round(visible.Average(r => (double)r.Stars), 2, MidpointRounding.AwayFromZero);
     }
+
+    private Rating Find(Guid ratingId)
+        => _ratings.SingleOrDefault(rating => rating.Id == ratingId)
+           ?? throw new DomainException("Cet avis n'existe pas sur ce lieu.");
 
     private static string Require(string value, string parameterName, int maxLength, string label)
     {

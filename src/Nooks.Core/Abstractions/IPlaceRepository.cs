@@ -24,5 +24,11 @@ public interface IPlaceRepository
 
     Task AddAsync(Place place, CancellationToken cancellationToken);
 
+    /// <summary>Suppression définitive d'un lieu et de tout ce qui s'y rattache.</summary>
+    Task DeleteAsync(Place place, CancellationToken cancellationToken);
+
+    /// <summary>Avis vus depuis la modération, les plus récents d'abord.</summary>
+    Task<IReadOnlyList<AdminRatingDto>> ListRatingsAsync(bool removedOnly, int limit, CancellationToken cancellationToken);
+
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

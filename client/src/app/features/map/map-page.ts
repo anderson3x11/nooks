@@ -51,7 +51,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
            des couches Leaflet, qui montent jusqu'à z-index 800. -->
       <div class="pointer-events-none absolute inset-0 z-[1000] flex flex-col gap-4 p-4">
         <header class="flex items-start gap-3">
-          <a routerLink="/" class="card pointer-events-auto flex items-center gap-2.5 rounded-full py-2 pr-5 pl-2">
+          <a routerLink="/" class="card pointer-events-auto flex h-12 items-center gap-2.5 rounded-full pr-5 pl-2">
             <span class="flex size-8 items-center justify-center rounded-full bg-ink-950">
               <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
                 <path
@@ -70,7 +70,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
 
           <div class="flex-1"></div>
 
-          <div class="card pointer-events-auto flex items-center gap-2 rounded-full p-1.5 pl-4">
+          <div class="card pointer-events-auto flex h-12 items-center gap-2 rounded-full pr-1.5 pl-4">
             @if (auth.user(); as user) {
               <span class="text-[14px] text-ink-700">{{ user.displayName }}</span>
               @if (auth.isAdmin()) {

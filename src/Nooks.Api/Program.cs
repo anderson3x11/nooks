@@ -91,6 +91,7 @@ app.MapAuthEndpoints();
 app.MapPlacesEndpoints();
 app.MapGeocodeEndpoints();
 app.MapAdminEndpoints();
+app.MapMembersEndpoints();
 
 app.Run();
 

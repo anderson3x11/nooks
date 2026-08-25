@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Nooks.Infrastructure.Persistence.Seed;
 
@@ -79,7 +80,14 @@ public static class DatabaseSeeder
 
         await SeedRolesAsync(provider.GetRequiredService<RoleManager<IdentityRole<Guid>>>());
         var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>());
-        var created = await SeedPlacesAsync(context, provider.GetRequiredService<IPhotoStorage>(), users, cancellationToken);
+        var created = await SeedPlacesAsync(
+            context,
+            provider.GetRequiredService<IPhotoStorage>(),
+            provider.GetRequiredService<WikimediaPhotoSource>(),
+            provider.GetRequiredService<IOptions<SeedOptions>>().Value,
+            users,
+            logger,
+            cancellationToken);
 
         logger.LogInformation("Seed terminé : {UserCount} comptes de démonstration, {PlaceCount} lieux ajoutés.", users.Count, created);
     }
@@ -136,7 +144,10 @@ public static class DatabaseSeeder
     private static async Task<int> SeedPlacesAsync(
         NooksDbContext context,
         IPhotoStorage storage,
+        WikimediaPhotoSource photoSource,
+        SeedOptions options,
         List<AppUser> users,
+        ILogger logger,
         CancellationToken cancellationToken)
     {
         if (await context.Places.AnyAsync(cancellationToken))
@@ -145,6 +156,7 @@ public static class DatabaseSeeder
         }
 
         var seedPlaces = await ReadSeedPlacesAsync(cancellationToken);
+        var photographed = 0;
 
         for (var index = 0; index < seedPlaces.Count; index++)
         {
@@ -163,9 +175,22 @@ public static class DatabaseSeeder
                 author.Id,
                 PlaceStatus.Approved);
 
-            // Chaque lieu porte une illustration : sans photo, il n'aurait pas de marqueur.
-            using (var illustration = new MemoryStream(SeedPhotoFactory.Create(seed.Category, seed.Name)))
+            // Chaque lieu porte une photo : sans elle, il n'aurait pas de marqueur.
+            // On tente d'abord la vraie photo de son article Wikipédia, créditée.
+            var sourced = options.FetchPhotos
+                ? await photoSource.TryFetchAsync(seed.Wikipedia ?? seed.Name, cancellationToken)
+                : null;
+
+            if (sourced is not null)
             {
+                using var stream = new MemoryStream(sourced.Content);
+                var stored = await storage.SaveAsync(place.Id, stream, cancellationToken);
+                place.AddPhoto(stored.FileName, stored.ThumbnailFileName, author.Id, sourced.Attribution, sourced.SourceUrl);
+                photographed++;
+            }
+            else
+            {
+                using var illustration = new MemoryStream(SeedPhotoFactory.Create(seed.Category, seed.Name));
                 var stored = await storage.SaveAsync(place.Id, illustration, cancellationToken);
                 place.AddPhoto(stored.FileName, stored.ThumbnailFileName, author.Id);
             }
@@ -187,6 +212,12 @@ public static class DatabaseSeeder
         }
 
         await context.SaveChangesAsync(cancellationToken);
+
+        logger.LogInformation(
+            "Photos : {Photographed} vraies photos Wikipédia, {Generated} illustrations générées.",
+            photographed,
+            seedPlaces.Count - photographed);
+
         return seedPlaces.Count;
     }
 

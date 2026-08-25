@@ -10,7 +10,7 @@ import { PlacesApi } from '../../core/places-api';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="relative w-80">
-      <div class="card flex items-center gap-2.5 rounded-full px-4 py-2.5">
+      <div class="card flex h-12 items-center gap-2.5 rounded-full px-4">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" class="shrink-0">
           <circle cx="7" cy="7" r="4.6" stroke="#737373" stroke-width="1.6" />
           <path d="m10.6 10.6 3.2 3.2" stroke="#737373" stroke-width="1.6" stroke-linecap="round" />

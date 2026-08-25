@@ -13,5 +13,7 @@ public sealed class PhotoStorageOptions
 
     public int ThumbnailDimension { get; set; } = 400;
 
+    public int AvatarDimension { get; set; } = 256;
+
     public int Quality { get; set; } = 80;
 }

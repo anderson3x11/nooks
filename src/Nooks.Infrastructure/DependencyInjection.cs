@@ -2,6 +2,7 @@ using Nooks.Core.Abstractions;
 using Nooks.Infrastructure.Geocoding;
 using Nooks.Infrastructure.Persistence;
 using Nooks.Infrastructure.Persistence.Repositories;
+using Nooks.Infrastructure.Persistence.Seed;
 using Nooks.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ public static class DependencyInjection
                 npgsql => npgsql.UseNetTopologySuite()));
 
         services.AddScoped<IPlaceRepository, PlaceRepository>();
+        services.AddScoped<IProfileRepository, ProfileRepository>();
 
         services.AddMemoryCache();
         services.Configure<NominatimOptions>(configuration.GetSection(NominatimOptions.SectionName));
@@ -29,6 +31,14 @@ public static class DependencyInjection
             client.BaseAddress = new Uri(options.BaseUrl);
             client.DefaultRequestHeaders.UserAgent.ParseAdd(options.UserAgent);
             client.Timeout = TimeSpan.FromSeconds(10);
+        });
+
+        services.Configure<SeedOptions>(configuration.GetSection(SeedOptions.SectionName));
+        services.AddHttpClient<WikimediaPhotoSource>((provider, client) =>
+        {
+            var options = provider.GetRequiredService<IOptions<SeedOptions>>().Value;
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(options.UserAgent);
+            client.Timeout = TimeSpan.FromSeconds(20);
         });
 
         services.Configure<PhotoStorageOptions>(configuration.GetSection(PhotoStorageOptions.SectionName));

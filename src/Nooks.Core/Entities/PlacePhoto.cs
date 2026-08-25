@@ -12,9 +12,22 @@ public sealed class PlacePhoto
     public DateTimeOffset CreatedAt { get; private set; }
     public bool IsCover { get; private set; }
 
-    internal static PlacePhoto Create(Guid placeId, string fileName, string thumbnailFileName, Guid uploadedByUserId, bool isCover)
+    /// <summary>Auteur et licence, pour les photos reprises d'une source libre.</summary>
+    public string? Attribution { get; private set; }
+    public string? SourceUrl { get; private set; }
+
+    internal static PlacePhoto Create(
+        Guid placeId,
+        string fileName,
+        string thumbnailFileName,
+        Guid uploadedByUserId,
+        bool isCover,
+        string? attribution = null,
+        string? sourceUrl = null)
         => new()
         {
+            Attribution = attribution,
+            SourceUrl = sourceUrl,
             Id = Guid.NewGuid(),
             PlaceId = placeId,
             FileName = fileName,

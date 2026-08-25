@@ -35,6 +35,9 @@ public sealed class NooksApiFactory : WebApplicationFactory<Program>, IAsyncLife
         builder.UseEnvironment("Development");
         builder.UseSetting("ConnectionStrings:Default", _database.GetConnectionString());
 
+        // Pas d'appel à Wikipédia pendant les tests : le seed doit rester rapide et hors ligne.
+        builder.UseSetting("Seed:FetchPhotos", "false");
+
         builder.ConfigureTestServices(services =>
         {
             // Aucun appel réseau pendant les tests : Nominatim est remplacé par une réponse fixe.

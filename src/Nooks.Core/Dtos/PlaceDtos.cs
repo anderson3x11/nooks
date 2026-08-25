@@ -46,9 +46,20 @@ public sealed record PlaceDetailDto(
     string CreatedByDisplayName,
     bool SuspectedDuplicate,
     IReadOnlyList<PlacePhotoDto> Photos,
-    IReadOnlyList<PlaceRatingDto> Ratings);
+    IReadOnlyList<PlaceRatingDto> Ratings)
+{
+    /// <summary>Renseigné par l'endpoint quand un membre est connecté.</summary>
+    public bool IsFavorite { get; init; }
+}
 
-public sealed record PlacePhotoDto(Guid Id, string Url, string ThumbnailUrl, bool IsCover);
+public sealed record PlacePhotoDto(
+    Guid Id,
+    string Url,
+    string ThumbnailUrl,
+    bool IsCover,
+    /// <summary>Auteur et licence, quand la photo vient d'une source externe.</summary>
+    string? Attribution,
+    string? SourceUrl);
 
 public sealed record PlaceRatingDto(
     Guid Id,

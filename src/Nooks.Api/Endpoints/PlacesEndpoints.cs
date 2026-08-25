@@ -93,10 +93,22 @@ public static class PlacesEndpoints
         Guid id,
         ClaimsPrincipal principal,
         IPlaceRepository repository,
+        IProfileRepository profiles,
         CancellationToken cancellationToken)
     {
         var place = await repository.GetDetailAsync(id, principal.IsInRole(AppRoles.Admin), cancellationToken);
-        return place is null ? Results.NotFound() : Results.Ok(place);
+        if (place is null)
+        {
+            return Results.NotFound();
+        }
+
+        // Le bouton favori doit connaître son état dès l'ouverture de la fiche.
+        if (principal.Identity?.IsAuthenticated == true)
+        {
+            place = place with { IsFavorite = await profiles.IsFavoriteAsync(principal.GetUserId(), id, cancellationToken) };
+        }
+
+        return Results.Ok(place);
     }
 
     /// <summary>

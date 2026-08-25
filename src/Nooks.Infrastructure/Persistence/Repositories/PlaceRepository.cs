@@ -167,8 +167,11 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
                     photo.Id,
                     PhotoUrls.For(place.Id, photo.FileName),
                     PhotoUrls.For(place.Id, photo.ThumbnailFileName),
-                    photo.IsCover))],
+                    photo.IsCover,
+                    photo.Attribution,
+                    photo.SourceUrl))],
             [.. place.Ratings
+                .Where(rating => includeUnapproved || !rating.IsRemoved)
                 .OrderByDescending(rating => rating.UpdatedAt)
                 .Select(rating => new PlaceRatingDto(
                     rating.Id,
@@ -189,6 +192,42 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
 
     public async Task AddAsync(Place place, CancellationToken cancellationToken)
         => await context.Places.AddAsync(place, cancellationToken);
+
+    public Task DeleteAsync(Place place, CancellationToken cancellationToken)
+    {
+        context.Places.Remove(place);
+        return context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<AdminRatingDto>> ListRatingsAsync(
+        bool removedOnly,
+        int limit,
+        CancellationToken cancellationToken)
+    {
+        var ratings = context.Ratings.AsNoTracking();
+        if (removedOnly)
+        {
+            ratings = ratings.Where(rating => rating.RemovedAt != null);
+        }
+
+        return await ratings
+            .OrderByDescending(rating => rating.UpdatedAt)
+            .Take(limit)
+            .Join(context.Places, rating => rating.PlaceId, place => place.Id, (rating, place) => new { rating, place })
+            .Join(context.Users, row => row.rating.UserId, user => user.Id, (row, user) => new AdminRatingDto(
+                row.rating.Id,
+                row.place.Id,
+                row.place.Name,
+                user.Id,
+                user.DisplayName,
+                row.rating.Stars,
+                row.rating.Comment,
+                row.rating.CreatedAt,
+                row.rating.UpdatedAt,
+                row.rating.UpdatedAt > row.rating.CreatedAt,
+                row.rating.RemovedAt != null))
+            .ToListAsync(cancellationToken);
+    }
 
     public Task SaveChangesAsync(CancellationToken cancellationToken)
         => context.SaveChangesAsync(cancellationToken);

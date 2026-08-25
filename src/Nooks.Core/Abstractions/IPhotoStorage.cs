@@ -7,4 +7,7 @@ public interface IPhotoStorage
 {
     /// <summary>Valide, redimensionne et enregistre l'image envoyée pour un lieu.</summary>
     Task<StoredPhoto> SaveAsync(Guid placeId, Stream content, CancellationToken cancellationToken);
+
+    /// <summary>Enregistre la photo de profil d'un membre, recadrée en carré.</summary>
+    Task<string> SaveAvatarAsync(Guid userId, Stream content, CancellationToken cancellationToken);
 }

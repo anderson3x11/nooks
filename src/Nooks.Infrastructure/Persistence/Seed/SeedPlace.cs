@@ -14,4 +14,10 @@ public sealed class SeedPlace
     public string City { get; set; } = null!;
     public string Country { get; set; } = null!;
     public int[] Ratings { get; set; } = [];
+
+    /// <summary>
+    /// Titre de l'article Wikipédia, quand il en existe un : c'est de là que vient
+    /// la photo du lieu. Sans lui, on retombe sur une illustration générée.
+    /// </summary>
+    public string? Wikipedia { get; set; }
 }
