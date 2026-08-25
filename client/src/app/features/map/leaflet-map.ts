@@ -10,6 +10,7 @@ import {
   viewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet.markercluster';
 import { Basemap, DEFAULT_BASEMAP } from '../../core/basemaps';
 import { PIN_ANCHOR, PIN_SIZE, draftPinHtml, pinHtml } from '../../core/categories';
 import { MapBounds, PlaceSummary } from '../../core/models';
@@ -39,6 +40,7 @@ export class LeafletMap implements OnDestroy {
   private readonly host = viewChild.required<ElementRef<HTMLDivElement>>('host');
   private map?: L.Map;
   private tiles?: L.TileLayer;
+  private cluster?: L.MarkerClusterGroup;
   private readonly markers = new Map<string, { marker: L.Marker; photo: string | null }>();
   private draft?: L.Marker;
 
@@ -110,12 +112,31 @@ export class LeafletMap implements OnDestroy {
     const map = L.map(this.host().nativeElement, {
       center: PARIS,
       zoom: 13,
+      // Déclaré sur la carte et pas seulement sur les tuiles : le regroupement de
+      // marqueurs en a besoin, et il est créé avant la couche de fond.
+      maxZoom: 19,
       zoomControl: false,
       attributionControl: true,
     });
 
     // En bas à droite : le coin haut gauche revient au bandeau de titre.
     L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    // Les marqueurs proches se regroupent : au-delà de quelques centaines de points,
+    // les afficher un par un rame et rend la carte illisible.
+    this.cluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      maxClusterRadius: 60,
+      disableClusteringAtZoom: 17,
+      iconCreateFunction: (cluster) =>
+        L.divIcon({
+          html: `<span class="nooks-cluster__badge">${cluster.getChildCount()}</span>`,
+          className: 'nooks-cluster',
+          iconSize: [38, 30],
+          iconAnchor: [19, 15],
+        }),
+    }).addTo(map);
 
     map.on('moveend', () => this.emitBounds(map));
     map.on('click', (event: L.LeafletMouseEvent) =>
@@ -160,7 +181,7 @@ export class LeafletMap implements OnDestroy {
 
     for (const [id, entry] of this.markers) {
       if (!wanted.has(id)) {
-        entry.marker.remove();
+        this.cluster!.removeLayer(entry.marker);
         this.markers.delete(id);
       }
     }
@@ -180,11 +201,10 @@ export class LeafletMap implements OnDestroy {
       const marker = L.marker([place.latitude, place.longitude], {
         icon: this.icon(place, 'nooks-pin--drop'),
         title: place.name,
-      })
-        .addTo(map)
-        .on('click', () => this.placeSelected.emit(place.id));
+      }).on('click', () => this.placeSelected.emit(place.id));
 
       marker.bindTooltip(place.name, { direction: 'top', offset: [0, -52], className: 'nooks-tooltip' });
+      this.cluster!.addLayer(marker);
       this.markers.set(place.id, { marker, photo: place.coverThumbnailUrl });
     }
   }

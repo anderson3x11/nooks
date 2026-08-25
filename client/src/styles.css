@@ -458,3 +458,33 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-ink-300) transparent;
 }
+
+/* Regroupement de marqueurs : une pastille sobre qui annonce le nombre de lieux. */
+.nooks-cluster {
+  background: none;
+  border: none;
+}
+
+.nooks-cluster__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 38px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--color-ink-200);
+  box-shadow: var(--shadow-card);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ink-950);
+  transition: transform 180ms var(--ease-out-quint);
+}
+
+.nooks-cluster:hover .nooks-cluster__badge {
+  transform: scale(1.08);
+  background: var(--color-ink-950);
+  color: #fff;
+  border-color: var(--color-ink-950);
+}

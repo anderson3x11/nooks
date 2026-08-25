@@ -28,7 +28,44 @@ public static class DatabaseSeeder
     [
         ("admin@nooks.local", "Admin Nooks", true),
         ("camille@nooks.local", "Camille", false),
-        ("hugo@nooks.local", "Hugo", false)
+        ("hugo@nooks.local", "Hugo", false),
+        ("lea@nooks.local", "Lea", false),
+        ("karim@nooks.local", "Karim", false),
+        ("sofia@nooks.local", "Sofia", false),
+        ("thomas@nooks.local", "Thomas", false),
+        ("manon@nooks.local", "Manon", false)
+    ];
+
+    /// <summary>
+    /// Commentaires de démonstration. Ils sont volontairement génériques : inventer
+    /// un avis circonstancié au nom d'une personne qui n'existe pas serait un faux.
+    /// </summary>
+    private static readonly string[] DemoComments =
+    [
+        "Vraiment surprenant, et personne n'y était.",
+        "À faire en fin de journée, la lumière change tout.",
+        "Je passais devant depuis des années sans jamais m'arrêter.",
+        "Petit mais on y reste plus longtemps que prévu.",
+        "Arrivez tôt, ça se remplit vite le week-end.",
+        "Exactement le genre d'endroit pour lequel j'utilise cette carte.",
+        "Un peu difficile à trouver, la ruelle n'est pas indiquée.",
+        "Gratuit, et franchement mieux que beaucoup de payants.",
+        "Emmené des amis de passage, ils ont adoré.",
+        "Moins spectaculaire que sur les photos, mais l'ambiance y est.",
+        "Allez-y en semaine si vous pouvez.",
+        "Une vraie curiosité, je ne m'y attendais pas du tout.",
+        "Prévoyez de bonnes chaussures.",
+        "Le genre d'endroit dont on parle encore le lendemain.",
+        "Calme, même en pleine saison.",
+        "Un détour largement justifié.",
+        "Bien plus grand qu'il n'y paraît de l'extérieur.",
+        "J'y retourne dès que j'ai des visiteurs.",
+        "Attention aux horaires, très restreints.",
+        "Belle découverte, merci à celui qui l'a ajouté.",
+        "Ça vaut le coup rien que pour la vue.",
+        "Un endroit qu'on ne trouve dans aucun guide.",
+        "Parfait pour une pause au milieu d'une balade.",
+        "Sympa, sans plus, mais content d'y être passé."
     ];
 
     public static async Task SeedDatabaseAsync(this IServiceProvider services, CancellationToken cancellationToken = default)
@@ -134,9 +171,16 @@ public static class DatabaseSeeder
             }
 
             // Une note par membre au maximum : l'index du tableau détermine qui a noté.
+            // Les votants sont décalés d'un lieu à l'autre pour que les avis ne viennent
+            // pas toujours des trois mêmes comptes.
             for (var ratingIndex = 0; ratingIndex < seed.Ratings.Length && ratingIndex < users.Count; ratingIndex++)
             {
-                place.AddOrUpdateRating(users[ratingIndex].Id, seed.Ratings[ratingIndex], null);
+                var voter = users[(index + ratingIndex) % users.Count];
+                var comment = (index + ratingIndex) % 3 == 2
+                    ? null
+                    : DemoComments[(index * 3 + ratingIndex) % DemoComments.Length];
+
+                place.AddOrUpdateRating(voter.Id, seed.Ratings[ratingIndex], comment);
             }
 
             context.Places.Add(place);

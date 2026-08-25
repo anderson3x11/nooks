@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { Subject, catchError, of, switchMap } from 'rxjs';
+import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 import { Auth } from '../../core/auth';
 import { BASEMAPS, Basemap, basemapById } from '../../core/basemaps';
 import {
@@ -23,6 +23,12 @@ import { LeafletMap } from './leaflet-map';
 type Mode = 'browse' | 'adding';
 
 const BASEMAP_KEY = 'nooks.basemap';
+
+/**
+ * Surface maximale interrogeable, en degrés carrés. Même valeur que côté serveur :
+ * au-delà, on n'envoie même pas la requête et on invite à zoomer.
+ */
+const MAX_AREA_IN_SQUARE_DEGREES = 100;
 
 @Component({
   selector: 'nooks-map-page',
@@ -162,6 +168,10 @@ const BASEMAP_KEY = 'nooks.basemap';
               <p class="card card-float animate-rise pointer-events-auto rounded-full bg-ink-950 px-4 py-2 text-[13.5px] font-semibold text-white">
                 {{ text }}
               </p>
+            } @else if (tooWide()) {
+              <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
+                Zoomez pour découvrir les lieux
+              </p>
             } @else if (mode() === 'browse' && !detail()) {
               <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
                 {{ places().length }} lieu{{ places().length > 1 ? 'x' : '' }} dans cette zone
@@ -194,6 +204,8 @@ export class MapPage {
   protected readonly banner = signal<string | null>(null);
   /** Lieux semblables renvoyés par le serveur quand il refuse la publication. */
   protected readonly duplicates = signal<PlaceSummary[]>([]);
+  /** La zone visible est trop large pour être interrogée utilement. */
+  protected readonly tooWide = signal(false);
 
   protected readonly basemaps = BASEMAPS;
   protected readonly basemapOpen = signal(false);
@@ -213,8 +225,10 @@ export class MapPage {
   constructor() {
     this.reload
       .pipe(
+        // Un déplacement de carte enchaîne plusieurs « moveend » ; on ne garde que le dernier.
+        debounceTime(200),
         switchMap(() =>
-          this.bounds
+          this.bounds && !this.tooWide()
             ? this.api.search(this.bounds, this.filters()).pipe(catchError(() => of([] as PlaceSummary[])))
             : of([] as PlaceSummary[]),
         ),
@@ -225,6 +239,7 @@ export class MapPage {
 
   protected onBoundsChanged(bounds: MapBounds): void {
     this.bounds = bounds;
+    this.tooWide.set((bounds.maxLon - bounds.minLon) * (bounds.maxLat - bounds.minLat) > MAX_AREA_IN_SQUARE_DEGREES);
     this.reload.next();
   }
 
