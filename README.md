@@ -109,7 +109,7 @@ Les lieux partent alors en file d'attente, invisibles sur la carte publique, jus
 
 | Route | Contenu |
 |---|---|
-| `/` | Accueil : carte en fond, chiffres réels, catégories, derniers lieux |
+| `/` | Accueil : vignette de carte et lieux mis en avant, chiffres réels, concept, catégories, derniers lieux |
 | `/carte` | La carte, ses filtres et la proposition de lieux. Accepte `?categorie=` et `?lieu=` |
 | `/profil`, `/membres/:id` | Profil : présentation, avatar, lieux proposés, avis, favoris |
 | `/admin` | File d'attente, lieux publiés, modération des avis, liste des membres |

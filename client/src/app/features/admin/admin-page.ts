@@ -22,7 +22,7 @@ type Section = 'queue' | 'places' | 'reviews' | 'members';
   template: `
     <nooks-header />
 
-    <main class="min-h-[70vh] bg-ink-50 pb-20">
+    <main class="min-h-[70vh] bg-ink-50 pt-24 pb-20">
       <div class="mx-auto max-w-5xl px-5 py-10">
         <header class="mb-7">
           <h1 class="text-[32px]">Administration</h1>

@@ -24,7 +24,7 @@ type Tab = 'places' | 'reviews' | 'favorites';
   template: `
     <nooks-header />
 
-    <main class="min-h-[60vh] bg-ink-50 pb-20">
+    <main class="min-h-[60vh] bg-ink-50 pt-24 pb-20">
       @if (profile(); as member) {
         <section class="border-b border-ink-200 bg-white">
           <div class="mx-auto max-w-4xl px-5 py-12">

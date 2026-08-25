@@ -117,7 +117,15 @@ import { RatingStars } from './rating-stars';
               <nooks-stars [value]="item.averageRating" [count]="item.ratingCount" />
             </div>
 
-            <p class="mt-4 text-[14.5px] leading-relaxed text-ink-700">{{ item.description }}</p>
+            @if (loading() && !item.description) {
+              <div class="mt-4 flex flex-col gap-2" aria-hidden="true">
+                <span class="h-3.5 w-full rounded-full bg-ink-100"></span>
+                <span class="h-3.5 w-11/12 rounded-full bg-ink-100"></span>
+                <span class="h-3.5 w-8/12 rounded-full bg-ink-100"></span>
+              </div>
+            } @else {
+              <p class="mt-4 text-[14.5px] leading-relaxed text-ink-700">{{ item.description }}</p>
+            }
 
             @if (item.address) {
               <p class="mt-4 flex items-start gap-2 text-[13px] text-ink-500">
@@ -134,18 +142,22 @@ import { RatingStars } from './rating-stars';
               </p>
             }
 
-            <p class="mt-4 flex items-center gap-2 text-[13px] text-ink-500">
-              <span class="flex size-6 items-center justify-center rounded-full bg-ink-900 text-[11px] font-bold text-white">
-                {{ initial(item.createdByDisplayName) }}
-              </span>
-              Proposé par <span class="font-semibold text-ink-900">{{ item.createdByDisplayName }}</span>
-              le {{ formatDate(item.createdAt) }}
-            </p>
+            @if (item.createdByDisplayName) {
+              <p class="mt-4 flex items-center gap-2 text-[13px] text-ink-500">
+                <span class="flex size-6 items-center justify-center rounded-full bg-ink-900 text-[11px] font-bold text-white">
+                  {{ initial(item.createdByDisplayName) }}
+                </span>
+                Proposé par <span class="font-semibold text-ink-900">{{ item.createdByDisplayName }}</span>
+                le {{ formatDate(item.createdAt) }}
+              </p>
+            }
           </div>
 
-          <div class="divider mt-5"></div>
+          @if (!loading()) {
+            <div class="divider mt-5"></div>
+          }
 
-          <div class="px-5 py-5">
+          <div class="px-5 py-5" [class.hidden]="loading()">
             @if (auth.isSignedIn()) {
               <div class="label-caps mb-2">{{ myRating() ? 'Votre note' : 'Noter ce lieu' }}</div>
               <nooks-stars [value]="myRating()?.stars ?? 0" [size]="22" [interactive]="true" (rated)="submit($event)" />
@@ -215,6 +227,8 @@ export class PlaceDetailPanel {
 
   readonly place = input<PlaceDetail | null>(null);
   readonly busy = input(false);
+  /** Fiche ouverte avec les données de la carte, en attendant le détail complet. */
+  readonly loading = input(false);
 
   readonly closed = output<void>();
   readonly rated = output<{ stars: number; comment: string | null }>();

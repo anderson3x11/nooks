@@ -1,91 +1,135 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { catchError, of } from 'rxjs';
 import { Auth } from '../../core/auth';
-import { CATEGORIES, categoryStyle } from '../../core/categories';
-import { HomeSummary, PlaceCategory, PlaceSummary } from '../../core/models';
+import { CATEGORIES } from '../../core/categories';
+import { HomeSummary, MapBounds, PlaceCategory, PlaceSummary, emptyFilters } from '../../core/models';
 import { MembersApi } from '../../core/members-api';
+import { PlacesApi } from '../../core/places-api';
 import { CategorySymbol } from '../../shared/category-symbol';
+import { PlaceCard } from '../../shared/place-card';
 import { SiteFooter } from '../../shared/site-footer';
 import { SiteHeader } from '../../shared/site-header';
 import { LeafletMap } from '../map/leaflet-map';
-import { RatingStars } from '../places/rating-stars';
 
-/** Cadrage sur la France entière pour la carte décorative de l'en-tête. */
-const FRANCE: [number, number] = [46.7, 2.6];
+/** Le quartier du Marais : assez dense en lieux pour que la vignette de carte parle. */
+const SHOWCASE_CENTER: [number, number] = [48.8605, 2.3585];
+const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, maxLat: 48.9 };
 
 @Component({
   selector: 'nooks-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, SiteHeader, SiteFooter, CategorySymbol, RatingStars, LeafletMap],
+  imports: [RouterLink, SiteHeader, SiteFooter, CategorySymbol, PlaceCard, LeafletMap],
   template: `
     <nooks-header />
 
     <main>
-      <!-- Hero : la carte en fond, estompée, avec le discours par-dessus. -->
-      <section class="relative overflow-hidden border-b border-ink-200">
-        <!-- Contexte d'empilement isolé : les couches Leaflet montent à z-index 800
-             et passeraient sinon par-dessus le texte. -->
-        <div class="pointer-events-none absolute inset-0 isolate">
-          <nooks-map
-            class="absolute inset-0"
-            [places]="summary()?.latest ?? []"
-            [initialCenter]="france"
-            [initialZoom]="6"
-            [inert]="true"
-          />
-        </div>
-        <!-- Deux voiles : l'un dégage la colonne de texte à gauche, l'autre raccorde au blanc en bas. -->
-        <div
-          class="pointer-events-none absolute inset-0 z-10"
-          style="background: linear-gradient(100deg, #fff 8%, rgb(255 255 255 / 0.92) 36%, rgb(255 255 255 / 0.45) 66%, rgb(255 255 255 / 0.25) 100%);"
-        ></div>
-        <div
-          class="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40"
-          style="background: linear-gradient(180deg, transparent, #fff);"
-        ></div>
+      <!-- Hero : le discours à gauche, une vignette de carte et deux lieux à droite. -->
+      <section class="mx-auto max-w-6xl px-5 pt-32 pb-20 sm:pt-40">
+        <div class="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
+          <div>
+            <p class="label-caps mb-4">Carte collaborative</p>
+            <h1 class="text-[40px] sm:text-[48px] xl:text-[54px]">
+              Les endroits qu'on ne trouve dans aucun guide.
+            </h1>
+            <p class="mt-6 max-w-lg text-[17px] leading-relaxed text-ink-700">
+              Un point de vue oublié, une boutique impossible, un passage couvert derrière une porte
+              cochère. Nooks rassemble ce que les habitants connaissent et que les guides ignorent.
+            </p>
 
-        <div class="relative z-20 mx-auto max-w-6xl px-5 py-24 sm:py-32">
-          <p class="label-caps mb-4">Carte collaborative</p>
-          <h1 class="max-w-3xl text-[42px] sm:text-[58px]">
-            Les endroits qu'on ne trouve<br class="hidden sm:block" />
-            dans aucun guide.
-          </h1>
-          <p class="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-700">
-            Un point de vue oublié, une boutique impossible, un passage couvert derrière une porte
-            cochère. Nooks rassemble ce que les habitants connaissent et que les guides ignorent.
-          </p>
-
-          <div class="mt-9 flex flex-wrap items-center gap-3">
-            <a routerLink="/carte" class="btn btn-primary card-float px-6 py-3.5 text-[15px]">
-              Ouvrir la carte
-              <svg width="15" height="15" viewBox="0 0 12 12" aria-hidden="true">
-                <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </a>
-            @if (!auth.isSignedIn()) {
-              <a routerLink="/inscription" class="btn btn-secondary card-float px-6 py-3.5 text-[15px]">
-                Créer un compte
+            <div class="mt-9 flex flex-wrap items-center gap-3">
+              <a routerLink="/carte" class="btn btn-primary card-float px-6 py-3.5 text-[15px]">
+                Ouvrir la carte
+                <svg width="15" height="15" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M2 6h8M6.5 2.5 10 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </a>
+              @if (!auth.isSignedIn()) {
+                <a routerLink="/inscription" class="btn btn-secondary px-6 py-3.5 text-[15px]">Créer un compte</a>
+              }
+              <span class="text-[14px] text-ink-500">Pas besoin de compte pour regarder.</span>
+            </div>
+
+            @if (summary(); as data) {
+              <dl class="mt-12 grid max-w-lg grid-cols-2 gap-6 sm:grid-cols-4">
+                @for (stat of stats(data); track stat.label) {
+                  <div>
+                    <dt class="text-[28px] leading-none font-extrabold tabular-nums">{{ stat.value }}</dt>
+                    <dd class="mt-1.5 text-[13px] text-ink-500">{{ stat.label }}</dd>
+                  </div>
+                }
+              </dl>
             }
-            <span class="text-[14px] text-ink-500">Pas besoin de compte pour regarder.</span>
           </div>
 
-          @if (summary(); as data) {
-            <dl class="mt-14 grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-4">
-              @for (stat of stats(data); track stat.label) {
-                <div>
-                  <dt class="text-[30px] leading-none font-extrabold tabular-nums">{{ stat.value }}</dt>
-                  <dd class="mt-1.5 text-[13.5px] text-ink-500">{{ stat.label }}</dd>
-                </div>
+          <!-- Composition : la carte en fond de scène, deux fiches posées dessus. -->
+          <div class="relative mx-auto w-full max-w-md pb-10 lg:pb-0">
+            <!-- Contexte d'empilement isolé : les couches Leaflet passeraient sinon devant les fiches. -->
+            <div class="card card-float isolate h-[420px] overflow-hidden rounded-[32px]">
+              <nooks-map
+                class="h-full w-full"
+                [places]="showcase()"
+                [initialCenter]="center"
+                [initialZoom]="14"
+                [inert]="true"
+              />
+            </div>
+
+            @if (highlights(); as pair) {
+              @if (pair[0]; as first) {
+                <a
+                  [routerLink]="['/carte']"
+                  [queryParams]="{ lieu: first.id }"
+                  class="animate-rise card-float absolute -top-6 -left-4 z-10 w-52 -rotate-3 transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-left-10 sm:w-56"
+                >
+                  <nooks-place-card [place]="first" imageHeight="h-28" />
+                </a>
               }
-            </dl>
-          }
+              @if (pair[1]; as second) {
+                <a
+                  [routerLink]="['/carte']"
+                  [queryParams]="{ lieu: second.id }"
+                  class="animate-rise card-float absolute -right-4 -bottom-2 z-10 w-52 rotate-2 transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-right-10 sm:w-56"
+                >
+                  <nooks-place-card [place]="second" imageHeight="h-28" />
+                </a>
+              }
+            }
+          </div>
         </div>
       </section>
 
-      <!-- Catégories : la légende de la carte, en entrée de site. -->
-      <section class="mx-auto max-w-6xl px-5 py-20">
-        <h2 class="text-[30px]">Qu'est-ce qu'on y trouve ?</h2>
+      <!-- Le concept -->
+      <section id="concept" class="scroll-mt-28 border-y border-ink-200 bg-ink-50">
+        <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p class="label-caps mb-4">Le concept</p>
+            <h2 class="text-[32px]">Une carte tenue par ceux qui marchent.</h2>
+            <p class="mt-5 max-w-lg text-[16px] leading-relaxed text-ink-700">
+              Les guides recopient les mêmes vingt adresses. Les habitants, eux, connaissent la cour
+              qu'on traverse pour gagner cinq minutes, le banc d'où le coucher de soleil est parfait,
+              la boutique qui n'a pas changé depuis 1950.
+            </p>
+            <p class="mt-4 max-w-lg text-[16px] leading-relaxed text-ink-700">
+              Chaque lieu de Nooks a été posé par quelqu'un qui y est allé, avec sa photo et son nom
+              attaché. C'est tout ce qui fait la différence.
+            </p>
+          </div>
+
+          <ul class="grid gap-4 sm:grid-cols-2">
+            @for (point of concept; track point.title) {
+              <li class="card px-5 py-5">
+                <h3 class="text-[16.5px]">{{ point.title }}</h3>
+                <p class="mt-2 text-[14px] leading-relaxed text-ink-600">{{ point.body }}</p>
+              </li>
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- Catégories -->
+      <section id="categories" class="mx-auto max-w-6xl scroll-mt-28 px-5 py-20">
+        <h2 class="text-[32px]">Qu'est-ce qu'on y trouve ?</h2>
         <p class="mt-2 max-w-xl text-[15.5px] text-ink-500">
           Chaque catégorie a sa couleur et son symbole, sur la carte comme dans les filtres.
         </p>
@@ -97,10 +141,7 @@ const FRANCE: [number, number] = [46.7, 2.6];
               [queryParams]="{ categorie: category.id }"
               class="card group flex items-center gap-4 px-5 py-4 transition-transform duration-200 hover:-translate-y-0.5"
             >
-              <span
-                class="flex size-11 shrink-0 items-center justify-center rounded-full"
-                [style.background]="category.color + '18'"
-              >
+              <span class="flex size-11 shrink-0 items-center justify-center rounded-full" [style.background]="category.color + '18'">
                 <nooks-symbol [category]="category.id" [size]="17" />
               </span>
               <span class="min-w-0 flex-1">
@@ -116,9 +157,9 @@ const FRANCE: [number, number] = [46.7, 2.6];
       </section>
 
       <!-- Comment ça marche -->
-      <section class="border-y border-ink-200 bg-ink-50">
+      <section id="fonctionnement" class="scroll-mt-28 border-y border-ink-200 bg-ink-50">
         <div class="mx-auto max-w-6xl px-5 py-20">
-          <h2 class="text-[30px]">Comment ça marche</h2>
+          <h2 class="text-[32px]">Comment ça marche</h2>
 
           <ol class="mt-10 grid gap-10 sm:grid-cols-3">
             @for (step of steps; track step.title; let i = $index) {
@@ -137,10 +178,10 @@ const FRANCE: [number, number] = [46.7, 2.6];
       <!-- Derniers lieux -->
       @if (summary(); as data) {
         @if (data.latest.length > 0) {
-          <section class="mx-auto max-w-6xl px-5 py-20">
+          <section id="derniers" class="mx-auto max-w-6xl scroll-mt-28 px-5 py-20">
             <div class="flex items-end justify-between gap-4">
               <div>
-                <h2 class="text-[30px]">Derniers lieux ajoutés</h2>
+                <h2 class="text-[32px]">Derniers lieux ajoutés</h2>
                 <p class="mt-2 text-[15.5px] text-ink-500">Ce que la communauté a posé récemment.</p>
               </div>
               <a routerLink="/carte" class="btn btn-secondary shrink-0">Tout voir</a>
@@ -151,28 +192,9 @@ const FRANCE: [number, number] = [46.7, 2.6];
                 <a
                   [routerLink]="['/carte']"
                   [queryParams]="{ lieu: place.id }"
-                  class="card overflow-hidden transition-transform duration-200 hover:-translate-y-0.5"
+                  class="transition-transform duration-200 hover:-translate-y-0.5"
                 >
-                  @if (place.coverThumbnailUrl) {
-                    <img [src]="place.coverThumbnailUrl" alt="" class="h-36 w-full object-cover" />
-                  } @else {
-                    <span class="flex h-36 w-full items-center justify-center bg-ink-100">
-                      <nooks-symbol [category]="place.category" [size]="26" />
-                    </span>
-                  }
-                  <span class="block px-4 py-3.5">
-                    <span class="flex items-center gap-1.5">
-                      <nooks-symbol [category]="place.category" [size]="10" />
-                      <span class="text-[12px] font-semibold" [style.color]="tint(place.category)">
-                        {{ label(place.category) }}
-                      </span>
-                      <span class="text-[12px] text-ink-400">· {{ place.city }}</span>
-                    </span>
-                    <span class="mt-1 block truncate text-[15.5px] font-semibold">{{ place.name }}</span>
-                    <span class="mt-1.5 block">
-                      <nooks-stars [value]="place.averageRating" [count]="place.ratingCount" [size]="11" />
-                    </span>
-                  </span>
+                  <nooks-place-card [place]="place" />
                 </a>
               }
             </div>
@@ -183,10 +205,10 @@ const FRANCE: [number, number] = [46.7, 2.6];
       <!-- Appel final -->
       <section class="mx-auto max-w-6xl px-5 pb-24">
         <div class="card overflow-hidden bg-ink-950 px-8 py-14 text-center text-white sm:px-16">
-          <h2 class="text-[30px] text-white sm:text-[36px]">Vous connaissez un endroit ?</h2>
+          <h2 class="text-[32px] text-white sm:text-[38px]">Vous connaissez un endroit ?</h2>
           <p class="mx-auto mt-4 max-w-lg text-[15.5px] leading-relaxed text-ink-300">
-            Posez-le sur la carte en une minute : un point, une photo, deux phrases. C'est ce qui
-            fera la différence pour quelqu'un qui passera par là dans six mois.
+            Posez-le sur la carte en une minute : un point, une photo, deux phrases. C'est ce qui fera
+            la différence pour quelqu'un qui passera par là dans six mois.
           </p>
           <div class="mt-8 flex flex-wrap justify-center gap-3">
             @if (auth.isSignedIn()) {
@@ -212,10 +234,38 @@ const FRANCE: [number, number] = [46.7, 2.6];
 export class HomePage {
   protected readonly auth = inject(Auth);
   private readonly api = inject(MembersApi);
+  private readonly placesApi = inject(PlacesApi);
 
-  protected readonly france = FRANCE;
+  protected readonly center = SHOWCASE_CENTER;
   protected readonly categories = CATEGORIES;
   protected readonly summary = signal<HomeSummary | null>(null);
+  protected readonly showcase = signal<PlaceSummary[]>([]);
+
+  /** Les deux lieux photographiés les mieux notés du quartier montré sur la vignette. */
+  protected readonly highlights = computed(() =>
+    this.showcase()
+      .filter((place) => place.coverThumbnailUrl !== null)
+      .slice(0, 2),
+  );
+
+  protected readonly concept = [
+    {
+      title: 'Posé par des gens, pas par un algorithme',
+      body: 'Aucun classement sponsorisé, aucune fiche générée. Chaque lieu vient de quelqu’un qui y est passé.',
+    },
+    {
+      title: 'Une photo obligatoire',
+      body: "Elle devient le marqueur du lieu sur la carte. On voit où on va avant d'y aller.",
+    },
+    {
+      title: 'Des avis, pas des étoiles seules',
+      body: 'Un membre laisse un avis par lieu, modifiable, et on sait quand il a été retouché.',
+    },
+    {
+      title: 'Pas de doublons',
+      body: 'Proposer un lieu déjà présent déclenche un avertissement, avec le lieu existant à compléter.',
+    },
+  ];
 
   protected readonly steps = [
     {
@@ -224,11 +274,11 @@ export class HomePage {
     },
     {
       title: 'Trouvez ce que personne ne montre',
-      body: 'Chaque lieu a été posé par quelqu’un qui y est allé, avec sa photo, sa description et les avis des autres membres.',
+      body: 'Chaque lieu a sa photo, sa description et les avis des membres qui y sont allés.',
     },
     {
       title: 'Ajoutez les vôtres',
-      body: 'Créez un compte, cliquez sur la carte, ajoutez une photo. Votre nom reste attaché au lieu que vous avez fait connaître.',
+      body: 'Créez un compte, cliquez sur la carte, ajoutez une photo. Votre nom reste attaché au lieu.',
     },
   ];
 
@@ -237,6 +287,11 @@ export class HomePage {
       next: (summary) => this.summary.set(summary),
       error: () => this.summary.set(null),
     });
+
+    this.placesApi
+      .search(SHOWCASE_BOUNDS, emptyFilters)
+      .pipe(catchError(() => of([] as PlaceSummary[])))
+      .subscribe((places) => this.showcase.set(places));
   }
 
   protected stats(data: HomeSummary) {
@@ -250,13 +305,5 @@ export class HomePage {
 
   protected countOf(category: PlaceCategory): number {
     return this.summary()?.categories.find((entry) => entry.category === category)?.count ?? 0;
-  }
-
-  protected label(category: PlaceSummary['category']): string {
-    return categoryStyle(category).label;
-  }
-
-  protected tint(category: PlaceSummary['category']): string {
-    return categoryStyle(category).color;
   }
 }

@@ -115,6 +115,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
             } @else if (detail()) {
               <nooks-place-detail
                 [place]="detail()"
+                [loading]="loadingDetail()"
                 [busy]="saving()"
                 (closed)="closeDetail()"
                 (rated)="rate($event)"
@@ -210,6 +211,8 @@ export class MapPage {
   protected readonly duplicates = signal<PlaceSummary[]>([]);
   /** La zone visible est trop large pour être interrogée utilement. */
   protected readonly tooWide = signal(false);
+  /** La fiche est ouverte mais son détail complet n'est pas encore arrivé. */
+  protected readonly loadingDetail = signal(false);
 
   protected readonly basemaps = BASEMAPS;
   protected readonly basemapOpen = signal(false);
@@ -279,15 +282,31 @@ export class MapPage {
 
   protected openPlace(id: string): void {
     this.selectedId.set(id);
+
+    // La carte connaît déjà le nom, la catégorie, la note et la vignette : on ouvre
+    // la fiche avec ça sans rien attendre, et le reste se remplit à l'arrivée.
+    const known = this.places().find((place) => place.id === id);
+    if (known) {
+      this.detail.set(previewOf(known));
+      this.loadingDetail.set(true);
+    }
+
     this.api.detail(id).subscribe({
-      next: (place) => this.detail.set(place),
-      error: () => this.flash("Ce lieu n'est plus disponible."),
+      next: (place) => {
+        this.detail.set(place);
+        this.loadingDetail.set(false);
+      },
+      error: () => {
+        this.loadingDetail.set(false);
+        this.flash("Ce lieu n'est plus disponible.");
+      },
     });
   }
 
   protected closeDetail(): void {
     this.detail.set(null);
     this.selectedId.set(null);
+    this.loadingDetail.set(false);
   }
 
   protected startAdding(): void {
@@ -422,6 +441,41 @@ export class MapPage {
     this.banner.set(message);
     setTimeout(() => this.banner.update((current) => (current === message ? null : current)), 4000);
   }
+}
+
+/** Fiche provisoire construite à partir du résumé déjà affiché sur la carte. */
+function previewOf(place: PlaceSummary): PlaceDetail {
+  return {
+    id: place.id,
+    name: place.name,
+    description: '',
+    category: place.category,
+    latitude: place.latitude,
+    longitude: place.longitude,
+    address: null,
+    city: place.city,
+    country: '',
+    status: place.status,
+    averageRating: place.averageRating,
+    ratingCount: place.ratingCount,
+    createdAt: place.createdAt,
+    createdByDisplayName: '',
+    suspectedDuplicate: place.suspectedDuplicate,
+    isFavorite: false,
+    photos: place.coverThumbnailUrl
+      ? [
+          {
+            id: 'preview',
+            url: place.coverThumbnailUrl,
+            thumbnailUrl: place.coverThumbnailUrl,
+            isCover: true,
+            attribution: null,
+            sourceUrl: null,
+          },
+        ]
+      : [],
+    ratings: [],
+  };
 }
 
 /** L'API renvoie du ProblemDetails : on en extrait le message plutôt que d'afficher un code. */

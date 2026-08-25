@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,4 +8,10 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: '<router-outlet />',
 })
-export class App {}
+export class App {
+  constructor() {
+    // La navbar flotte au-dessus du contenu : sans ce décalage, une ancre amène
+    // le titre de section juste dessous, à moitié caché.
+    inject(ViewportScroller).setOffset([0, 100]);
+  }
+}
