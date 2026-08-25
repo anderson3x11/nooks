@@ -21,6 +21,10 @@ public static class PlacesEndpoints
         var group = app.MapGroup("/api/places").WithTags("Places");
 
         group.MapGet("/", SearchAsync);
+
+        app.MapGet("/api/home", async (IPlaceRepository repository, CancellationToken cancellationToken)
+                => Results.Ok(await repository.GetHomeSummaryAsync(latestCount: 8, cancellationToken)))
+            .WithTags("Places");
         group.MapGet("/similar", FindSimilarAsync).RequireAuthorization();
         group.MapGet("/{id:guid}", GetDetailAsync);
         group.MapPost("/", CreateAsync).RequireAuthorization().DisableAntiforgery();

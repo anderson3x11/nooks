@@ -13,3 +13,11 @@ export const adminGuard: CanActivateFn = () => {
 
   return router.createUrlTree(auth.isSignedIn() ? ['/'] : ['/connexion']);
 };
+
+/** Réservé aux membres connectés, quel que soit leur rôle. */
+export const memberGuard: CanActivateFn = () => {
+  const auth = inject(Auth);
+  const router = inject(Router);
+
+  return auth.isSignedIn() ? true : router.createUrlTree(['/connexion']);
+};

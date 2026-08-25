@@ -57,16 +57,44 @@ import { RatingStars } from './rating-stars';
             </div>
           }
 
-          <button
-            type="button"
-            class="btn-round absolute top-3 right-3 size-8"
-            aria-label="Fermer la fiche"
-            (click)="closed.emit()"
-          >
-            <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
-              <path d="M1 1 11 11M11 1 1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-            </svg>
-          </button>
+          <div class="absolute top-3 right-3 flex gap-2">
+            @if (auth.isSignedIn()) {
+              <button
+                type="button"
+                class="btn-round size-8"
+                [attr.aria-label]="item.isFavorite ? 'Retirer des favoris' : 'Mettre en favori'"
+                [attr.aria-pressed]="item.isFavorite"
+                (click)="favoriteToggled.emit()"
+              >
+                <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+                  <path
+                    d="M3.4 1.6h7.2v10.8L7 9.9l-3.6 2.5Z"
+                    [attr.fill]="item.isFavorite ? '#0a0a0a' : 'none'"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            }
+
+            <button type="button" class="btn-round size-8" aria-label="Fermer la fiche" (click)="closed.emit()">
+              <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M1 1 11 11M11 1 1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+
+          @if (photos().length > 0 && photos()[index()].attribution; as credit) {
+            <a
+              [href]="photos()[index()].sourceUrl"
+              target="_blank"
+              rel="noopener"
+              class="absolute bottom-0 left-0 max-w-full truncate bg-ink-950/60 px-2.5 py-1 text-[10.5px] text-white/90 hover:text-white"
+            >
+              {{ credit }}
+            </a>
+          }
         </header>
 
         <div class="scroll-quiet min-h-0 flex-1 overflow-y-auto">
@@ -191,6 +219,7 @@ export class PlaceDetailPanel {
   readonly closed = output<void>();
   readonly rated = output<{ stars: number; comment: string | null }>();
   readonly photoPicked = output<File>();
+  readonly favoriteToggled = output<void>();
 
   protected readonly comment = signal('');
   protected readonly index = signal(0);

@@ -67,6 +67,9 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
+// Les réponses JSON de la carte sont répétitives et se compressent très bien.
+builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
+
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 builder.Services.AddOpenApi();
@@ -82,8 +85,21 @@ if (app.Environment.IsDevelopment())
     await app.Services.SeedDatabaseAsync();
 }
 
+app.UseResponseCompression();
 app.UseCors();
-app.UseStaticFiles();
+
+// Les fichiers envoyés portent un nom unique et ne changent jamais : on peut les
+// laisser en cache un an, ce qui évite une revalidation par vignette à chaque déplacement.
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = context =>
+    {
+        if (context.Context.Request.Path.StartsWithSegments("/uploads"))
+        {
+            context.Context.Response.Headers.CacheControl = "public, max-age=31536000, immutable";
+        }
+    },
+});
 app.UseAuthentication();
 app.UseAuthorization();
 

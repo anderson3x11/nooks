@@ -30,5 +30,8 @@ public interface IPlaceRepository
     /// <summary>Avis vus depuis la modération, les plus récents d'abord.</summary>
     Task<IReadOnlyList<AdminRatingDto>> ListRatingsAsync(bool removedOnly, int limit, CancellationToken cancellationToken);
 
+    /// <summary>Chiffres et derniers lieux, pour la page d'accueil.</summary>
+    Task<HomeSummaryDto> GetHomeSummaryAsync(int latestCount, CancellationToken cancellationToken);
+
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

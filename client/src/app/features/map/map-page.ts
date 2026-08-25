@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subject, catchError, debounceTime, of, switchMap } from 'rxjs';
 import { Auth } from '../../core/auth';
 import { BASEMAPS, Basemap, basemapById } from '../../core/basemaps';
@@ -13,6 +13,7 @@ import {
   PlaceSummary,
   emptyFilters,
 } from '../../core/models';
+import { MembersApi } from '../../core/members-api';
 import { PlacesApi } from '../../core/places-api';
 import { PlaceDetailPanel } from '../places/place-detail';
 import { PlaceForm } from '../places/place-form';
@@ -51,7 +52,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
            des couches Leaflet, qui montent jusqu'à z-index 800. -->
       <div class="pointer-events-none absolute inset-0 z-[1000] flex flex-col gap-4 p-4">
         <header class="flex items-start gap-3">
-          <a routerLink="/" class="card pointer-events-auto flex h-12 items-center gap-2.5 rounded-full pr-5 pl-2">
+          <a routerLink="/" class="card pointer-events-auto flex h-12 items-center gap-2.5 rounded-full pr-5 pl-2" aria-label="Accueil Nooks">
             <span class="flex size-8 items-center justify-center rounded-full bg-ink-950">
               <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
                 <path
@@ -118,6 +119,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
                 (closed)="closeDetail()"
                 (rated)="rate($event)"
                 (photoPicked)="uploadPhoto($event)"
+                (favoriteToggled)="toggleFavorite()"
               />
             }
           </div>
@@ -188,8 +190,10 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
 export class MapPage {
   protected readonly auth = inject(Auth);
   private readonly api = inject(PlacesApi);
+  private readonly members = inject(MembersApi);
   private readonly router = inject(Router);
   private readonly map = viewChild(LeafletMap);
+  private readonly route = inject(ActivatedRoute);
 
   private readonly reload = new Subject<void>();
 
@@ -223,6 +227,20 @@ export class MapPage {
   });
 
   constructor() {
+    // La page d'accueil renvoie ici avec une catégorie déjà choisie.
+    const params = this.route.snapshot.queryParamMap;
+
+    const category = params.get('categorie');
+    if (category) {
+      this.filters.set({ ...emptyFilters, categories: [category as PlaceSummary['category']] });
+    }
+
+    // ?lieu=<id> ouvre directement une fiche, depuis la page d'accueil par exemple.
+    const placeId = params.get('lieu');
+    if (placeId) {
+      this.openPlace(placeId);
+    }
+
     this.reload
       .pipe(
         // Un déplacement de carte enchaîne plusieurs « moveend » ; on ne garde que le dernier.
@@ -382,6 +400,21 @@ export class MapPage {
         this.saving.set(false);
         this.flash(readError(response, "L'envoi de la photo a échoué."));
       },
+    });
+  }
+
+  protected toggleFavorite(): void {
+    const place = this.detail();
+    if (!place) {
+      return;
+    }
+
+    this.members.toggleFavorite(place.id).subscribe({
+      next: ({ isFavorite }) => {
+        this.detail.update((current) => (current ? { ...current, isFavorite } : current));
+        this.flash(isFavorite ? 'Ajouté à vos favoris.' : 'Retiré de vos favoris.');
+      },
+      error: () => this.flash("Le favori n'a pas pu être enregistré."),
     });
   }
 

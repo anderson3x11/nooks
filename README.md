@@ -2,7 +2,7 @@
 
 Une carte collaborative de lieux insolites : points de vue oubliés, boutiques atypiques, cabinets de curiosités, passages couverts, friches réhabilitées. On cherche une ville, on filtre par catégorie et par note, et on tombe sur ce que les guides ne mentionnent pas.
 
-Preuve de concept : le fond de carte est rempli par un jeu de données de départ, et n'importe quel membre inscrit peut proposer un lieu, le noter et y ajouter des photos.
+Preuve de concept : le fond de carte est rempli par un jeu de données de départ, et n'importe quel membre inscrit peut proposer un lieu, le noter, y ajouter des photos et le mettre en favori.
 
 ## Stack
 
@@ -105,13 +105,45 @@ En preuve de concept, un lieu proposé est publié immédiatement. Le modèle de
 
 Les lieux partent alors en file d'attente, invisibles sur la carte publique, jusqu'à ce qu'un admin les traite depuis `/moderation`.
 
+## Pages
+
+| Route | Contenu |
+|---|---|
+| `/` | Accueil : carte en fond, chiffres réels, catégories, derniers lieux |
+| `/carte` | La carte, ses filtres et la proposition de lieux. Accepte `?categorie=` et `?lieu=` |
+| `/profil`, `/membres/:id` | Profil : présentation, avatar, lieux proposés, avis, favoris |
+| `/admin` | File d'attente, lieux publiés, modération des avis, liste des membres |
+
+## Comptes et profils
+
+Chaque membre a une page : photo, présentation, compteurs (lieux proposés, avis publiés, favoris) et le détail de ses contributions. Les favoris ne sont visibles que par leur propriétaire, le compteur reste public.
+
+## Photos du jeu de départ
+
+Le seed va chercher l'illustration de chaque lieu sur son **article Wikipédia**, pas par une recherche libre sur Commons : l'image principale d'un article porte sur le sujet, là où une recherche par mots-clés ramène régulièrement une photo sans rapport. L'auteur et la licence sont enregistrés avec la photo et affichés sur la fiche. Les lieux sans article utilisable reçoivent une illustration abstraite générée, clairement pas une photographie.
+
+Sur les 51 lieux du jeu de départ, 37 ont une vraie photo. `Seed:FetchPhotos` à `false` coupe l'accès réseau (c'est le réglage des tests).
+
+## Modération des avis
+
+Un avis retiré disparaît de la fiche et cesse de compter dans la moyenne, mais reste en base avec son auteur et sa date : la modération le retrouve dans l'onglet dédié et peut le restaurer. La suppression définitive reste disponible pour le spam. L'auteur d'un avis retiré ne peut plus le modifier.
+
+## Performances
+
+- Les marqueurs proches se regroupent en pastilles chiffrées au dézoom.
+- Les rechargements de carte sont amortis : un déplacement enchaîne plusieurs événements, un seul appel part.
+- Au-delà de 100 degrés carrés visibles, le front n'interroge plus l'API et invite à zoomer.
+- Les fichiers envoyés portent un nom unique : ils sont servis avec un cache d'un an, ce qui supprime une revalidation par vignette à chaque déplacement.
+- Les réponses JSON sont compressées.
+- Les requêtes de lecture sont sans suivi EF, et tous les composants Angular sont en `OnPush` sur une application sans zone.
+
 ## Tests
 
 ```bash
 dotnet test
 ```
 
-61 tests : le domaine en unitaire (recalcul de moyenne, bornes des notes et des coordonnées, analyse du rectangle, normalisation des noms et règles de doublon) et les endpoints en intégration sur une base PostGIS démarrée par Testcontainers, ce qui couvre les requêtes spatiales réelles. Docker doit tourner.
+68 tests : le domaine en unitaire (recalcul de moyenne, bornes des notes et des coordonnées, analyse du rectangle, normalisation des noms et règles de doublon) et les endpoints en intégration sur une base PostGIS démarrée par Testcontainers, ce qui couvre les requêtes spatiales réelles. Docker doit tourner.
 
 ## Limites connues
 

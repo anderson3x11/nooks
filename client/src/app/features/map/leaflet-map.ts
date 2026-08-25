@@ -32,6 +32,11 @@ export class LeafletMap implements OnDestroy {
   readonly selectedId = input<string | null>(null);
   readonly picking = input(false);
   readonly basemap = input<Basemap>(DEFAULT_BASEMAP);
+  /** Cadrage de départ. Lu une seule fois, à la création de la carte. */
+  readonly initialCenter = input<L.LatLngTuple>(PARIS);
+  readonly initialZoom = input(13);
+  /** Carte décorative : ni zoom, ni déplacement, ni commandes. */
+  readonly inert = input(false);
 
   readonly boundsChanged = output<MapBounds>();
   readonly placeSelected = output<string>();
@@ -109,9 +114,15 @@ export class LeafletMap implements OnDestroy {
   }
 
   private initialise(): void {
+    const inert = this.inert();
     const map = L.map(this.host().nativeElement, {
-      center: PARIS,
-      zoom: 13,
+      center: this.initialCenter(),
+      zoom: this.initialZoom(),
+      dragging: !inert,
+      scrollWheelZoom: !inert,
+      doubleClickZoom: !inert,
+      touchZoom: !inert,
+      keyboard: !inert,
       // Déclaré sur la carte et pas seulement sur les tuiles : le regroupement de
       // marqueurs en a besoin, et il est créé avant la couche de fond.
       maxZoom: 19,
@@ -120,7 +131,9 @@ export class LeafletMap implements OnDestroy {
     });
 
     // En bas à droite : le coin haut gauche revient au bandeau de titre.
-    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    if (!inert) {
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+    }
 
     // Les marqueurs proches se regroupent : au-delà de quelques centaines de points,
     // les afficher un par un rame et rend la carte illisible.

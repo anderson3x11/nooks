@@ -229,6 +229,42 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<HomeSummaryDto> GetHomeSummaryAsync(int latestCount, CancellationToken cancellationToken)
+    {
+        var approved = context.Places.AsNoTracking().Where(p => p.Status == PlaceStatus.Approved);
+
+        var latest = await approved
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(latestCount)
+            .Select(p => new SummaryRow(
+                p.Id,
+                p.Name,
+                p.Category,
+                p.Location.Y,
+                p.Location.X,
+                p.City,
+                p.AverageRating,
+                p.RatingCount,
+                p.Status,
+                p.CreatedAt,
+                p.Photos.Where(photo => photo.IsCover).Select(photo => photo.ThumbnailFileName).FirstOrDefault(),
+                p.SuspectedDuplicate))
+            .ToListAsync(cancellationToken);
+
+        var categories = await approved
+            .GroupBy(p => p.Category)
+            .Select(group => new CategoryCountDto(group.Key.ToString(), group.Count()))
+            .ToListAsync(cancellationToken);
+
+        return new HomeSummaryDto(
+            await approved.CountAsync(cancellationToken),
+            await approved.Select(p => p.City).Distinct().CountAsync(cancellationToken),
+            await context.Users.CountAsync(cancellationToken),
+            await context.Ratings.CountAsync(r => r.RemovedAt == null, cancellationToken),
+            [.. latest.Select(ToSummary)],
+            [.. categories.OrderByDescending(c => c.Count)]);
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken)
         => context.SaveChangesAsync(cancellationToken);
 

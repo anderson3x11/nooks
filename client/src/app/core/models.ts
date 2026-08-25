@@ -32,6 +32,9 @@ export interface PlacePhoto {
   url: string;
   thumbnailUrl: string;
   isCover: boolean;
+  /** Auteur et licence, pour les photos reprises d'une source libre. */
+  attribution: string | null;
+  sourceUrl: string | null;
 }
 
 export interface PlaceRating {
@@ -62,6 +65,7 @@ export interface PlaceDetail {
   createdAt: string;
   createdByDisplayName: string;
   suspectedDuplicate: boolean;
+  isFavorite: boolean;
   photos: PlacePhoto[];
   ratings: PlaceRating[];
 }
@@ -115,3 +119,64 @@ export interface PlaceFilters {
 }
 
 export const emptyFilters: PlaceFilters = { categories: [], minRating: null, text: '' };
+
+export interface MemberReview {
+  id: string;
+  placeId: string;
+  placeName: string;
+  placeCity: string;
+  stars: number;
+  comment: string | null;
+  updatedAt: string;
+  isEdited: boolean;
+  isRemoved: boolean;
+}
+
+export interface MemberProfile {
+  id: string;
+  displayName: string;
+  bio: string | null;
+  avatarUrl: string | null;
+  joinedAt: string;
+  reviewCount: number;
+  placeCount: number;
+  favoriteCount: number;
+  places: PlaceSummary[];
+  /** Renseigné uniquement sur son propre profil. */
+  favorites: PlaceSummary[];
+  reviews: MemberReview[];
+}
+
+export interface AdminMember {
+  id: string;
+  displayName: string;
+  email: string;
+  avatarUrl: string | null;
+  joinedAt: string;
+  isAdmin: boolean;
+  reviewCount: number;
+  placeCount: number;
+}
+
+export interface AdminRating {
+  id: string;
+  placeId: string;
+  placeName: string;
+  userId: string;
+  userDisplayName: string;
+  stars: number;
+  comment: string | null;
+  createdAt: string;
+  updatedAt: string;
+  isEdited: boolean;
+  isRemoved: boolean;
+}
+
+export interface HomeSummary {
+  placeCount: number;
+  cityCount: number;
+  memberCount: number;
+  reviewCount: number;
+  latest: PlaceSummary[];
+  categories: { category: PlaceCategory; count: number }[];
+}
