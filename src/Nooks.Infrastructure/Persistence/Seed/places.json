@@ -785,5 +785,231 @@
    5
   ],
   "wikipedia": "Place des Lices (Rennes)"
+ },
+ {
+  "name": "Le Thabor",
+  "description": "Un parc de dix hectares en plein Rennes, avec sa roseraie, sa grotte artificielle et sa volière. Les Rennais y déjeunent dès les premiers rayons.",
+  "category": "Nature",
+  "latitude": 48.1145,
+  "longitude": -1.672,
+  "address": "Place Saint-Mélaine",
+  "city": "Rennes",
+  "country": "France",
+  "ratings": [
+   5,
+   4
+  ],
+  "wikipedia": "Parc du Thabor"
+ },
+ {
+  "name": "La Maison Bleue",
+  "description": "Une maison entièrement recouverte de mosaïques, de coquillages et de miroirs, œuvre d'un seul homme pendant plus de trente ans.",
+  "category": "Curiosity",
+  "latitude": 48.105,
+  "longitude": -1.641,
+  "address": "Quartier de Villejean",
+  "city": "Rennes",
+  "country": "France",
+  "ratings": [
+   5,
+   5,
+   4
+  ]
+ },
+ {
+  "name": "Le Château des Ducs de Bretagne",
+  "description": "Une forteresse médiévale à l'extérieur, un palais Renaissance dans la cour. Le chemin de ronde se parcourt gratuitement.",
+  "category": "Museum",
+  "latitude": 47.216,
+  "longitude": -1.549,
+  "address": "4 place Marc Elder",
+  "city": "Nantes",
+  "country": "France",
+  "ratings": [
+   5,
+   4,
+   5
+  ],
+  "wikipedia": "Château des ducs de Bretagne"
+ },
+ {
+  "name": "Le Jardin des Plantes de Montpellier",
+  "description": "Le plus ancien jardin botanique de France, fondé en 1593 pour la faculté de médecine. Serres, bassins et allées à l'ombre des platanes.",
+  "category": "Nature",
+  "latitude": 43.615,
+  "longitude": 3.871,
+  "address": "Boulevard Henri IV",
+  "city": "Montpellier",
+  "country": "France",
+  "ratings": [
+   4,
+   5
+  ],
+  "wikipedia": "Jardin des plantes de Montpellier"
+ },
+ {
+  "name": "La Place de la Canourgue",
+  "description": "Une petite place ombragée avec sa fontaine aux licornes et sa vue sur la cathédrale, à l'écart du flot de l'Écusson.",
+  "category": "Viewpoint",
+  "latitude": 43.612,
+  "longitude": 3.873,
+  "address": "Place de la Canourgue",
+  "city": "Montpellier",
+  "country": "France",
+  "ratings": [
+   4,
+   4
+  ]
+ },
+ {
+  "name": "Le Marché du Lez",
+  "description": "D'anciens entrepôts au bord du fleuve reconvertis en halles, friperies et guinguettes. Le samedi soir, tout Montpellier y passe.",
+  "category": "FoodDrink",
+  "latitude": 43.593,
+  "longitude": 3.893,
+  "address": "2 avenue Nina Simone",
+  "city": "Montpellier",
+  "country": "France",
+  "ratings": [
+   4,
+   4,
+   5
+  ]
+ },
+ {
+  "name": "La Bastille de Grenoble",
+  "description": "Un fort perché au-dessus de la ville, accessible par des bulles transparentes suspendues au-dessus de l'Isère. Le massif de Belledonne en face.",
+  "category": "Viewpoint",
+  "latitude": 45.198,
+  "longitude": 5.725,
+  "address": "Fort de la Bastille",
+  "city": "Grenoble",
+  "country": "France",
+  "ratings": [
+   5,
+   5,
+   4
+  ],
+  "wikipedia": "Bastille (Grenoble)"
+ },
+ {
+  "name": "Le Musée Dauphinois",
+  "description": "Un ancien couvent à flanc de colline, avec un cloître, une chapelle baroque et des expositions sur les gens de montagne. Gratuit.",
+  "category": "Museum",
+  "latitude": 45.195,
+  "longitude": 5.729,
+  "address": "30 rue Maurice Gignoux",
+  "city": "Grenoble",
+  "country": "France",
+  "ratings": [
+   4,
+   4
+  ],
+  "wikipedia": "Musée dauphinois"
+ },
+ {
+  "name": "Le Gros-Horloge",
+  "description": "Une horloge astronomique du XIVe siècle enjambant la rue, avec son cadran unique et son beffroi qu'on peut monter.",
+  "category": "Curiosity",
+  "latitude": 49.443,
+  "longitude": 1.091,
+  "address": "Rue du Gros-Horloge",
+  "city": "Rouen",
+  "country": "France",
+  "ratings": [
+   4,
+   5
+  ],
+  "wikipedia": "Gros-Horloge"
+ },
+ {
+  "name": "L'Aître Saint-Maclou",
+  "description": "Un ancien cimetière de pestiférés devenu cour à colombages, sculptée de crânes et d'ossements. Étrangement paisible aujourd'hui.",
+  "category": "Curiosity",
+  "latitude": 49.44,
+  "longitude": 1.098,
+  "address": "186 rue Martainville",
+  "city": "Rouen",
+  "country": "France",
+  "ratings": [
+   5,
+   5,
+   4
+  ],
+  "wikipedia": "Aître Saint-Maclou"
+ },
+ {
+  "name": "La Côte Sainte-Catherine",
+  "description": "La vue sur la boucle de la Seine et les flèches de Rouen, au bout d'une montée raide de vingt minutes.",
+  "category": "Viewpoint",
+  "latitude": 49.438,
+  "longitude": 1.114,
+  "address": "Côte Sainte-Catherine",
+  "city": "Rouen",
+  "country": "France",
+  "ratings": [
+   5,
+   4
+  ]
+ },
+ {
+  "name": "Le Bar de la Marine",
+  "description": "Le comptoir du Vieux-Port où Pagnol a situé sa partie de cartes. Un lieu de cinéma devenu lieu tout court.",
+  "category": "FoodDrink",
+  "latitude": 43.294,
+  "longitude": 5.374,
+  "address": "15 quai de Rive Neuve",
+  "city": "Marseille",
+  "country": "France",
+  "ratings": [
+   4,
+   3
+  ]
+ },
+ {
+  "name": "Le Cimetière du Père-Lachaise",
+  "description": "Quarante-quatre hectares de sépultures sous les marronniers, entre chapelles néogothiques et tombes célèbres. On s'y perd volontiers.",
+  "category": "Curiosity",
+  "latitude": 48.861,
+  "longitude": 2.393,
+  "address": "16 rue du Repos",
+  "city": "Paris",
+  "country": "France",
+  "ratings": [
+   5,
+   4,
+   5
+  ],
+  "wikipedia": "Cimetière du Père-Lachaise"
+ },
+ {
+  "name": "La Promenade Plantée",
+  "description": "Un viaduc ferroviaire transformé en jardin suspendu, de la Bastille au bois de Vincennes. Le modèle de la High Line new-yorkaise.",
+  "category": "Nature",
+  "latitude": 48.849,
+  "longitude": 2.381,
+  "address": "1 coulée verte René-Dumont",
+  "city": "Paris",
+  "country": "France",
+  "ratings": [
+   5,
+   4
+  ],
+  "wikipedia": "Coulée verte René-Dumont"
+ },
+ {
+  "name": "La Croix-Rousse en pente",
+  "description": "Les escaliers et les montées du plateau, entre ateliers de canuts et cours ouvertes. Une ville dans la ville, encore habitée.",
+  "category": "Curiosity",
+  "latitude": 45.774,
+  "longitude": 4.83,
+  "address": "Montée de la Grande-Côte",
+  "city": "Lyon",
+  "country": "France",
+  "ratings": [
+   4,
+   5,
+   4
+  ]
  }
 ]

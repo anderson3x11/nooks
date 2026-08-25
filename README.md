@@ -29,7 +29,7 @@ dotnet run --project src/Nooks.Api                                     # http://
 cd client && npm install && npm start                                  # http://localhost:4200
 ```
 
-Au premier démarrage en `Development`, la base est migrée puis remplie : 51 lieux répartis sur dix villes, huit comptes de démonstration et une centaine d'avis.
+Au premier démarrage en `Development`, la base est migrée puis remplie : 66 lieux répartis sur treize villes, huit comptes de démonstration et plus de 160 avis.
 
 Les commentaires du jeu de départ sont volontairement génériques, et chaque lieu reçoit une illustration abstraite générée à la volée. Ce ne sont volontairement pas des photographies : il n'existe pas de vraie photo libre de droits pour ces lieux, et une fausse photo tromperait le lecteur. Les lieux proposés par un membre portent, eux, ses vraies photos.
 
@@ -122,7 +122,7 @@ Chaque membre a une page : photo, présentation, compteurs (lieux proposés, avi
 
 Le seed va chercher l'illustration de chaque lieu sur son **article Wikipédia**, pas par une recherche libre sur Commons : l'image principale d'un article porte sur le sujet, là où une recherche par mots-clés ramène régulièrement une photo sans rapport. L'auteur et la licence sont enregistrés avec la photo et affichés sur la fiche. Les lieux sans article utilisable reçoivent une illustration abstraite générée, clairement pas une photographie.
 
-Sur les 51 lieux du jeu de départ, 37 ont une vraie photo. `Seed:FetchPhotos` à `false` coupe l'accès réseau (c'est le réglage des tests).
+Sur les 66 lieux du jeu de départ, 46 ont une vraie photo. `Seed:FetchPhotos` à `false` coupe l'accès réseau (c'est le réglage des tests).
 
 ## Modération des avis
 
