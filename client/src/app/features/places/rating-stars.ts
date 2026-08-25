@@ -1,11 +1,17 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 
 const STAR_PATH = 'M6 1 7.5 4.4 11.2 4.8 8.4 7.3 9.2 11 6 9.1 2.8 11 3.6 7.3 0.8 4.8 4.5 4.4Z';
 
-/** Cinq étoiles, en lecture seule par défaut, cliquables quand on veut noter. */
+/**
+ * Cinq étoiles, remplies au prorata de la note : 4,3 affiche quatre étoiles pleines
+ * et 30 % de la cinquième. Chaque étoile est dessinée deux fois, la version pleine
+ * étant révélée par un masque de largeur variable.
+ */
 @Component({
   selector: 'nooks-stars',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgTemplateOutlet],
   template: `
     <div class="inline-flex items-center gap-2">
       <div class="inline-flex items-center" [class.gap-1]="interactive()">
@@ -19,14 +25,10 @@ const STAR_PATH = 'M6 1 7.5 4.4 11.2 4.8 8.4 7.3 9.2 11 6 9.1 2.8 11 3.6 7.3 0.8
               (mouseleave)="hovered.set(null)"
               (click)="rated.emit(star)"
             >
-              <svg [attr.width]="size()" [attr.height]="size()" viewBox="0 0 12 12" aria-hidden="true">
-                <path [attr.d]="path" [attr.fill]="star <= shown() ? '#0a0a0a' : '#d4d4d4'" />
-              </svg>
+              <ng-container *ngTemplateOutlet="glyph; context: { $implicit: star }" />
             </button>
           } @else {
-            <svg [attr.width]="size()" [attr.height]="size()" viewBox="0 0 12 12" aria-hidden="true">
-              <path [attr.d]="path" [attr.fill]="star <= shown() ? '#0a0a0a' : '#d4d4d4'" />
-            </svg>
+            <ng-container *ngTemplateOutlet="glyph; context: { $implicit: star }" />
           }
         }
       </div>
@@ -42,6 +44,34 @@ const STAR_PATH = 'M6 1 7.5 4.4 11.2 4.8 8.4 7.3 9.2 11 6 9.1 2.8 11 3.6 7.3 0.8
         </span>
       }
     </div>
+
+    <ng-template #glyph let-star>
+      <span class="relative block" [style.width.px]="size()" [style.height.px]="size()">
+        <svg
+          [attr.width]="size()"
+          [attr.height]="size()"
+          viewBox="0 0 12 12"
+          class="block"
+          aria-hidden="true"
+        >
+          <path [attr.d]="path" fill="#d4d4d4" />
+        </svg>
+
+        @if (fillOf(star) > 0) {
+          <span class="absolute inset-y-0 left-0 overflow-hidden" [style.width.%]="fillOf(star) * 100">
+            <svg
+              [attr.width]="size()"
+              [attr.height]="size()"
+              viewBox="0 0 12 12"
+              class="block max-w-none"
+              aria-hidden="true"
+            >
+              <path [attr.d]="path" fill="#0a0a0a" />
+            </svg>
+          </span>
+        }
+      </span>
+    </ng-template>
   `,
 })
 export class RatingStars {
@@ -56,6 +86,11 @@ export class RatingStars {
   protected readonly stars = [1, 2, 3, 4, 5];
   protected readonly hovered = signal<number | null>(null);
 
-  /** Au survol, l'aperçu prend le pas sur la note réelle. */
-  protected readonly shown = computed(() => this.hovered() ?? Math.round(this.value()));
+  /** Au survol, l'aperçu montre des étoiles entières : c'est ce qu'on s'apprête à donner. */
+  protected readonly shown = computed(() => this.hovered() ?? this.value());
+
+  /** Part remplie de l'étoile numéro `star`, entre 0 et 1. */
+  protected fillOf(star: number): number {
+    return Math.min(1, Math.max(0, this.shown() - (star - 1)));
+  }
 }

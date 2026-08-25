@@ -63,9 +63,11 @@ public static class SeedPhotoFactory
             canvas.Save();
             canvas.RotateDegrees(angle, Width / 2f, Height / 2f);
 
-            for (var i = 0; i < 7; i++)
+            // Beaucoup de petites formes plutôt que quelques grandes : réduite à la taille
+            // d'un marqueur de 44 pixels, une grande forme devient un bloc informe.
+            for (var i = 0; i < 22; i++)
             {
-                var scale = 12f + random.Next(46);
+                var scale = 5f + random.Next(14);
                 var shape = new SKPath(path);
                 shape.Transform(SKMatrix.CreateScale(scale, scale));
 
@@ -76,7 +78,7 @@ public static class SeedPhotoFactory
 
                 using var glyph = new SKPaint
                 {
-                    Color = (i % 2 == 0 ? SKColors.White : SKColors.Black).WithAlpha((byte)(18 + random.Next(30))),
+                    Color = (i % 2 == 0 ? SKColors.White : SKColors.Black).WithAlpha((byte)(14 + random.Next(20))),
                     IsAntialias = true,
                 };
                 canvas.DrawPath(shape, glyph);

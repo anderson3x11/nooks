@@ -435,6 +435,15 @@
   cursor: crosshair;
 }
 
+/* Carte décorative : les marqueurs sont là pour le décor, ils ne bougent pas. */
+.map-inert .nooks-pin {
+  pointer-events: none;
+}
+
+.map-inert .nooks-pin:hover .nooks-pin__inner {
+  transform: none;
+}
+
 /* Étiquette au survol d'un marqueur. */
 .nooks-tooltip {
   background: var(--color-ink-950) !important;

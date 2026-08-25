@@ -56,7 +56,7 @@ export const PIN_ANCHOR: [number, number] = [23, 60];
 export function pinHtml(id: PlaceCategory, photoUrl: string | null): string {
   const style = categoryStyle(id);
   const inside = photoUrl
-    ? `<img src="${photoUrl}" alt="" loading="lazy" />`
+    ? `<img src="${photoUrl}" alt="" decoding="async" />`
     : `<svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><path d="${style.path}" fill="${style.color}"/></svg>`;
 
   return `<div class="nooks-pin__inner" style="--pin-color:${style.color}">

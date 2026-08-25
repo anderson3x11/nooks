@@ -24,7 +24,7 @@ const PARIS: L.LatLngTuple = [48.8566, 2.3522];
 @Component({
   selector: 'nooks-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<div #host class="h-full w-full" [class.map-picking]="picking()"></div>`,
+  template: `<div #host class="h-full w-full" [class.map-picking]="picking()" [class.map-inert]="inert()"></div>`,
   host: { class: 'block h-full w-full' },
 })
 export class LeafletMap implements OnDestroy {
@@ -127,7 +127,9 @@ export class LeafletMap implements OnDestroy {
       // marqueurs en a besoin, et il est créé avant la couche de fond.
       maxZoom: 19,
       zoomControl: false,
-      attributionControl: true,
+      // La carte décorative est ronde : la mention déborderait du disque. Le crédit
+      // est alors affiché à côté, par la page qui l'utilise.
+      attributionControl: !inert,
     });
 
     // En bas à droite : le coin haut gauche revient au bandeau de titre.
@@ -213,10 +215,16 @@ export class LeafletMap implements OnDestroy {
 
       const marker = L.marker([place.latitude, place.longitude], {
         icon: this.icon(place, 'nooks-pin--drop'),
-        title: place.name,
-      }).on('click', () => this.placeSelected.emit(place.id));
+        title: this.inert() ? undefined : place.name,
+        interactive: !this.inert(),
+      });
 
-      marker.bindTooltip(place.name, { direction: 'top', offset: [0, -52], className: 'nooks-tooltip' });
+      // Une carte décorative ne réagit pas : ni survol, ni infobulle, ni clic.
+      if (!this.inert()) {
+        marker.on('click', () => this.placeSelected.emit(place.id));
+        marker.bindTooltip(place.name, { direction: 'top', offset: [0, -52], className: 'nooks-tooltip' });
+      }
+
       this.cluster!.addLayer(marker);
       this.markers.set(place.id, { marker, photo: place.coverThumbnailUrl });
     }

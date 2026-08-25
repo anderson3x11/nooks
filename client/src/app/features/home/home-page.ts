@@ -62,10 +62,14 @@ const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, 
             }
           </div>
 
-          <!-- Composition : la carte en fond de scène, deux fiches posées dessus. -->
-          <div class="relative mx-auto w-full max-w-md pb-10 lg:pb-0">
+          <!-- Composition : un disque de carte, deux fiches posées dessus.
+               Purement illustratif : rien n'y est cliquable. -->
+          <div class="relative mx-auto w-full max-w-[30rem] py-10 lg:py-0">
             <!-- Contexte d'empilement isolé : les couches Leaflet passeraient sinon devant les fiches. -->
-            <div class="card card-float isolate h-[420px] overflow-hidden rounded-[32px]">
+            <div
+              class="card card-float isolate mx-auto aspect-square w-full max-w-[27rem] overflow-hidden rounded-full"
+              aria-hidden="true"
+            >
               <nooks-map
                 class="h-full w-full"
                 [places]="showcase()"
@@ -77,26 +81,31 @@ const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, 
 
             @if (highlights(); as pair) {
               @if (pair[0]; as first) {
-                <a
-                  [routerLink]="['/carte']"
-                  [queryParams]="{ lieu: first.id }"
-                  class="animate-rise card-float absolute -top-6 -left-4 z-10 w-52 -rotate-3 transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-left-10 sm:w-56"
+                <div
+                  class="animate-rise card-float pointer-events-auto absolute top-2 -left-2 z-10 w-52 -rotate-3 rounded-[20px] transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-left-8 sm:w-56"
                 >
                   <nooks-place-card [place]="first" imageHeight="h-28" />
-                </a>
+                </div>
               }
               @if (pair[1]; as second) {
-                <a
-                  [routerLink]="['/carte']"
-                  [queryParams]="{ lieu: second.id }"
-                  class="animate-rise card-float absolute -right-4 -bottom-2 z-10 w-52 rotate-2 transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-right-10 sm:w-56"
+                <div
+                  class="animate-rise card-float absolute -right-2 bottom-6 z-10 w-52 rotate-2 rounded-[20px] transition-transform duration-300 hover:-translate-y-1 hover:rotate-0 sm:-right-8 sm:w-56"
                 >
                   <nooks-place-card [place]="second" imageHeight="h-28" />
-                </a>
+                </div>
               }
             }
           </div>
         </div>
+
+        <p class="mt-8 text-right text-[11.5px] text-ink-400 lg:mt-4">
+          Fond de carte
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" class="hover:text-ink-700">
+            OpenStreetMap
+          </a>
+          et
+          <a href="https://carto.com/attributions" target="_blank" rel="noopener" class="hover:text-ink-700">CARTO</a>
+        </p>
       </section>
 
       <!-- Le concept -->
