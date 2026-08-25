@@ -98,14 +98,6 @@ const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, 
           </div>
         </div>
 
-        <p class="mt-8 text-right text-[11.5px] text-ink-400 lg:mt-4">
-          Fond de carte
-          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" class="hover:text-ink-700">
-            OpenStreetMap
-          </a>
-          et
-          <a href="https://carto.com/attributions" target="_blank" rel="noopener" class="hover:text-ink-700">CARTO</a>
-        </p>
       </section>
 
       <!-- Le concept -->

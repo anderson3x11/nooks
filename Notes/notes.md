@@ -1,29 +1,81 @@
-Renommer l'app en Nooks.
+# Nooks, carnet de bord
 
-Pour les commits, fais les automatiquement à chaque grosses étape validée. Ne te met pas en commit, pas de description, et des messages de commit courts qui suivent la conventions (feat, fix etc...)
+Dernière session : 25 août 2026. Cinq commits, 68 tests verts, builds .NET et Angular propres.
 
-Remplacer les icones de goutes par des "pins" : un rond avec une image du lieu (fourni par l'utilisateur qui poste le lieu ou modération si mauvaise photo), plus un trait droit en dessous. Lors de la proposition d'un lieu à ajouter, une photo minimum obligatoire.
+## Conventions de travail
 
-J'aime beaucoup l'idée de catégoriser les lieux par couleur et pictogramme, on garde ça, donc le pins sera de la couleur de la catégorie, et on garde les pictos pour "Légende et filtre"
+- Commits automatiques à chaque grosse étape validée. Messages courts en Conventional Commits (`feat:`, `fix:`), sujet seul, pas de corps, pas de co-auteur.
+- Aucun tiret cadratin nulle part. Virgules ou parenthèses dans la prose, tiret simple dans les titres d'onglet.
+- Référence visuelle globale : BenchMap, https://benchmap.fr/
 
-A voir si tu as différents modèles de map, que je puisse choisir celle qui me plait le plus visuellement
+## Fait
 
-Pour l'interface, utiliser une font arrondi type Inter. Utiliser des box arrondis. Globalement une interface type Apple, propre, noire et blanc, arrondi.
+**Base**
+- Renommage complet Curio vers Nooks (solution, namespaces, base, conteneur, classes CSS, comptes).
+- .NET 10, EF Core 10, PostgreSQL + PostGIS, Angular 21, Tailwind 4, Leaflet.
+- 66 lieux, 13 villes, 8 comptes, 161 avis. 46 lieux ont une vraie photo depuis Wikipédia, avec auteur et licence affichés. Les 20 autres ont une illustration abstraite générée.
 
-Ajouter possibilités de commentaires sur les lieux, comme des reviews.
-Je vois que tu mets "Proposé par X le x mois année" C'est une excellente idée de mettre en avant le posteur original.
-Quand un utilisateur propose un lieu, possibilité de mettre plusieurs photos, la première sera celle vu sur le pins, les autres seront visibles en caroussel quand on clique sur le lieu.
+**Carte**
+- Marqueurs photo : rond avec l'image du lieu, cerclé de la couleur de la catégorie, sur une tige.
+- Pictogrammes conservés pour la légende, les filtres et le repli quand un lieu n'a pas de photo.
+- Quatre fonds de carte au choix (Épuré, Détaillé, Sombre, Classique), mémorisés dans le navigateur.
+- Regroupement des marqueurs au dézoom, rechargements amortis, garde-fou au-delà de 100 degrés carrés.
 
-Faire attention si plusieurs personnes postent le même lieu, vérifier nom, adresse, type. Il faut vraiment éviter que la map se retrouve flood de faux truc ou de lieux en plusieurs fois. Si un utilisateur tente d'ajouter un lieu existant, on le prévient et lui propose plutot de noter, ajouter un avis + photos sur le lieu existant. Les erreurs peuvent arriver donc on lui propose de quand même proposer son lieu, dans ce cas sa proposition est ajouter à une liste que les admins devront vérifier manuellement, valider si c'est vraiment un nouveau lieu, ou un utilisateur insistant qui propose un lieu déjà existant.
+**Contribution**
+- Photo obligatoire à la création, jusqu'à six, la première devient le marqueur. Création en un seul appel multipart.
+- Carrousel de photos sur la fiche.
+- Un avis par membre et par lieu, modifiable, avec mention « modifié » seulement si le contenu a changé.
+- Détection de doublons : même nom à moins de 500 m, ou même catégorie à moins de 75 m. Avertissement avec le lieu existant proposé, possibilité d'insister, et dans ce cas passage obligatoire par la modération avec badge « Doublon possible ».
 
-Sinon c'est nickel, vraiment ce que j'attendais, on peut tester avec encore plus de lieux, plus d'utilisateurs, des commentaires etc...
+**Comptes**
+- Profil public et personnel : avatar, présentation, compteurs (lieux proposés, avis, favoris), onglets.
+- Favoris (bouton signet sur la fiche), visibles seulement par leur propriétaire.
 
-Optimiser l'affiche ou désaffichage des lieux lors des zooms et dezooms
+**Administration** (`/admin`)
+- File d'attente, lieux publiés, modération des avis, liste des membres.
+- Retrait d'avis réversible (sort de la moyenne, reste en base, restaurable) plus suppression définitive.
+- Suppression définitive de lieux.
 
-On finira par une optimisation globale pour éviter les lags.
+**Site**
+- Page d'accueil : navbar flottante en pilule avec ancres, hero avec disque de carte et deux fiches posées dessus, concept, catégories, comment ça marche, derniers lieux, appel final, pied de page.
+- Interface blanc et noir, arrondie, police Figtree. Logo en favicon.
+- Étoiles remplies au prorata de la note.
 
-Référence globale : BenchMap : https://benchmap.fr/
+**Performances**
+- Ouverture de fiche instantanée (22 ms) : la carte affiche ce qu'elle connaît déjà, le détail complète ensuite.
+- Compression des réponses, cache d'un an sur les images envoyées, requêtes de lecture sans suivi EF, `OnPush` partout, routes en chargement différé.
 
-# App Mobile :
-Utiliser la localisation de l'utilisateur pour le situer sur la map.
-UI référence : C:\Users\crecy\Documents\Dev\dotnetapp\Notes\Capture d'écran 2026-08-25 173139.png
+## Reste à faire
+
+1. **Responsive de la page carte.** C'est le trou principal. Accueil, profil et admin s'adaptent, mais les panneaux flottants de la carte sont dimensionnés pour le bureau et seront inutilisables sur téléphone. À faire avant toute app mobile.
+2. **Optimisation globale.** Le gros est en place. Aller plus loin demande de mesurer un ralentissement réel plutôt que d'optimiser à l'aveugle.
+3. **Encore plus de données** si besoin pour les tests de charge.
+4. Idées gardées de côté : « surprends-moi » (lieu au hasard à moins de X km, une requête PostGIS), itinéraires, signalement d'un lieu disparu, badges de contribution, mise en avant de lieux partenaires, PWA.
+
+## Points d'attention connus
+
+- Jeton JWT stocké côté navigateur, donc exposé au XSS. À remplacer par un cookie HttpOnly et un jeton de rafraîchissement avant mise en ligne.
+- Fonds de carte CARTO et OpenStreetMap : politiques d'usage non couvertes pour un vrai trafic, il faudra un fournisseur sous contrat.
+- Coordonnées du jeu de départ approximatives à quelques dizaines de mètres.
+- Regroupement de marqueurs calculé dans le navigateur : au-delà de quelques milliers de lieux par zone, il faudra agréger côté serveur.
+- La détection de doublons compare des noms : deux noms très différents pour le même endroit passeront à travers.
+- Piège rencontré deux fois : un accent grave dans un commentaire d'un template Angular ferme le littéral de gabarit. Le serveur de dev sert alors silencieusement l'ancien bundle, l'écran ne bouge pas et rien n'a l'air cassé.
+
+## App mobile
+
+- Utiliser la localisation de l'utilisateur pour le situer sur la carte.
+- UI de référence : `Notes/Capture d'écran 2026-08-25 173139.png`
+
+## Pour relancer l'environnement
+
+```bash
+docker compose up -d
+dotnet run --project src/Nooks.Api    # http://localhost:5001
+cd client && npm start                # http://localhost:4200
+```
+
+Comptes de démonstration : `admin@nooks.local` (admin), `camille@nooks.local` et six autres, mot de passe `Nooks!2026`.
+
+## Mes notes
+
+<!-- à compléter -->
