@@ -1,0 +1,39 @@
+using Nooks.Core.Abstractions;
+using Nooks.Infrastructure.Geocoding;
+using Nooks.Infrastructure.Persistence;
+using Nooks.Infrastructure.Persistence.Repositories;
+using Nooks.Infrastructure.Storage;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace Nooks.Infrastructure;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<NooksDbContext>(options =>
+            options.UseNpgsql(
+                configuration.GetConnectionString("Default"),
+                npgsql => npgsql.UseNetTopologySuite()));
+
+        services.AddScoped<IPlaceRepository, PlaceRepository>();
+
+        services.AddMemoryCache();
+        services.Configure<NominatimOptions>(configuration.GetSection(NominatimOptions.SectionName));
+        services.AddHttpClient<IGeocodingService, NominatimGeocodingService>((provider, client) =>
+        {
+            var options = provider.GetRequiredService<IOptions<NominatimOptions>>().Value;
+            client.BaseAddress = new Uri(options.BaseUrl);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(options.UserAgent);
+            client.Timeout = TimeSpan.FromSeconds(10);
+        });
+
+        services.Configure<PhotoStorageOptions>(configuration.GetSection(PhotoStorageOptions.SectionName));
+        services.AddScoped<IPhotoStorage, LocalPhotoStorage>();
+
+        return services;
+    }
+}

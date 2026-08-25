@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Nooks.Api/Nooks.Api.csproj" />
+    <Project Path="src/Nooks.Core/Nooks.Core.csproj" />
+    <Project Path="src/Nooks.Infrastructure/Nooks.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Nooks.Api.Tests/Nooks.Api.Tests.csproj" />
+    <Project Path="tests/Nooks.Core.Tests/Nooks.Core.Tests.csproj" />
+  </Folder>
+</Solution>
