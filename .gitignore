@@ -486,3 +486,6 @@ client/node_modules/
 client/.angular/
 client/dist/
 
+
+# Notes personnelles, hors du depot
+Notes/
