@@ -4,7 +4,7 @@ Tout le site tient dans **une image Docker et une base**. L'API sert aussi le si
 
 Rien à installer sur votre poste, aucune ligne de commande.
 
-Deux chemins sont décrits ici : sur un VPS avec Coolify, et sur Render. L'application est la même dans les deux cas, seul l'hébergeur change.
+Deux chemins sont décrits ici : sur un VPS avec Coolify, qui est l'hébergement en service, et sur Render, gardé comme solution de repli. L'application est la même dans les deux cas, seul l'hébergeur change.
 
 ## Sur un VPS avec Coolify
 
@@ -37,7 +37,7 @@ Il reste à attribuer un domaine à l'application. Coolify s'occupe du reste : l
 
 ## Sur Render
 
-C'est l'hébergement actuel de <https://nooks-8qgt.onrender.com>.
+L'hébergeur des débuts, gardé ici comme solution de repli. Le site vit maintenant sur un VPS avec Coolify, décrit plus haut.
 
 ### La marche à suivre
 

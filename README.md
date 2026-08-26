@@ -4,9 +4,9 @@ Une carte collaborative de lieux insolites : points de vue oubliés, boutiques a
 
 Preuve de concept : le fond de carte est rempli par un jeu de données de départ, et n'importe quel membre inscrit peut proposer un lieu, le noter, y ajouter des photos et le mettre en favori.
 
-**Le site est en ligne : <https://nooks-8qgt.onrender.com>**
+**Le site est en ligne : <https://u8h6bwbgqa9o3useshw759vc.92.222.72.240.sslip.io>**
 
-Hébergé sur l'offre gratuite de Render, il s'endort après quinze minutes sans visite. Le premier chargement peut donc demander une minute, le temps qu'il se réveille.
+Hébergé sur un VPS avec Coolify. L'adresse est celle que fournit l'hébergeur à défaut de nom de domaine, elle n'a rien de définitif.
 
 ![La page d'accueil](docs/accueil.png)
 
