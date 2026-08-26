@@ -25,12 +25,23 @@ public static class ConnectionString
             Database = uri.AbsolutePath.Trim('/'),
             Username = Uri.UnescapeDataString(credentials[0]),
             Password = credentials.Length > 1 ? Uri.UnescapeDataString(credentials[1]) : null,
-            // Les bases gérées imposent toutes TLS, avec un certificat que l'image .NET
-            // ne sait pas toujours valider : on chiffre sans exiger la chaîne complète.
-            SslMode = Npgsql.SslMode.Require,
+            // Prefer chiffre dès que le serveur le propose, et se rabat sur une connexion
+            // simple sinon. Exiger TLS casserait une base voisine dans le même réseau Docker,
+            // qui n'en a pas ; l'imposer partout n'apporte rien de plus qu'un plantage.
+            SslMode = ReadSslMode(uri) ?? Npgsql.SslMode.Prefer,
+            // Les bases gérées présentent un certificat que l'image .NET ne sait pas
+            // toujours valider : on chiffre sans exiger la chaîne complète.
             TrustServerCertificate = true,
         };
 
         return builder.ConnectionString;
+    }
+
+    /// <summary>Le sslmode que l'hébergeur a écrit dans l'URL, s'il en a mis un.</summary>
+    private static Npgsql.SslMode? ReadSslMode(Uri uri)
+    {
+        var requested = System.Web.HttpUtility.ParseQueryString(uri.Query)["sslmode"];
+
+        return Enum.TryParse<Npgsql.SslMode>(requested, ignoreCase: true, out var mode) ? mode : null;
     }
 }
