@@ -4,7 +4,38 @@ Tout le site tient dans **une image Docker et une base**. L'API sert aussi le si
 
 Rien à installer sur votre poste, aucune ligne de commande.
 
-## La marche à suivre
+Deux chemins sont décrits ici : sur un VPS avec Coolify, et sur Render. L'application est la même dans les deux cas, seul l'hébergeur change.
+
+## Sur un VPS avec Coolify
+
+Deux ressources dans un même projet Coolify.
+
+**La base.** Créer une ressource PostgreSQL et choisir la variante **PostGIS**. Si elle ne figure pas dans la liste, indiquer l'image `postgis/postgis:17-3.5` à la main. Coolify crée le volume et garde les données entre les redéploiements. Activer les sauvegardes planifiées dès maintenant : sur un VPS, personne d'autre ne les fera.
+
+**L'application.** Créer une ressource depuis le dépôt GitHub, en mode de construction **Dockerfile**. Coolify trouve le `Dockerfile` à la racine. Deux variables d'environnement à renseigner :
+
+| Variable | Valeur |
+|---|---|
+| `ConnectionStrings__Default` | l'URL interne de la base, telle que Coolify l'affiche |
+| `Jwt__SigningKey` | une chaîne aléatoire d'au moins 32 caractères |
+
+L'URL de la base se colle telle quelle, au format `postgres://...` : l'application la traduit au démarrage, Npgsql ne comprenant pas ce format. Elle respecte aussi le `sslmode` que l'URL contient, et se contente d'une connexion simple quand la base voisine n'a pas de TLS, ce qui est le cas d'un PostgreSQL interne à Coolify.
+
+Il reste à attribuer un domaine à l'application. Coolify s'occupe du reste : le proxy devant, le certificat Let's Encrypt, et le redéploiement automatique à chaque poussée sur `main`.
+
+### Ce qu'il faut avoir en tête
+
+**La mémoire à la construction.** L'image compile Angular puis .NET dans le conteneur. Vérifié : elle se construit dans un environnement limité à **2 Go de RAM et 2 cœurs**, en une minute trente. En dessous, la compilation risque de se faire tuer par le noyau ; il faudra alors construire l'image ailleurs et ne déployer que le résultat.
+
+**PostGIS en x86 uniquement** dans le préréglage Coolify, sans conséquence sur la quasi-totalité des VPS.
+
+**Le premier démarrage** applique les migrations puis remplit le jeu de démonstration en arrière-plan, en allant chercher les photos sur Wikipédia. Comptez quelques minutes avant que la carte se garnisse.
+
+## Sur Render
+
+C'est l'hébergement actuel de <https://nooks-8qgt.onrender.com>.
+
+### La marche à suivre
 
 1. Créer un compte sur <https://render.com> et le relier à GitHub.
 2. Cliquer sur **New**, puis **Blueprint**.
@@ -19,7 +50,7 @@ Une fois le site en ligne, il se remplit tout seul : le jeu de démonstration s'
 
 Ensuite, chaque poussée sur `main` redéploie le site automatiquement.
 
-## Ce qu'il faut savoir sur l'offre gratuite
+### Ce qu'il faut savoir sur l'offre gratuite
 
 Elle convient pour montrer le projet, avec deux limites à connaître :
 
@@ -32,7 +63,7 @@ Passer les deux morceaux en payant coûte une quinzaine de dollars par mois. Tan
 
 - **Le compte admin** est `admin@nooks.local`, mot de passe `Nooks!2026`. Sur un site public, créez un vrai compte administrateur et supprimez celui-ci.
 - **Les autres comptes de démonstration** partagent le même mot de passe. Ils n'existent que pour peupler la carte.
-- **Pour repartir d'une base vide**, sans lieux ni comptes fictifs, passer `Seed__Demo` à `false` dans `render.yaml`.
+- **Pour repartir d'une base vide**, sans lieux ni comptes fictifs, passer `Seed__Demo` à `false` (dans `render.yaml`, ou dans les variables de l'application chez Coolify).
 - **`Moderation__AutoApprove`** est déjà à `false` : chaque lieu proposé passe par la file de modération.
 - **Les fonds de carte** CARTO et OpenStreetMap sont gratuits pour un usage modéré. Au-delà, il faut un fournisseur sous contrat.
 
