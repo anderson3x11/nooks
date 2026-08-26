@@ -34,14 +34,22 @@ builder.Services.AddSingleton<TokenService>();
 var jwt = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>()
           ?? throw new InvalidOperationException("Section de configuration Jwt manquante.");
 
-// La clé de développement est dans appsettings.json, donc dans un dépôt public : quiconque
-// la connaît peut se forger un jeton admin. Hors développement, mieux vaut ne pas démarrer
-// du tout que de tourner en silence avec une clé que tout le monde peut lire.
-if (!builder.Environment.IsDevelopment() && jwt.SigningKey == JwtOptions.DevelopmentSigningKey)
+// Ni la clé de signature ni le mot de passe des comptes de démonstration n'ont de valeur
+// par défaut : rien d'utilisable ne traîne dans le dépôt, et une configuration incomplète
+// arrête le démarrage au lieu de passer inaperçue.
+if (jwt.SigningKey.Length < 32)
 {
     throw new InvalidOperationException(
-        "Jwt__SigningKey n'est pas renseignée : l'application refuse de démarrer avec la clé de développement, "
-        + "qui est publiée dans le dépôt. Donnez-lui une chaîne aléatoire d'au moins 32 caractères.");
+        "Jwt__SigningKey est absente ou trop courte : il faut au moins 32 caractères aléatoires.");
+}
+
+var seed = builder.Configuration.GetSection(SeedOptions.SectionName).Get<SeedOptions>() ?? new SeedOptions();
+
+if (seed.Demo && string.IsNullOrWhiteSpace(seed.Password))
+{
+    throw new InvalidOperationException(
+        "Seed__Password est absente alors que le jeu de démonstration est actif. L'un des comptes créés est "
+        + "administrateur : donnez-lui un mot de passe, ou passez Seed__Demo à false.");
 }
 
 builder.Services

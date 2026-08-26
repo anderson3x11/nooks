@@ -489,3 +489,10 @@ client/dist/
 
 # Notes personnelles, hors du depot
 Notes/
+
+# Tout ce qui ne sert qu'a faire tourner le projet en local reste sur la machine.
+# Le depot est une vitrine : l'hebergeur, lui, construit avec le Dockerfile.
+docker-compose*.yml
+src/Nooks.Api/appsettings.Development.json
+src/Nooks.Api/Properties/launchSettings.json
+client/.vscode/

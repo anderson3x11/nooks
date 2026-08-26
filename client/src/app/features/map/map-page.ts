@@ -14,6 +14,7 @@ import {
   emptyFilters,
 } from '../../core/models';
 import { MembersApi } from '../../core/members-api';
+import { AccountMenu } from '../../shared/account-menu';
 import { PlacesApi } from '../../core/places-api';
 import { PlaceDetailPanel } from '../places/place-detail';
 import { PlaceForm } from '../places/place-form';
@@ -34,7 +35,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
 @Component({
   selector: 'nooks-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LeafletMap, FiltersPanel, CitySearch, PlaceDetailPanel, PlaceForm, RouterLink],
+  imports: [LeafletMap, FiltersPanel, CitySearch, PlaceDetailPanel, PlaceForm, RouterLink, AccountMenu],
   template: `
     <div class="relative h-dvh w-full overflow-hidden">
       <nooks-map
@@ -76,21 +77,11 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
           <div class="hidden flex-1 md:block"></div>
 
           <div class="card pointer-events-auto flex h-12 shrink-0 items-center gap-2 rounded-full px-1.5 md:pl-4">
-            @if (auth.user(); as user) {
-              <a routerLink="/profil" class="flex items-center gap-2 rounded-full">
-                <span class="hidden px-1 text-[14px] text-ink-700 md:inline">{{ user.displayName }}</span>
-                <span
-                  class="flex size-9 items-center justify-center rounded-full bg-ink-950 text-[13px] font-bold text-white md:hidden"
-                >
-                  {{ initial(user.displayName) }}
-                </span>
-              </a>
+            @if (auth.isSignedIn()) {
               @if (auth.isAdmin()) {
                 <a routerLink="/admin" class="btn btn-quiet hidden py-1.5 text-[13px] md:inline-flex">Admin</a>
               }
-              <button type="button" class="btn btn-quiet hidden py-1.5 text-[13px] md:inline-flex" (click)="auth.logout()">
-                Quitter
-              </button>
+              <nooks-account-menu />
             } @else {
               <a routerLink="/connexion" class="hidden px-2 text-[14px] font-medium text-ink-700 hover:text-ink-950 md:inline">
                 Connexion
@@ -500,10 +491,6 @@ export class MapPage {
       },
       error: () => this.flash("Le favori n'a pas pu être enregistré."),
     });
-  }
-
-  protected initial(name: string): string {
-    return name.trim().charAt(0).toUpperCase();
   }
 
   private flash(message: string): void {

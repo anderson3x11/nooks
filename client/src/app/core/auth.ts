@@ -34,6 +34,18 @@ export class Auth {
       .pipe(tap((r) => this.store(r)));
   }
 
+  changeEmail(email: string, currentPassword: string): Observable<AuthResponse> {
+    return this.http
+      .put<AuthResponse>('/api/auth/email', { email, currentPassword })
+      .pipe(tap((r) => this.store(r)));
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<AuthResponse> {
+    return this.http
+      .put<AuthResponse>('/api/auth/password', { currentPassword, newPassword })
+      .pipe(tap((r) => this.store(r)));
+  }
+
   logout(): void {
     this.session.set(null);
     localStorage.removeItem(STORAGE_KEY);

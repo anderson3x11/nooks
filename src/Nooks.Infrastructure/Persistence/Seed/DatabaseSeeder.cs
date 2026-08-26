@@ -17,7 +17,6 @@ namespace Nooks.Infrastructure.Persistence.Seed;
 /// </summary>
 public static class DatabaseSeeder
 {
-    public const string DemoPassword = "Nooks!2026";
     private const string ResourceName = "Nooks.Infrastructure.Persistence.Seed.places.json";
 
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web)
@@ -104,7 +103,7 @@ public static class DatabaseSeeder
             return;
         }
 
-        var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>());
+        var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>(), options.Password);
         var created = await SeedPlacesAsync(
             context,
             provider.GetRequiredService<IPhotoStorage>(),
@@ -128,7 +127,7 @@ public static class DatabaseSeeder
         }
     }
 
-    private static async Task<List<AppUser>> SeedUsersAsync(UserManager<AppUser> userManager)
+    private static async Task<List<AppUser>> SeedUsersAsync(UserManager<AppUser> userManager, string password)
     {
         var users = new List<AppUser>();
 
@@ -146,7 +145,7 @@ public static class DatabaseSeeder
                     DisplayName = displayName
                 };
 
-                var result = await userManager.CreateAsync(user, DemoPassword);
+                var result = await userManager.CreateAsync(user, password);
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException(

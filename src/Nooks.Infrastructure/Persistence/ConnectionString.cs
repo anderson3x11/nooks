@@ -29,9 +29,6 @@ public static class ConnectionString
             // simple sinon. Exiger TLS casserait une base voisine dans le même réseau Docker,
             // qui n'en a pas ; l'imposer partout n'apporte rien de plus qu'un plantage.
             SslMode = ReadSslMode(uri) ?? Npgsql.SslMode.Prefer,
-            // Les bases gérées présentent un certificat que l'image .NET ne sait pas
-            // toujours valider : on chiffre sans exiger la chaîne complète.
-            TrustServerCertificate = true,
         };
 
         return builder.ConnectionString;

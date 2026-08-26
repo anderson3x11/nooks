@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/ro
 import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Auth } from '../core/auth';
+import { AccountMenu } from './account-menu';
 import { Wordmark } from './wordmark';
 
 /** Ancres des sections de la page d'accueil. */
@@ -23,7 +24,7 @@ const LINK = 'rounded-full px-4 py-2.5 text-[14.5px] font-medium whitespace-nowr
 @Component({
   selector: 'nooks-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive, Wordmark],
+  imports: [AccountMenu, RouterLink, RouterLinkActive, Wordmark],
   template: `
     <div class="pointer-events-none fixed inset-x-0 top-4 z-50 mx-auto max-w-6xl px-5">
       <nav class="card card-float pointer-events-auto flex h-16 w-full items-center gap-1.5 rounded-full py-2 pr-3 pl-4 md:pl-5">
@@ -51,15 +52,9 @@ const LINK = 'rounded-full px-4 py-2.5 text-[14.5px] font-medium whitespace-nowr
 
         <span class="mx-2 hidden h-7 w-px shrink-0 bg-ink-200 lg:block"></span>
 
-        <div class="hidden items-center gap-1.5 lg:flex">
-          @if (auth.user(); as user) {
-            <a routerLink="/profil" class="flex shrink-0 items-center gap-2.5 rounded-full px-2.5 py-1.5 transition-colors hover:bg-ink-100">
-              <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-ink-950 text-[13px] font-bold text-white">
-                {{ initial(user.displayName) }}
-              </span>
-              <span class="text-[14.5px] font-medium whitespace-nowrap">{{ user.displayName }}</span>
-            </a>
-            <button type="button" [class]="link" (click)="auth.logout()">Quitter</button>
+        <div class="hidden items-center gap-0.5 lg:flex">
+          @if (auth.isSignedIn()) {
+            <nooks-account-menu />
           } @else {
             <a routerLink="/connexion" [class]="link">Connexion</a>
             <a routerLink="/inscription" class="btn btn-primary shrink-0 px-5 py-2.5 whitespace-nowrap">Créer un compte</a>
@@ -139,12 +134,19 @@ const LINK = 'rounded-full px-4 py-2.5 text-[14.5px] font-medium whitespace-nowr
             >
               Mon profil
             </a>
+            <a
+              routerLink="/parametres"
+              class="block rounded-xl px-4 py-3 text-[15px] font-medium text-ink-700 transition-colors hover:bg-ink-100"
+              (click)="open.set(false)"
+            >
+              Paramètres
+            </a>
             <button
               type="button"
               class="block w-full rounded-xl px-4 py-3 text-left text-[15px] font-medium text-ink-500 transition-colors hover:bg-ink-100"
               (click)="signOut()"
             >
-              Quitter
+              Se déconnecter
             </button>
           } @else {
             <a

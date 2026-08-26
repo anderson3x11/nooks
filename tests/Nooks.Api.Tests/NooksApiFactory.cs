@@ -15,6 +15,9 @@ namespace Nooks.Api.Tests;
 /// </summary>
 public sealed class NooksApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
+    /// <summary>Le seed n'a plus de mot de passe par défaut : les tests fournissent le leur.</summary>
+    public const string SeedPassword = "TestsNooks!2026";
+
     private readonly PostgreSqlContainer _database = new PostgreSqlBuilder("postgis/postgis:17-3.5")
         .WithDatabase("nooks")
         .WithUsername("nooks")
@@ -37,6 +40,8 @@ public sealed class NooksApiFactory : WebApplicationFactory<Program>, IAsyncLife
 
         // Pas d'appel à Wikipédia pendant les tests : le seed doit rester rapide et hors ligne.
         builder.UseSetting("Seed:FetchPhotos", "false");
+        builder.UseSetting("Seed:Password", SeedPassword);
+        builder.UseSetting("Jwt:SigningKey", "cle-de-signature-des-tests-32-caracteres-minimum");
 
         builder.ConfigureTestServices(services =>
         {

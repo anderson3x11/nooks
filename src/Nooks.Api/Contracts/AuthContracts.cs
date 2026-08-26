@@ -8,4 +8,8 @@ public sealed record CurrentUserResponse(Guid Id, string Email, string DisplayNa
 
 public sealed record UpdateProfileRequest(string DisplayName, string? Bio);
 
+public sealed record ChangeEmailRequest(string Email, string CurrentPassword);
+
+public sealed record ChangePasswordRequest(string CurrentPassword, string NewPassword);
+
 public sealed record AuthResponse(string Token, DateTimeOffset ExpiresAt, CurrentUserResponse User);

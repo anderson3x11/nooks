@@ -16,6 +16,12 @@ export const routes: Routes = [
     title: 'Mon profil - Nooks',
   },
   {
+    path: 'parametres',
+    loadComponent: () => import('./features/profile/settings-page').then((m) => m.SettingsPage),
+    canActivate: [memberGuard],
+    title: 'Paramètres - Nooks',
+  },
+  {
     path: 'membres/:id',
     loadComponent: () => import('./features/profile/profile-page').then((m) => m.ProfilePage),
     title: 'Profil - Nooks',

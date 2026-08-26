@@ -19,4 +19,11 @@ public sealed class SeedOptions
 
     /// <summary>Identité annoncée à Wikimedia, comme leur politique d'usage l'exige.</summary>
     public string UserAgent { get; set; } = "Nooks/0.1 (https://github.com/local/nooks)";
+
+    /// <summary>
+    /// Mot de passe donné aux comptes de démonstration, dont l'administrateur. Sans valeur,
+    /// le démarrage en tire un au sort en développement et refuse de continuer ailleurs :
+    /// aucun identifiant utilisable ne traîne ainsi dans le dépôt.
+    /// </summary>
+    public string Password { get; set; } = string.Empty;
 }

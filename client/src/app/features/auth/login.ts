@@ -37,13 +37,6 @@ import { AuthShell } from './auth-shell';
         <a routerLink="/inscription" class="font-semibold text-ink-900 underline underline-offset-2">En créer un</a>
       </p>
 
-      <div class="divider my-5"></div>
-      <p class="text-center text-[12.5px] leading-relaxed text-ink-500">
-        Comptes de démonstration :<br />
-        <span class="font-semibold text-ink-900">admin&#64;nooks.local</span> ou
-        <span class="font-semibold text-ink-900">camille&#64;nooks.local</span><br />
-        mot de passe <span class="font-semibold text-ink-900">Nooks!2026</span>
-      </p>
     </nooks-auth-shell>
   `,
 })

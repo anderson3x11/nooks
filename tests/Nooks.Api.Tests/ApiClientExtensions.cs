@@ -4,7 +4,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Nooks.Api.Contracts;
 using System.Globalization;
-using Nooks.Api.Contracts;
 using Nooks.Infrastructure.Persistence.Seed;
 
 namespace Nooks.Api.Tests;
@@ -18,7 +17,7 @@ public static class ApiClientExtensions
 
     public static async Task<HttpClient> LoginAsync(this HttpClient client, string email)
     {
-        var response = await client.PostAsJsonAsync("/api/auth/login", new LoginRequest(email, DatabaseSeeder.DemoPassword));
+        var response = await client.PostAsJsonAsync("/api/auth/login", new LoginRequest(email, NooksApiFactory.SeedPassword));
         response.EnsureSuccessStatusCode();
 
         var auth = await response.Content.ReadFromJsonAsync<AuthResponse>(Json);
@@ -29,7 +28,7 @@ public static class ApiClientExtensions
     public static async Task<HttpClient> RegisterAsync(this HttpClient client, string displayName)
     {
         var email = $"{Guid.NewGuid():N}@nooks.test";
-        var response = await client.PostAsJsonAsync("/api/auth/register", new RegisterRequest(email, DatabaseSeeder.DemoPassword, displayName));
+        var response = await client.PostAsJsonAsync("/api/auth/register", new RegisterRequest(email, NooksApiFactory.SeedPassword, displayName));
         response.EnsureSuccessStatusCode();
 
         var auth = await response.Content.ReadFromJsonAsync<AuthResponse>(Json);
