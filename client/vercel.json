@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://nooks-api.fly.dev/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://nooks-api.fly.dev/uploads/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

@@ -148,7 +148,9 @@ Un avis retiré disparaît de la fiche et cesse de compter dans la moyenne, mais
 
 ## Mise en production
 
-Trois conteneurs : PostGIS, l'API, et nginx qui sert le front et relaie `/api` et `/uploads` vers l'API. Un seul port est exposé, donc pas de CORS ni de second domaine à gérer.
+Le site en ligne repose sur trois hébergeurs : le front sur Vercel, l'API sur Fly.io, la base sur Neon. La marche à suivre complète est dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
+
+Pour tourner sur une seule machine, tout est aussi disponible en conteneurs : PostGIS, l'API, et nginx qui sert le front et relaie `/api` et `/uploads` vers l'API. Un seul port est exposé, donc pas de CORS ni de second domaine à gérer.
 
 ```bash
 cp .env.example .env      # puis remplir le mot de passe et la clé de signature

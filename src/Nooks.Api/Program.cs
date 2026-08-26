@@ -106,6 +106,10 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Sonde de vie pour l'hébergeur : volontairement sans accès à la base, pour
+// distinguer « le processus tourne » de « la base répond ».
+app.MapGet("/health", () => Results.Ok(new { status = "ok" })).ExcludeFromDescription();
+
 app.MapAuthEndpoints();
 app.MapPlacesEndpoints();
 app.MapGeocodeEndpoints();

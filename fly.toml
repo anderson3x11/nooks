@@ -1,0 +1,43 @@
+# Déploiement de l'API sur Fly.io. Le front vit sur Vercel, la base sur Neon.
+# Le nom d'application doit être unique sur Fly : changez-le si celui-ci est pris,
+# et reportez le changement dans client/vercel.json.
+app = "nooks-api"
+primary_region = "cdg"
+
+[build]
+  dockerfile = "src/Nooks.Api/Dockerfile"
+
+[env]
+  ASPNETCORE_ENVIRONMENT = "Production"
+  ASPNETCORE_HTTP_PORTS = "8080"
+  # Le jeu de démonstration n'est inséré que si la base est vide.
+  Seed__Demo = "true"
+  Moderation__AutoApprove = "false"
+  Nominatim__UserAgent = "Nooks/1.0 (https://github.com/anderson3x11/nooks)"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # La machine se met en veille au lieu de s'arrêter : elle repart en une seconde
+  # au lieu de faire patienter le visiteur pendant un démarrage complet.
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/health"
+    interval = "30s"
+    timeout = "5s"
+    # Au tout premier démarrage, l'API applique les migrations puis va chercher
+    # les photos sur Wikipédia : elle n'écoute pas avant plusieurs minutes.
+    grace_period = "10m"
+
+# Les photos envoyées par les membres doivent survivre aux redéploiements.
+[mounts]
+  source = "nooks_uploads"
+  destination = "/app/wwwroot/uploads"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
