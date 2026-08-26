@@ -1,4 +1,18 @@
-# Construction et exécution de l'API, en deux étapes pour ne pas embarquer le SDK.
+# Une seule image : le site Angular construit puis déposé dans l'API, qui le sert
+# elle-même. Un conteneur à déployer au lieu de deux, et plus rien à coordonner
+# entre le front et l'API puisqu'ils partagent la même origine.
+
+# --- 1. Le site Angular -------------------------------------------------------
+FROM node:24-alpine AS client
+WORKDIR /client
+
+COPY client/package*.json ./
+RUN npm ci
+
+COPY client/ ./
+RUN npm run build
+
+# --- 2. L'API -----------------------------------------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
@@ -12,6 +26,7 @@ RUN dotnet restore src/Nooks.Api/Nooks.Api.csproj
 COPY src/ src/
 RUN dotnet publish src/Nooks.Api/Nooks.Api.csproj -c Release -o /app --no-restore
 
+# --- 3. L'image finale --------------------------------------------------------
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
@@ -21,11 +36,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /app ./
-
-# Les photos envoyées vivent ici : à monter sur un volume, sinon elles disparaissent
-# au premier redéploiement.
-RUN mkdir -p /app/wwwroot/uploads
-VOLUME ["/app/wwwroot/uploads"]
+COPY --from=client /client/dist/client/browser ./wwwroot/
 
 ENV ASPNETCORE_HTTP_PORTS=8080
 EXPOSE 8080

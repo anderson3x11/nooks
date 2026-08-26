@@ -1,5 +1,6 @@
 using Nooks.Core.Entities;
 using Nooks.Infrastructure.Identity;
+using Nooks.Infrastructure.Storage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ public sealed class NooksDbContext(DbContextOptions<NooksDbContext> options)
     public DbSet<PlacePhoto> PlacePhotos => Set<PlacePhoto>();
     public DbSet<Rating> Ratings => Set<Rating>();
     public DbSet<Favorite> Favorites => Set<Favorite>();
+    public DbSet<StoredImage> StoredImages => Set<StoredImage>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

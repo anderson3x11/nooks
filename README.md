@@ -143,14 +143,16 @@ Un avis retiré disparaît de la fiche et cesse de compter dans la moyenne, mais
 - Les rechargements de carte sont amortis : un déplacement enchaîne plusieurs événements, un seul appel part.
 - Au-delà de 100 degrés carrés visibles, le front n'interroge plus l'API et invite à zoomer.
 - Les fichiers envoyés portent un nom unique : ils sont servis avec un cache d'un an, ce qui supprime une revalidation par vignette à chaque déplacement.
-- Les réponses JSON sont compressées, et nginx compresse à son tour les fichiers du front.
+- Les réponses JSON comme les fichiers du site sont compressées par l'API.
 - Les requêtes de lecture sont sans suivi EF, et tous les composants Angular sont en `OnPush` sur une application sans zone.
 
 ## Mise en production
 
-Le site en ligne repose sur trois hébergeurs : le front sur Vercel, l'API sur Fly.io, la base sur Neon. La marche à suivre complète est dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md).
+Le site tient dans **une image Docker et une base**. L'API sert aussi le site Angular, construit dans la même image et déposé dans son `wwwroot` : une seule origine, donc pas de second hébergeur, pas de CORS et pas d'URL à faire correspondre entre le front et l'API.
 
-Pour tourner sur une seule machine, tout est aussi disponible en conteneurs : PostGIS, l'API, et nginx qui sert le front et relaie `/api` et `/uploads` vers l'API. Un seul port est exposé, donc pas de CORS ni de second domaine à gérer.
+Le déploiement en ligne est décrit dans [docs/DEPLOIEMENT.md](docs/DEPLOIEMENT.md). Il se résume à un fichier, [`render.yaml`](render.yaml), que l'hébergeur lit pour construire l'image, créer la base et les relier lui-même.
+
+La même pile tourne en local, ce qui permet de répéter un déploiement avant de le faire :
 
 ```bash
 cp .env.example .env      # puis remplir le mot de passe et la clé de signature
@@ -159,12 +161,14 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 Points à connaître :
 
-- **Les migrations s'appliquent à chaque démarrage**, y compris en production : le conteneur doit pouvoir partir d'une base vide. Le jeu de démonstration, lui, dépend de `Seed:Demo`, à passer à `false` pour un vrai site.
-- **Les photos vivent dans un volume** monté sur `/app/wwwroot/uploads`. Sans lui, elles disparaissent au premier redéploiement.
-- **`Moderation:AutoApprove` vaut `false`** dans le compose de production : chaque lieu proposé passe par la file de modération.
+- **Les migrations s'appliquent à chaque démarrage**, y compris en production : le conteneur doit pouvoir partir d'une base vide.
+- **Les photos sont rangées dans la base**, pas sur un disque. C'est ce qui permet de déployer sans volume à monter, et elles survivent aux redéploiements sans stockage supplémentaire. Elles sont resservies par `/uploads/...` avec un cache d'un an.
+- **Le jeu de démonstration part en arrière-plan** une fois l'application en écoute. Son premier passage télécharge les photos sur Wikipédia et dure plusieurs minutes : l'attendre avant d'ouvrir le port ferait passer le démarrage pour un échec. Il dépend de `Seed:Demo`, à passer à `false` pour un vrai site.
+- **`ConnectionStrings__Default` accepte aussi une URL** `postgres://...`, le format que fournissent les hébergeurs. Elle est traduite au démarrage, Npgsql ne la comprenant pas telle quelle. À défaut, `DATABASE_URL` est lue.
+- **`Moderation:AutoApprove` vaut `false`** en production : chaque lieu proposé passe par la file de modération.
 - **La clé de signature JWT n'a pas de valeur par défaut** en production : le démarrage échoue si elle manque, plutôt que de tourner avec une clé connue de tous.
 
-L'intégration continue (`.github/workflows/ci.yml`) construit l'API et le front, lance les 68 tests, puis vérifie que les deux images Docker se construisent. Les tests d'intégration démarrent leur propre PostGIS via Testcontainers, ce que le runner GitHub permet sans configuration.
+L'intégration continue (`.github/workflows/ci.yml`) construit l'API et le front, lance les 68 tests, puis vérifie que l'image Docker se construit. Les tests d'intégration démarrent leur propre PostGIS via Testcontainers, ce que le runner GitHub permet sans configuration.
 
 ## Tests
 

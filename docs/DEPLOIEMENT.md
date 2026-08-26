@@ -1,75 +1,63 @@
 # Mise en ligne
 
-Trois hébergeurs, chacun sur ce qu'il fait le mieux :
+Tout le site tient dans **une image Docker et une base**. L'API sert aussi le site Angular, construit dans la même image : il n'y a donc qu'une seule chose à héberger.
 
-| Morceau | Où | Pourquoi |
-|---|---|---|
-| Front Angular | Vercel | Un site statique une fois construit, distribué en périphérie |
-| API ASP.NET Core | Fly.io | Lance le Dockerfile tel quel, avec un volume pour les photos |
-| PostgreSQL + PostGIS | Neon | Offre gratuite qui n'expire pas, extension PostGIS disponible |
+Rien à installer sur votre poste, aucune ligne de commande.
 
-Vercel ne peut pas héberger l'API : ses fonctions ne connaissent que Node, Python, Go et Ruby, et il n'y a ni conteneur ni disque persistant. Les réécritures de `vercel.json` renvoient donc `/api` et `/uploads` vers Fly, ce qui garde une seule origine côté navigateur et évite toute question de CORS.
+## La marche à suivre
 
-## 1. La base sur Neon
+1. Créer un compte sur <https://render.com> et le relier à GitHub.
+2. Cliquer sur **New**, puis **Blueprint**.
+3. Choisir le dépôt `nooks`.
+4. Cliquer sur **Apply**.
 
-1. Créer un projet sur <https://neon.tech>, région Europe.
-2. Créer une base nommée `nooks`.
-3. Récupérer la chaîne de connexion.
+C'est fini. Render lit le fichier [`render.yaml`](../render.yaml) à la racine du dépôt, et ce fichier décrit tout : construire l'image, créer la base PostgreSQL, tirer au sort la clé de signature des jetons et brancher l'adresse de la base sur l'application. Vous n'avez ni mot de passe à recopier, ni variable à saisir.
 
-**Le piège** : Neon donne une URI de la forme `postgresql://user:pass@host/db?sslmode=require`. Npgsql n'accepte pas ce format, il faut la réécrire en clé-valeur :
+Le premier déploiement prend une dizaine de minutes : Render construit le site Angular puis l'API. L'adresse finale ressemble à `https://nooks.onrender.com`.
 
-```
-Host=ep-xxxx-yyyy.eu-central-1.aws.neon.tech;Database=nooks;Username=VOTRE_USER;Password=VOTRE_MOT_DE_PASSE;SSL Mode=Require;Trust Server Certificate=true
-```
+Une fois le site en ligne, il se remplit tout seul : le jeu de démonstration s'insère en arrière-plan et va chercher les photos sur Wikipédia. Comptez quelques minutes de plus avant que la carte se garnisse. Si vous ouvrez le site pendant ce temps, la carte est simplement vide, ce n'est pas une panne.
+
+Ensuite, chaque poussée sur `main` redéploie le site automatiquement.
+
+## Ce qu'il faut savoir sur l'offre gratuite
+
+Elle convient pour montrer le projet, avec deux limites à connaître :
+
+- **Le site s'endort au bout de quinze minutes sans visite.** La visite suivante le réveille et attend environ une minute. Rien n'est perdu, c'est juste lent au premier chargement. Pour un lien envoyé à un recruteur, prévenez ou ouvrez le site quelques minutes avant.
+- **La base gratuite expire trente jours après sa création.** Passé ce délai, Render laisse deux semaines pour passer à une offre payante, puis supprime la base et ses données. Si le site doit rester en ligne durablement, il faut basculer la base sur l'offre payante avant l'échéance, en changeant `plan: free` en `plan: basic-256mb` dans `render.yaml`.
+
+Passer les deux morceaux en payant coûte une quinzaine de dollars par mois. Tant qu'il s'agit de montrer le projet, l'offre gratuite suffit : il suffit de refaire un déploiement quand la base a expiré.
+
+## Après la mise en ligne
+
+- **Le compte admin** est `admin@nooks.local`, mot de passe `Nooks!2026`. Sur un site public, créez un vrai compte administrateur et supprimez celui-ci.
+- **Les autres comptes de démonstration** partagent le même mot de passe. Ils n'existent que pour peupler la carte.
+- **Pour repartir d'une base vide**, sans lieux ni comptes fictifs, passer `Seed__Demo` à `false` dans `render.yaml`.
+- **`Moderation__AutoApprove`** est déjà à `false` : chaque lieu proposé passe par la file de modération.
+- **Les fonds de carte** CARTO et OpenStreetMap sont gratuits pour un usage modéré. Au-delà, il faut un fournisseur sous contrat.
+
+## Sur un autre hébergeur
+
+`render.yaml` est propre à Render, mais l'image, elle, ne l'est pas. Chez n'importe quel hébergeur qui sait lancer un `Dockerfile` (Railway, Fly.io, Koyeb, Scaleway...), il suffit de :
+
+1. Créer une base PostgreSQL avec l'extension PostGIS disponible.
+2. Déployer le dépôt, l'hébergeur trouvera le `Dockerfile` à la racine.
+3. Renseigner deux variables d'environnement :
+   - `ConnectionStrings__Default` : l'adresse de la base, au format URL `postgres://...` ou au format Npgsql, les deux sont acceptés. À défaut, `DATABASE_URL` est lue, ce que la plupart des hébergeurs remplissent seuls.
+   - `Jwt__SigningKey` : une chaîne aléatoire d'au moins 32 caractères.
 
 L'extension PostGIS n'est pas à créer à la main : la première migration s'en charge.
 
-## 2. L'API sur Fly.io
+## Répéter le déploiement en local
 
-Installer le client, puis depuis la racine du dépôt :
-
-```bash
-fly auth login
-fly apps create nooks-api          # si le nom est pris, en choisir un autre
-                                   # et le reporter dans client/vercel.json
-
-fly volumes create nooks_uploads --region cdg --size 1
-
-fly secrets set \
-  "ConnectionStrings__Default=Host=...;Database=nooks;Username=...;Password=...;SSL Mode=Require;Trust Server Certificate=true" \
-  "Jwt__SigningKey=$(openssl rand -base64 48)"
-
-fly deploy
-```
-
-Le premier démarrage applique les migrations puis va chercher les photos sur Wikipédia : comptez plusieurs minutes avant que l'API réponde. C'est pour cela que la sonde de `fly.toml` a une période de grâce de dix minutes. Les démarrages suivants sont immédiats, la base étant déjà remplie.
-
-Vérifier :
+La même pile tourne sur votre machine, utile pour vérifier avant de mettre en ligne :
 
 ```bash
-curl https://nooks-api.fly.dev/health
-curl https://nooks-api.fly.dev/api/home
+cp .env.example .env      # puis remplir le mot de passe et la clé de signature
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-## 3. Le front sur Vercel
-
-Si le nom d'application Fly n'est pas `nooks-api`, corriger les deux destinations dans `client/vercel.json` avant de déployer.
-
-Sur <https://vercel.com>, importer le dépôt GitHub avec ces réglages :
-
-- **Root Directory** : `client`
-- **Framework Preset** : Other
-- **Build Command** : `npm run build`
-- **Output Directory** : `dist/client/browser`
-
-Le reste vient de `vercel.json`. Chaque poussée sur `main` redéploie.
-
-## 4. Après la mise en ligne
-
-- **Changer les mots de passe de démonstration** ou passer `Seed__Demo` à `false` et repartir d'une base vide, si le site doit devenir autre chose qu'une démonstration.
-- **Le compte admin** est `admin@nooks.local`. Sur un site public, créer un vrai compte et retirer celui-là.
-- **`Moderation__AutoApprove`** est déjà à `false` : chaque lieu proposé passe par la file de modération.
-- **Les fonds de carte** CARTO et OpenStreetMap sont gratuits pour un usage modéré. Au-delà, il faut un fournisseur sous contrat.
+Le site répond alors sur <http://localhost:8080>.
 
 ## Ce qu'il reste à durcir
 
@@ -77,4 +65,4 @@ Cette configuration convient à une démonstration, pas à un service ouvert au 
 
 - Le jeton d'authentification est stocké dans le navigateur, donc exposé au XSS. Un cookie `HttpOnly` avec jeton de rafraîchissement serait nécessaire.
 - Aucune limitation de débit sur l'API.
-- Les photos sont sur un volume Fly, sans sauvegarde. Un stockage objet serait plus sûr.
+- Les photos sont dans la base, ce qui simplifie l'hébergement mais ne tiendra pas à grande échelle. Au-delà de quelques milliers de lieux, il faudra un stockage objet.

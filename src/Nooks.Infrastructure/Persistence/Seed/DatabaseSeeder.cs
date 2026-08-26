@@ -69,25 +69,41 @@ public static class DatabaseSeeder
         "Sympa, sans plus, mais content d'y être passé."
     ];
 
-    public static async Task SeedDatabaseAsync(this IServiceProvider services, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Met la base au niveau du code. Rapide, et indispensable avant la première requête :
+    /// à faire avant que l'application se mette à écouter.
+    /// </summary>
+    public static async Task MigrateDatabaseAsync(this IServiceProvider services, CancellationToken cancellationToken = default)
+    {
+        using var scope = services.CreateScope();
+        var provider = scope.ServiceProvider;
+
+        await provider.GetRequiredService<NooksDbContext>().Database.MigrateAsync(cancellationToken);
+
+        // Les rôles existent dans tous les cas : sans eux, aucune inscription ne fonctionne.
+        await SeedRolesAsync(provider.GetRequiredService<RoleManager<IdentityRole<Guid>>>());
+    }
+
+    /// <summary>
+    /// Remplit le jeu de démonstration. Le premier passage télécharge les photos sur
+    /// Wikipédia et dure plusieurs minutes : à lancer en arrière-plan, sinon l'hébergeur
+    /// conclut que l'application ne démarre pas.
+    /// </summary>
+    public static async Task SeedDemoDataAsync(this IServiceProvider services, CancellationToken cancellationToken = default)
     {
         using var scope = services.CreateScope();
         var provider = scope.ServiceProvider;
         var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(DatabaseSeeder));
 
         var options = provider.GetRequiredService<IOptions<SeedOptions>>().Value;
-
         var context = provider.GetRequiredService<NooksDbContext>();
-        await context.Database.MigrateAsync(cancellationToken);
-
-        // Les rôles existent dans tous les cas : sans eux, aucune inscription ne fonctionne.
-        await SeedRolesAsync(provider.GetRequiredService<RoleManager<IdentityRole<Guid>>>());
 
         if (!options.Demo)
         {
-            logger.LogInformation("Base migrée. Jeu de démonstration désactivé (Seed:Demo).");
+            logger.LogInformation("Jeu de démonstration désactivé (Seed:Demo).");
             return;
         }
+
         var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>());
         var created = await SeedPlacesAsync(
             context,

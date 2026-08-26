@@ -1,16 +1,18 @@
 using Nooks.Core.Abstractions;
 using Nooks.Core.Common;
+using Nooks.Infrastructure.Persistence;
 using Microsoft.Extensions.Options;
 using SkiaSharp;
 
 namespace Nooks.Infrastructure.Storage;
 
 /// <summary>
-/// Stockage des photos sur le disque local, suffisant pour un POC. Les images sont réencodées
-/// en WebP : cela normalise le format, coupe les métadonnées et neutralise un fichier piégé
-/// qui se ferait passer pour une image.
+/// Stockage des photos dans la base. Les images sont réencodées en WebP : cela normalise
+/// le format, coupe les métadonnées et neutralise un fichier piégé qui se ferait passer
+/// pour une image. Les octets partent ensuite dans la même transaction que le lieu, donc
+/// aucun disque à prévoir et aucune photo orpheline en cas d'échec.
 /// </summary>
-public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : IPhotoStorage
+public sealed class DatabasePhotoStorage(NooksDbContext dbContext, IOptions<PhotoStorageOptions> options) : IPhotoStorage
 {
     private static ReadOnlySpan<byte> PngSignature => [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A];
 
@@ -18,30 +20,36 @@ public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : I
 
     public async Task<StoredPhoto> SaveAsync(Guid placeId, Stream content, CancellationToken cancellationToken)
     {
-        var bytes = await ReadWithLimitAsync(content, _options.MaxSizeInBytes, cancellationToken);
-
-        if (!LooksLikeSupportedImage(bytes))
-        {
-            throw new DomainException("Format non supporté. Envoyez une image JPEG, PNG ou WebP.");
-        }
-
-        using var bitmap = SKBitmap.Decode(bytes)
-            ?? throw new DomainException("Image illisible ou corrompue.");
-
-        var directory = Path.Combine(_options.RootPath, PhotoUrls.RootFolder, placeId.ToString());
-        Directory.CreateDirectory(directory);
+        using var bitmap = await DecodeAsync(content, cancellationToken);
 
         var baseName = Guid.NewGuid().ToString("N");
         var fileName = $"{baseName}.webp";
         var thumbnailFileName = $"{baseName}_thumb.webp";
+        var folder = $"{PhotoUrls.RootFolder}/{placeId}";
 
-        await WriteResizedAsync(bitmap, Path.Combine(directory, fileName), _options.MaxDimension, cancellationToken);
-        await WriteResizedAsync(bitmap, Path.Combine(directory, thumbnailFileName), _options.ThumbnailDimension, cancellationToken);
+        Add($"{folder}/{fileName}", Encode(bitmap, _options.MaxDimension));
+        Add($"{folder}/{thumbnailFileName}", Encode(bitmap, _options.ThumbnailDimension));
 
         return new StoredPhoto(fileName, thumbnailFileName);
     }
 
     public async Task<string> SaveAvatarAsync(Guid userId, Stream content, CancellationToken cancellationToken)
+    {
+        using var bitmap = await DecodeAsync(content, cancellationToken);
+
+        // Un avatar est toujours affiché dans un rond : on recadre au carré une bonne
+        // fois plutôt que de laisser le navigateur rogner une image de travers.
+        using var square = CropToSquare(bitmap);
+
+        var fileName = $"{Guid.NewGuid():N}.webp";
+        Add($"{PhotoUrls.AvatarFolder}/{userId}/{fileName}", Encode(square, _options.AvatarDimension));
+
+        return fileName;
+    }
+
+    private void Add(string path, byte[] content) => dbContext.StoredImages.Add(StoredImage.Create(path, content));
+
+    private async Task<SKBitmap> DecodeAsync(Stream content, CancellationToken cancellationToken)
     {
         var bytes = await ReadWithLimitAsync(content, _options.MaxSizeInBytes, cancellationToken);
 
@@ -50,20 +58,7 @@ public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : I
             throw new DomainException("Format non supporté. Envoyez une image JPEG, PNG ou WebP.");
         }
 
-        using var bitmap = SKBitmap.Decode(bytes)
-            ?? throw new DomainException("Image illisible ou corrompue.");
-
-        var directory = Path.Combine(_options.RootPath, PhotoUrls.AvatarFolder, userId.ToString());
-        Directory.CreateDirectory(directory);
-
-        // Un avatar est toujours affiché dans un rond : on recadre au carré une bonne
-        // fois plutôt que de laisser le navigateur rogner une image de travers.
-        using var square = CropToSquare(bitmap);
-
-        var fileName = $"{Guid.NewGuid():N}.webp";
-        await WriteResizedAsync(square, Path.Combine(directory, fileName), _options.AvatarDimension, cancellationToken);
-
-        return fileName;
+        return SKBitmap.Decode(bytes) ?? throw new DomainException("Image illisible ou corrompue.");
     }
 
     private static SKBitmap CropToSquare(SKBitmap source)
@@ -77,7 +72,7 @@ public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : I
         return square;
     }
 
-    private async Task WriteResizedAsync(SKBitmap source, string path, int maxDimension, CancellationToken cancellationToken)
+    private byte[] Encode(SKBitmap source, int maxDimension)
     {
         var scale = Math.Min(1d, (double)maxDimension / Math.Max(source.Width, source.Height));
         var width = Math.Max(1, (int)Math.Round(source.Width * scale));
@@ -88,9 +83,7 @@ public sealed class LocalPhotoStorage(IOptions<PhotoStorageOptions> options) : I
         using var image = SKImage.FromBitmap(resized);
         using var data = image.Encode(SKEncodedImageFormat.Webp, _options.Quality);
 
-        await using var file = File.Create(path);
-        data.AsStream().CopyTo(file);
-        await file.FlushAsync(cancellationToken);
+        return data.ToArray();
     }
 
     private static async Task<byte[]> ReadWithLimitAsync(Stream content, long maxSize, CancellationToken cancellationToken)

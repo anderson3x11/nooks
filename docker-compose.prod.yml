@@ -1,4 +1,5 @@
-# Pile complète pour un serveur : base, API et front derrière nginx.
+# La pile de production, telle qu'elle tourne en ligne : une base et une application
+# qui sert à la fois l'API et le site. Sert à répéter un déploiement en local.
 # Les secrets viennent d'un fichier .env à côté de ce fichier, jamais du dépôt.
 #
 #   docker compose -f docker-compose.prod.yml up -d --build
@@ -19,14 +20,14 @@ services:
       timeout: 5s
       retries: 10
 
-  api:
-    build:
-      context: .
-      dockerfile: src/Nooks.Api/Dockerfile
+  app:
+    build: .
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+    ports:
+      - '${HTTP_PORT:-8080}:8080'
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__Default: >-
@@ -36,18 +37,6 @@ services:
       Jwt__Audience: ${JWT_AUDIENCE:-nooks-client}
       Moderation__AutoApprove: ${MODERATION_AUTO_APPROVE:-false}
       Nominatim__UserAgent: ${NOMINATIM_USER_AGENT:-Nooks/1.0 (contact@example.com)}
-    volumes:
-      - uploads:/app/wwwroot/uploads
-
-  web:
-    build:
-      context: ./client
-    restart: unless-stopped
-    depends_on:
-      - api
-    ports:
-      - '${HTTP_PORT:-8080}:80'
 
 volumes:
   pgdata:
-  uploads:

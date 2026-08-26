@@ -15,9 +15,16 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        // DATABASE_URL est la variable que branchent seuls les hébergeurs ; la chaîne
+        // classique reste prioritaire pour le développement local.
+        var connectionString = configuration.GetConnectionString("Default")
+                               ?? configuration["DATABASE_URL"]
+                               ?? throw new InvalidOperationException(
+                                   "Aucune base configurée : renseignez ConnectionStrings__Default ou DATABASE_URL.");
+
         services.AddDbContext<NooksDbContext>(options =>
             options.UseNpgsql(
-                configuration.GetConnectionString("Default"),
+                ConnectionString.Normalize(connectionString),
                 npgsql => npgsql.UseNetTopologySuite()));
 
         services.AddScoped<IPlaceRepository, PlaceRepository>();
@@ -42,7 +49,7 @@ public static class DependencyInjection
         });
 
         services.Configure<PhotoStorageOptions>(configuration.GetSection(PhotoStorageOptions.SectionName));
-        services.AddScoped<IPhotoStorage, LocalPhotoStorage>();
+        services.AddScoped<IPhotoStorage, DatabasePhotoStorage>();
 
         return services;
     }

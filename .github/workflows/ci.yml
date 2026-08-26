@@ -48,16 +48,13 @@ jobs:
       - name: Construire
         run: npm run build
 
-  images:
-    name: Images Docker
+  image:
+    name: Image Docker
     runs-on: ubuntu-latest
     needs: [api, client]
     steps:
       - uses: actions/checkout@v4
 
-      # On vérifie seulement que les images se construisent : rien n'est publié ici.
-      - name: Image de l'API
-        run: docker build -f src/Nooks.Api/Dockerfile -t nooks-api:ci .
-
-      - name: Image du front
-        run: docker build -f client/Dockerfile -t nooks-web:ci client
+      # On vérifie seulement que l'image se construit : rien n'est publié ici.
+      - name: Construction
+        run: docker build -t nooks:ci .

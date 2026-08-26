@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Text.Json.Serialization;
 using Nooks.Api.Auth;
 using Nooks.Api.Endpoints;
@@ -7,7 +8,6 @@ using Nooks.Infrastructure;
 using Nooks.Infrastructure.Identity;
 using Nooks.Infrastructure.Persistence;
 using Nooks.Infrastructure.Persistence.Seed;
-using Nooks.Infrastructure.Storage;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -16,10 +16,6 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
-
-// Les photos sont écrites dans le wwwroot de l'API, connu seulement au démarrage.
-builder.Services.PostConfigure<PhotoStorageOptions>(options =>
-    options.RootPath = builder.Environment.WebRootPath ?? Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
 
 builder.Services
     .AddIdentityCore<AppUser>(options =>
@@ -85,24 +81,54 @@ if (app.Environment.IsDevelopment())
 }
 
 // Migrations appliquées à chaque démarrage, y compris en production : le conteneur
-// doit pouvoir partir d'une base vide. Le jeu de démonstration, lui, dépend de Seed:Demo.
-await app.Services.SeedDatabaseAsync();
+// doit pouvoir partir d'une base vide.
+await app.Services.MigrateDatabaseAsync();
+
+// Le jeu de démonstration, lui, dépend de Seed:Demo. Son premier passage télécharge les
+// photos sur Wikipédia et prend plusieurs minutes : en production on le lance une fois
+// l'application en écoute, sinon l'hébergeur conclut qu'elle ne démarre pas. En local on
+// l'attend, pour ne pas se retrouver devant une carte vide sans savoir pourquoi.
+if (app.Environment.IsDevelopment())
+{
+    await app.Services.SeedDemoDataAsync();
+}
+else
+{
+    app.Lifetime.ApplicationStarted.Register(() => _ = Task.Run(async () =>
+    {
+        try
+        {
+            await app.Services.SeedDemoDataAsync(app.Lifetime.ApplicationStopping);
+        }
+        catch (Exception exception)
+        {
+            app.Logger.LogError(exception, "Le jeu de démonstration n'a pas pu être inséré.");
+        }
+    }));
+}
 
 app.UseResponseCompression();
 app.UseCors();
 
-// Les fichiers envoyés portent un nom unique et ne changent jamais : on peut les
-// laisser en cache un an, ce qui évite une revalidation par vignette à chaque déplacement.
-app.UseStaticFiles(new StaticFileOptions
+// L'API sert aussi le site Angular, déposé dans wwwroot à la construction de l'image.
+// Une seule application à déployer, donc pas de second hébergeur ni de question de CORS.
+var staticFiles = new StaticFileOptions
 {
     OnPrepareResponse = context =>
     {
-        if (context.Context.Request.Path.StartsWithSegments("/uploads"))
-        {
-            context.Context.Response.Headers.CacheControl = "public, max-age=31536000, immutable";
-        }
+        // Angular signe le nom de ses fichiers avec une empreinte du contenu : ceux-là
+        // ne changent jamais et peuvent rester un an en cache. Les autres, index.html
+        // en tête, doivent être revalidés, sinon un déploiement passerait inaperçu.
+        var fingerprinted = FingerprintedAsset().IsMatch(context.Context.Request.Path.Value ?? string.Empty);
+
+        context.Context.Response.Headers.CacheControl = fingerprinted
+            ? "public, max-age=31536000, immutable"
+            : "no-cache";
     },
-});
+};
+
+app.UseStaticFiles(staticFiles);
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -115,8 +141,19 @@ app.MapPlacesEndpoints();
 app.MapGeocodeEndpoints();
 app.MapAdminEndpoints();
 app.MapMembersEndpoints();
+app.MapImagesEndpoints();
+
+// Toute route inconnue rend index.html : c'est le routeur Angular qui décide de la suite.
+// Placé après les endpoints, donc /api et /health gardent la priorité. Les mêmes options
+// que plus haut, pour que la page reçoive aussi son en-tête de cache.
+app.MapFallbackToFile("index.html", staticFiles);
 
 app.Run();
 
 /// <summary>Rend la classe visible aux tests d'intégration via WebApplicationFactory.</summary>
-public partial class Program;
+public partial class Program
+{
+    /// <summary>Empreinte de contenu ajoutée par Angular au nom de ses fichiers, par exemple main-A1B2C3D4.js.</summary>
+    [GeneratedRegex(@"-[A-Z0-9]{8,}\.(js|css)$")]
+    private static partial Regex FingerprintedAsset();
+}

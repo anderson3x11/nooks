@@ -486,5 +486,3 @@ client/node_modules/
 client/.angular/
 client/dist/
 
-# Uploads locaux
-src/Nooks.Api/wwwroot/uploads/
