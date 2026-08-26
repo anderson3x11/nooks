@@ -12,12 +12,16 @@ Deux ressources dans un même projet Coolify.
 
 **La base.** Créer une ressource PostgreSQL et choisir la variante **PostGIS**. Si elle ne figure pas dans la liste, indiquer l'image `postgis/postgis:17-3.5` à la main. Coolify crée le volume et garde les données entre les redéploiements. Activer les sauvegardes planifiées dès maintenant : sur un VPS, personne d'autre ne les fera.
 
-**L'application.** Créer une ressource depuis le dépôt GitHub, en mode de construction **Dockerfile**. Coolify trouve le `Dockerfile` à la racine. Deux variables d'environnement à renseigner :
+**L'application.** Créer une ressource depuis le dépôt GitHub, en mode de construction **Dockerfile**. Coolify trouve le `Dockerfile` à la racine. Les variables d'environnement à renseigner :
 
-| Variable | Valeur |
-|---|---|
-| `ConnectionStrings__Default` | l'URL interne de la base, telle que Coolify l'affiche |
-| `Jwt__SigningKey` | une chaîne aléatoire d'au moins 32 caractères |
+| Variable | Valeur | Pourquoi |
+|---|---|---|
+| `ConnectionStrings__Default` | l'URL interne de la base, telle que Coolify l'affiche | sans elle, pas de base |
+| `Jwt__SigningKey` | une chaîne aléatoire d'au moins 32 caractères | sans elle, l'application **refuse de démarrer** |
+| `Moderation__AutoApprove` | `false` | sinon tout lieu proposé est publié sans passer par la modération |
+| `Nominatim__UserAgent` | `Nooks/1.0 (https://github.com/anderson3x11/nooks)` | leur politique d'usage exige un agent identifiable |
+
+Les deux dernières ont des valeurs par défaut de développement dans `appsettings.json` : les oublier ne casse rien de visible, mais laisse la modération ouverte et la recherche de ville exposée à un blocage. La clé de signature, elle, a aussi une valeur par défaut, publiée dans ce dépôt public : hors développement l'application refuse explicitement de s'en servir plutôt que de tourner avec une clé que tout le monde peut lire.
 
 L'URL de la base se colle telle quelle, au format `postgres://...` : l'application la traduit au démarrage, Npgsql ne comprenant pas ce format. Elle respecte aussi le `sslmode` que l'URL contient, et se contente d'une connexion simple quand la base voisine n'a pas de TLS, ce qui est le cas d'un PostgreSQL interne à Coolify.
 
@@ -73,9 +77,10 @@ Passer les deux morceaux en payant coûte une quinzaine de dollars par mois. Tan
 
 1. Créer une base PostgreSQL avec l'extension PostGIS disponible.
 2. Déployer le dépôt, l'hébergeur trouvera le `Dockerfile` à la racine.
-3. Renseigner deux variables d'environnement :
+3. Renseigner les variables d'environnement, les mêmes que pour Coolify plus haut :
    - `ConnectionStrings__Default` : l'adresse de la base, au format URL `postgres://...` ou au format Npgsql, les deux sont acceptés. À défaut, `DATABASE_URL` est lue, ce que la plupart des hébergeurs remplissent seuls.
-   - `Jwt__SigningKey` : une chaîne aléatoire d'au moins 32 caractères.
+   - `Jwt__SigningKey` : une chaîne aléatoire d'au moins 32 caractères, sans laquelle l'application refuse de démarrer.
+   - `Moderation__AutoApprove` à `false` et `Nominatim__UserAgent`, dont les valeurs par défaut ne conviennent qu'au développement.
 
 L'extension PostGIS n'est pas à créer à la main : la première migration s'en charge.
 

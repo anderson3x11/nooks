@@ -34,6 +34,16 @@ builder.Services.AddSingleton<TokenService>();
 var jwt = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>()
           ?? throw new InvalidOperationException("Section de configuration Jwt manquante.");
 
+// La clé de développement est dans appsettings.json, donc dans un dépôt public : quiconque
+// la connaît peut se forger un jeton admin. Hors développement, mieux vaut ne pas démarrer
+// du tout que de tourner en silence avec une clé que tout le monde peut lire.
+if (!builder.Environment.IsDevelopment() && jwt.SigningKey == JwtOptions.DevelopmentSigningKey)
+{
+    throw new InvalidOperationException(
+        "Jwt__SigningKey n'est pas renseignée : l'application refuse de démarrer avec la clé de développement, "
+        + "qui est publiée dans le dépôt. Donnez-lui une chaîne aléatoire d'au moins 32 caractères.");
+}
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
