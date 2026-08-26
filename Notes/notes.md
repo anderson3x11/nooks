@@ -1,6 +1,6 @@
 # Nooks, carnet de bord
 
-Dernière session : 25 août 2026. Cinq commits, 68 tests verts, builds .NET et Angular propres.
+Dernière session : 26 août 2026. 68 tests verts, builds .NET et Angular propres.
 
 ## Conventions de travail
 
@@ -37,7 +37,7 @@ Dernière session : 25 août 2026. Cinq commits, 68 tests verts, builds .NET et 
 - Suppression définitive de lieux.
 
 **Site**
-- Page d'accueil : navbar flottante en pilule avec ancres, hero avec disque de carte et deux fiches posées dessus, concept, catégories, comment ça marche, derniers lieux, appel final, pied de page.
+- Page d'accueil : navbar flottante en pilule (à la largeur exacte de la boîte de contenu) avec ancres, hero avec disque de carte et deux fiches posées dessus, concept, catégories, comment ça marche, derniers lieux, appel final, pied de page.
 - Interface blanc et noir, arrondie, police Figtree. Logo en favicon.
 - Étoiles remplies au prorata de la note.
 
@@ -78,4 +78,5 @@ Comptes de démonstration : `admin@nooks.local` (admin), `camille@nooks.local` e
 
 ## Mes notes
 
-<!-- à compléter -->
+<!-- Traité le 26/08 : disque de carte agrandi (432 puis 512 px) et navbar alignée
+     sur la boîte de contenu (1112 px, même bord gauche que le titre). -->

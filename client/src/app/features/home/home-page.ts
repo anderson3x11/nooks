@@ -26,7 +26,7 @@ const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, 
     <main>
       <!-- Hero : le discours à gauche, une vignette de carte et deux lieux à droite. -->
       <section class="mx-auto max-w-6xl px-5 pt-32 pb-20 sm:pt-40">
-        <div class="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
+        <div class="grid items-center gap-14 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <p class="label-caps mb-4">Carte collaborative</p>
             <h1 class="text-[40px] sm:text-[48px] xl:text-[54px]">
@@ -64,10 +64,10 @@ const SHOWCASE_BOUNDS: MapBounds = { minLon: 2.29, minLat: 48.83, maxLon: 2.42, 
 
           <!-- Composition : un disque de carte, deux fiches posées dessus.
                Purement illustratif : rien n'y est cliquable. -->
-          <div class="relative mx-auto w-full max-w-[30rem] py-10 lg:py-0">
+          <div class="relative mx-auto w-full max-w-[36rem] py-10 lg:py-0">
             <!-- Contexte d'empilement isolé : les couches Leaflet passeraient sinon devant les fiches. -->
             <div
-              class="card card-float isolate mx-auto aspect-square w-full max-w-[27rem] overflow-hidden rounded-full"
+              class="card card-float isolate mx-auto aspect-square w-full max-w-[32rem] overflow-hidden rounded-full"
               aria-hidden="true"
             >
               <nooks-map
@@ -308,3 +308,4 @@ export class HomePage {
     return this.summary()?.categories.find((entry) => entry.category === category)?.count ?? 0;
   }
 }
+

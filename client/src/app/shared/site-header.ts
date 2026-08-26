@@ -20,13 +20,14 @@ const SECTIONS = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive, Wordmark],
   template: `
-    <div class="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-      <nav class="card card-float pointer-events-auto flex h-16 max-w-full items-center gap-1.5 rounded-full py-2 pr-3 pl-5">
+    <!-- La pilule occupe exactement la boite de contenu des pages : mêmes bords que les titres. -->
+    <div class="pointer-events-none fixed inset-x-0 top-4 z-50 mx-auto max-w-6xl px-5">
+      <nav class="card card-float pointer-events-auto flex h-16 w-full items-center gap-1.5 rounded-full py-2 pr-3 pl-5">
         <a routerLink="/" aria-label="Accueil Nooks" class="shrink-0 pr-2"><nooks-wordmark [size]="34" /></a>
 
         <span class="mx-2 hidden h-7 w-px shrink-0 bg-ink-200 lg:block"></span>
 
-        <div class="hidden items-center lg:flex">
+        <div class="hidden flex-1 items-center justify-center lg:flex">
           @for (section of sections; track section.fragment) {
             <a
               routerLink="/"
@@ -96,3 +97,4 @@ export class SiteHeader {
     return name.trim().charAt(0).toUpperCase();
   }
 }
+
