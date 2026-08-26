@@ -11,8 +11,8 @@ Hébergé sur un VPS avec Coolify. L'adresse est celle que fournit l'hébergeur 
 ![La page d'accueil](docs/accueil.png)
 
 <p align="center">
-  <img src="docs/carte.png" alt="La carte et la fiche d'un lieu" width="62%" />
-  <img src="docs/mobile.png" alt="La carte sur telephone" width="18%" />
+  <img src="docs/carte.png" alt="La carte et la fiche d'un lieu" width="76%" />
+  <img src="docs/mobile.png" alt="La carte sur telephone" width="22%" />
 </p>
 
 ## Stack
