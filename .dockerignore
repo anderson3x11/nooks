@@ -1,0 +1,13 @@
+**/bin
+**/obj
+**/node_modules
+**/dist
+**/.angular
+**/.git
+**/.github
+**/.vs
+**/.vscode
+Notes
+README.md
+docker-compose*.yml
+src/Nooks.Api/wwwroot/uploads

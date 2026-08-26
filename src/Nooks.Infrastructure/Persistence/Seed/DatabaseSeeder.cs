@@ -75,16 +75,25 @@ public static class DatabaseSeeder
         var provider = scope.ServiceProvider;
         var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(DatabaseSeeder));
 
+        var options = provider.GetRequiredService<IOptions<SeedOptions>>().Value;
+
         var context = provider.GetRequiredService<NooksDbContext>();
         await context.Database.MigrateAsync(cancellationToken);
 
+        // Les rôles existent dans tous les cas : sans eux, aucune inscription ne fonctionne.
         await SeedRolesAsync(provider.GetRequiredService<RoleManager<IdentityRole<Guid>>>());
+
+        if (!options.Demo)
+        {
+            logger.LogInformation("Base migrée. Jeu de démonstration désactivé (Seed:Demo).");
+            return;
+        }
         var users = await SeedUsersAsync(provider.GetRequiredService<UserManager<AppUser>>());
         var created = await SeedPlacesAsync(
             context,
             provider.GetRequiredService<IPhotoStorage>(),
             provider.GetRequiredService<WikimediaPhotoSource>(),
-            provider.GetRequiredService<IOptions<SeedOptions>>().Value,
+            options,
             users,
             logger,
             cancellationToken);

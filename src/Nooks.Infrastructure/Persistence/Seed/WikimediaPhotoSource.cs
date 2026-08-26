@@ -24,10 +24,26 @@ public sealed class WikimediaPhotoSource(HttpClient httpClient, ILogger<Wikimedi
     /// <summary>Largeur demandée : suffisante pour la fiche, sans télécharger un original de 20 Mo.</summary>
     private const int RequestedWidth = 1400;
 
+    private static readonly TimeSpan MinimumDelay = TimeSpan.FromMilliseconds(250);
+
+    private static readonly SemaphoreSlim Throttle = new(1, 1);
+    private static DateTimeOffset _lastCall = DateTimeOffset.MinValue;
+
+    /// <summary>
+    /// Un lieu à la fois, espacés d'un quart de seconde. Enchaîner cent trente appels
+    /// d'affilée fait tomber une partie des réponses et laisse des lieux sans photo.
+    /// </summary>
     public async Task<SourcedPhoto?> TryFetchAsync(string articleTitle, CancellationToken cancellationToken)
     {
+        await Throttle.WaitAsync(cancellationToken);
         try
         {
+            var since = DateTimeOffset.UtcNow - _lastCall;
+            if (since < MinimumDelay)
+            {
+                await Task.Delay(MinimumDelay - since, cancellationToken);
+            }
+
             var fileName = await FindLeadImageAsync(articleTitle, cancellationToken);
             if (fileName is null)
             {
@@ -47,6 +63,11 @@ public sealed class WikimediaPhotoSource(HttpClient httpClient, ILogger<Wikimedi
         {
             logger.LogInformation("Pas de photo Wikipédia pour « {Article} » : {Reason}", articleTitle, exception.Message);
             return null;
+        }
+        finally
+        {
+            _lastCall = DateTimeOffset.UtcNow;
+            Throttle.Release();
         }
     }
 

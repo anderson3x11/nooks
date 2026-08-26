@@ -9,7 +9,9 @@ import {
   output,
   viewChild,
 } from '@angular/core';
-import * as L from 'leaflet';
+// L'ordre est important : leaflet-setup pose Leaflet dans la portée globale,
+// sans quoi le greffon de regroupement ne trouve rien à étendre.
+import { L } from './leaflet-setup';
 import 'leaflet.markercluster';
 import { Basemap, DEFAULT_BASEMAP } from '../../core/basemaps';
 import { PIN_ANCHOR, PIN_SIZE, draftPinHtml, pinHtml } from '../../core/categories';

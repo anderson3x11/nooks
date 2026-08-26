@@ -1,0 +1,53 @@
+# Pile complète pour un serveur : base, API et front derrière nginx.
+# Les secrets viennent d'un fichier .env à côté de ce fichier, jamais du dépôt.
+#
+#   docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nooks}
+      POSTGRES_USER: ${POSTGRES_USER:-nooks}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?mot de passe de base requis}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-nooks} -d ${POSTGRES_DB:-nooks}']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: src/Nooks.Api/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Default: >-
+        Host=db;Port=5432;Database=${POSTGRES_DB:-nooks};Username=${POSTGRES_USER:-nooks};Password=${POSTGRES_PASSWORD}
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:?clé de signature requise}
+      Jwt__Issuer: ${JWT_ISSUER:-nooks-api}
+      Jwt__Audience: ${JWT_AUDIENCE:-nooks-client}
+      Moderation__AutoApprove: ${MODERATION_AUTO_APPROVE:-false}
+      Nominatim__UserAgent: ${NOMINATIM_USER_AGENT:-Nooks/1.0 (contact@example.com)}
+    volumes:
+      - uploads:/app/wwwroot/uploads
+
+  web:
+    build:
+      context: ./client
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - '${HTTP_PORT:-8080}:80'
+
+volumes:
+  pgdata:
+  uploads:

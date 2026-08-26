@@ -49,7 +49,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
       />
 
       <!-- Chrome flottant : transparent aux clics sauf sur les panneaux, et au-dessus
-           des couches Leaflet, qui montent jusqu'a z-index 800. -->
+           des couches Leaflet, qui montent jusqu'à z-index 800. -->
       <div class="pointer-events-none absolute inset-0 z-[1000] flex flex-col gap-3 p-3 md:gap-4 md:p-4">
         <header class="flex items-start gap-2 md:gap-3">
           <a
@@ -95,13 +95,13 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
               <a routerLink="/connexion" class="hidden px-2 text-[14px] font-medium text-ink-700 hover:text-ink-950 md:inline">
                 Connexion
               </a>
-              <a routerLink="/inscription" class="btn btn-primary py-1.5 text-[13px]">Creer un compte</a>
+              <a routerLink="/inscription" class="btn btn-primary py-1.5 text-[13px]">Créer un compte</a>
             }
           </div>
         </header>
 
         <div class="flex min-h-0 flex-1 items-start gap-4">
-          <!-- Filtres : colonne fixe sur grand ecran, feuille coulissante sur telephone. -->
+          <!-- Filtres : colonne fixe sur grand écran, feuille coulissante sur téléphone. -->
           <div
             class="pointer-events-auto fixed inset-x-0 bottom-0 z-[1001] max-h-[80dvh] overflow-y-auto md:static md:z-auto md:flex md:max-h-full md:w-auto md:flex-col md:gap-3 md:overflow-visible"
             [class.hidden]="!filtersOpen()"
@@ -127,7 +127,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
 
           <div class="hidden flex-1 md:block"></div>
 
-          <!-- Fiche et formulaire : panneau lateral sur grand ecran, feuille en bas sur telephone. -->
+          <!-- Fiche et formulaire : panneau latéral sur grand écran, feuille en bas sur téléphone. -->
           <div
             class="pointer-events-auto fixed inset-x-0 bottom-0 z-[1001] flex md:static md:z-auto md:max-h-full"
             [class.hidden]="!detail() && mode() !== 'adding'"
@@ -157,7 +157,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
         </div>
 
         <footer class="flex items-end gap-3" [class.hidden]="sheetOpen()">
-          <!-- Selecteur de fond de carte : replie en pastille, deplie en petite carte. -->
+          <!-- Sélecteur de fond de carte : replié en pastille, déplié en petite carte. -->
           <div class="pointer-events-auto relative shrink-0">
             @if (basemapOpen()) {
               <div class="card card-float animate-rise absolute bottom-12 left-0 w-44 p-1.5">
@@ -196,7 +196,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
             </button>
           </div>
 
-          <!-- Actions du bas, seulement sur telephone : filtres et ajout y sont hors flux. -->
+          <!-- Actions du bas, seulement sur téléphone : filtres et ajout y sont hors flux. -->
           <div class="pointer-events-auto flex flex-1 gap-2 md:hidden">
             <button type="button" class="btn btn-secondary card-float flex-1" (click)="filtersOpen.set(true)">
               Filtres
@@ -214,7 +214,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
               </p>
             } @else if (tooWide()) {
               <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
-                Zoomez pour decouvrir les lieux
+                Zoomez pour découvrir les lieux
               </p>
             } @else if (mode() === 'browse' && !detail()) {
               <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
@@ -226,7 +226,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
           <div class="hidden w-10 md:block"></div>
         </footer>
 
-        <!-- Sur telephone le bandeau passe au-dessus des actions, faute de place a cote. -->
+        <!-- Sur téléphone le bandeau passe au-dessus des actions, faute de place à côté. -->
         @if (banner(); as text) {
           <p
             class="card card-float animate-rise pointer-events-auto absolute inset-x-3 bottom-20 mx-auto w-fit rounded-full bg-ink-950 px-4 py-2 text-center text-[13.5px] font-semibold text-white md:hidden"

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  api:
+    name: API et domaine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurer
+        run: dotnet restore
+
+      - name: Construire
+        run: dotnet build --no-restore -c Release
+
+      # Les tests d'intégration démarrent un PostGIS via Testcontainers :
+      # le runner fournit déjà un démon Docker.
+      - name: Tester
+        run: dotnet test --no-build -c Release --logger "console;verbosity=normal"
+
+  client:
+    name: Front Angular
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - name: Installer
+        run: npm ci
+
+      - name: Construire
+        run: npm run build
+
+  images:
+    name: Images Docker
+    runs-on: ubuntu-latest
+    needs: [api, client]
+    steps:
+      - uses: actions/checkout@v4
+
+      # On vérifie seulement que les images se construisent : rien n'est publié ici.
+      - name: Image de l'API
+        run: docker build -f src/Nooks.Api/Dockerfile -t nooks-api:ci .
+
+      - name: Image du front
+        run: docker build -f client/Dockerfile -t nooks-web:ci client

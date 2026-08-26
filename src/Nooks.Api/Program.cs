@@ -82,8 +82,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
-    await app.Services.SeedDatabaseAsync();
 }
+
+// Migrations appliquées à chaque démarrage, y compris en production : le conteneur
+// doit pouvoir partir d'une base vide. Le jeu de démonstration, lui, dépend de Seed:Demo.
+await app.Services.SeedDatabaseAsync();
 
 app.UseResponseCompression();
 app.UseCors();

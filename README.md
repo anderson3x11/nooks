@@ -4,6 +4,13 @@ Une carte collaborative de lieux insolites : points de vue oubliés, boutiques a
 
 Preuve de concept : le fond de carte est rempli par un jeu de données de départ, et n'importe quel membre inscrit peut proposer un lieu, le noter, y ajouter des photos et le mettre en favori.
 
+![La page d'accueil](docs/accueil.png)
+
+<p align="center">
+  <img src="docs/carte.png" alt="La carte et la fiche d'un lieu" width="49%" />
+  <img src="docs/mobile.png" alt="La carte sur telephone" width="22%" />
+</p>
+
 ## Stack
 
 | Couche | Choix | Pourquoi |
@@ -114,6 +121,8 @@ Les lieux partent alors en file d'attente, invisibles sur la carte publique, jus
 | `/profil`, `/membres/:id` | Profil : présentation, avatar, lieux proposés, avis, favoris |
 | `/admin` | File d'attente, lieux publiés, modération des avis, liste des membres |
 
+La carte s'adapte au téléphone : les filtres et la fiche d'un lieu deviennent des feuilles qui montent du bas, et la navigation passe derrière un menu.
+
 ## Comptes et profils
 
 Chaque membre a une page : photo, présentation, compteurs (lieux proposés, avis publiés, favoris) et le détail de ses contributions. Les favoris ne sont visibles que par leur propriétaire, le compteur reste public.
@@ -134,8 +143,26 @@ Un avis retiré disparaît de la fiche et cesse de compter dans la moyenne, mais
 - Les rechargements de carte sont amortis : un déplacement enchaîne plusieurs événements, un seul appel part.
 - Au-delà de 100 degrés carrés visibles, le front n'interroge plus l'API et invite à zoomer.
 - Les fichiers envoyés portent un nom unique : ils sont servis avec un cache d'un an, ce qui supprime une revalidation par vignette à chaque déplacement.
-- Les réponses JSON sont compressées.
+- Les réponses JSON sont compressées, et nginx compresse à son tour les fichiers du front.
 - Les requêtes de lecture sont sans suivi EF, et tous les composants Angular sont en `OnPush` sur une application sans zone.
+
+## Mise en production
+
+Trois conteneurs : PostGIS, l'API, et nginx qui sert le front et relaie `/api` et `/uploads` vers l'API. Un seul port est exposé, donc pas de CORS ni de second domaine à gérer.
+
+```bash
+cp .env.example .env      # puis remplir le mot de passe et la clé de signature
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Points à connaître :
+
+- **Les migrations s'appliquent à chaque démarrage**, y compris en production : le conteneur doit pouvoir partir d'une base vide. Le jeu de démonstration, lui, dépend de `Seed:Demo`, à passer à `false` pour un vrai site.
+- **Les photos vivent dans un volume** monté sur `/app/wwwroot/uploads`. Sans lui, elles disparaissent au premier redéploiement.
+- **`Moderation:AutoApprove` vaut `false`** dans le compose de production : chaque lieu proposé passe par la file de modération.
+- **La clé de signature JWT n'a pas de valeur par défaut** en production : le démarrage échoue si elle manque, plutôt que de tourner avec une clé connue de tous.
+
+L'intégration continue (`.github/workflows/ci.yml`) construit l'API et le front, lance les 68 tests, puis vérifie que les deux images Docker se construisent. Les tests d'intégration démarrent leur propre PostGIS via Testcontainers, ce que le runner GitHub permet sans configuration.
 
 ## Tests
 
