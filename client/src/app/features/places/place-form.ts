@@ -25,7 +25,7 @@ const MAX_PHOTOS = 6;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, CategorySymbol],
   template: `
-    <form class="card card-float animate-panel flex max-h-full w-[26rem] flex-col overflow-hidden" [formGroup]="form" (ngSubmit)="save()">
+    <form class="card card-float animate-panel flex max-h-[82dvh] w-full flex-col overflow-hidden rounded-b-none md:max-h-full md:w-[26rem] md:rounded-[20px]" [formGroup]="form" (ngSubmit)="save()">
       <header class="flex items-center justify-between px-5 pt-4 pb-3">
         <h2 class="text-[18px]">Proposer un lieu</h2>
         <button type="button" class="btn-round size-8" aria-label="Annuler" (click)="cancelled.emit()">

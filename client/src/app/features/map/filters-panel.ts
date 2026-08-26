@@ -12,14 +12,23 @@ import { CategorySymbol } from '../../shared/category-symbol';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CategorySymbol],
   template: `
-    <section class="card w-80 overflow-hidden">
+    <section class="card w-full overflow-hidden rounded-b-none md:w-80 md:rounded-[20px]">
       <header class="flex items-center justify-between px-5 pt-4 pb-3">
         <h2 class="text-[16px]">Filtres</h2>
+        <div class="flex items-center gap-3">
         @if (isFiltered()) {
           <button type="button" class="cursor-pointer text-[13px] font-semibold text-ink-500 hover:text-ink-900" (click)="reset()">
             Réinitialiser
           </button>
         }
+        @if (dismissable()) {
+          <button type="button" class="btn-round size-8 md:hidden" aria-label="Fermer les filtres" (click)="dismissed.emit()">
+            <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M1 1 11 11M11 1 1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
+        }
+        </div>
       </header>
 
       <div class="px-5 pb-4">
@@ -80,7 +89,11 @@ export class FiltersPanel {
   /** Répartition des lieux visibles par catégorie, pour donner du contexte aux puces. */
   readonly counts = input<Record<string, number>>({});
 
+  /** Sur téléphone, le panneau est une feuille : il porte alors un bouton de fermeture. */
+  readonly dismissable = input(false);
+
   readonly filtersChanged = output<PlaceFilters>();
+  readonly dismissed = output<void>();
 
   protected readonly categories = CATEGORIES;
   protected readonly thresholds: (number | null)[] = [null, 3, 4, 4.5];

@@ -323,6 +323,18 @@
   background: var(--color-ink-50) !important;
 }
 
+/* Sur telephone on pince pour zoomer : les boutons ne feraient qu'encombrer
+   la zone des actions du bas. */
+@media (max-width: 767px) {
+  .leaflet-control-zoom {
+    display: none !important;
+  }
+
+  .leaflet-control-attribution {
+    margin-bottom: 56px !important;
+  }
+}
+
 .leaflet-control-attribution {
   background: rgb(255 255 255 / 0.82) !important;
   color: var(--color-ink-500) !important;

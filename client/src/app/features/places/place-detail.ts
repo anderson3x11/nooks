@@ -14,7 +14,7 @@ import { RatingStars } from './rating-stars';
   template: `
     @let item = place();
     @if (item) {
-      <article class="card card-float animate-panel flex max-h-full w-[26rem] flex-col overflow-hidden">
+      <article class="card card-float animate-panel flex max-h-[82dvh] w-full flex-col overflow-hidden rounded-b-none md:max-h-full md:w-[26rem] md:rounded-[20px]">
         <!-- Carrousel : la première photo est celle du marqueur, les autres suivent. -->
         <header class="relative shrink-0 bg-ink-100">
           @if (photos().length > 0) {

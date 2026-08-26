@@ -49,10 +49,14 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
       />
 
       <!-- Chrome flottant : transparent aux clics sauf sur les panneaux, et au-dessus
-           des couches Leaflet, qui montent jusqu'à z-index 800. -->
-      <div class="pointer-events-none absolute inset-0 z-[1000] flex flex-col gap-4 p-4">
-        <header class="flex items-start gap-3">
-          <a routerLink="/" class="card pointer-events-auto flex h-12 items-center gap-2.5 rounded-full pr-5 pl-2" aria-label="Accueil Nooks">
+           des couches Leaflet, qui montent jusqu'a z-index 800. -->
+      <div class="pointer-events-none absolute inset-0 z-[1000] flex flex-col gap-3 p-3 md:gap-4 md:p-4">
+        <header class="flex items-start gap-2 md:gap-3">
+          <a
+            routerLink="/"
+            class="card pointer-events-auto flex h-12 shrink-0 items-center gap-2.5 rounded-full px-2 md:pr-5"
+            aria-label="Accueil Nooks"
+          >
             <span class="flex size-8 items-center justify-center rounded-full bg-ink-950">
               <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
                 <path
@@ -62,35 +66,57 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
                 <circle cx="8" cy="6.3" r="1.9" fill="#0a0a0a" />
               </svg>
             </span>
-            <span class="text-[17px] leading-none font-extrabold tracking-tight">Nooks</span>
+            <span class="hidden text-[17px] leading-none font-extrabold tracking-tight md:inline">Nooks</span>
           </a>
 
-          <div class="pointer-events-auto">
-            <nooks-city-search (citySelected)="onCitySelected($event)" />
+          <div class="pointer-events-auto min-w-0 flex-1 md:flex-none">
+            <nooks-city-search class="block w-full md:w-80" (citySelected)="onCitySelected($event)" />
           </div>
 
-          <div class="flex-1"></div>
+          <div class="hidden flex-1 md:block"></div>
 
-          <div class="card pointer-events-auto flex h-12 items-center gap-2 rounded-full pr-1.5 pl-4">
+          <div class="card pointer-events-auto flex h-12 shrink-0 items-center gap-2 rounded-full px-1.5 md:pl-4">
             @if (auth.user(); as user) {
-              <span class="text-[14px] text-ink-700">{{ user.displayName }}</span>
+              <a routerLink="/profil" class="flex items-center gap-2 rounded-full">
+                <span class="hidden px-1 text-[14px] text-ink-700 md:inline">{{ user.displayName }}</span>
+                <span
+                  class="flex size-9 items-center justify-center rounded-full bg-ink-950 text-[13px] font-bold text-white md:hidden"
+                >
+                  {{ initial(user.displayName) }}
+                </span>
+              </a>
               @if (auth.isAdmin()) {
-                <a routerLink="/moderation" class="btn btn-quiet py-1.5 text-[13px]">Modération</a>
+                <a routerLink="/admin" class="btn btn-quiet hidden py-1.5 text-[13px] md:inline-flex">Admin</a>
               }
-              <button type="button" class="btn btn-quiet py-1.5 text-[13px]" (click)="auth.logout()">Quitter</button>
+              <button type="button" class="btn btn-quiet hidden py-1.5 text-[13px] md:inline-flex" (click)="auth.logout()">
+                Quitter
+              </button>
             } @else {
-              <a routerLink="/connexion" class="text-[14px] font-medium text-ink-700 hover:text-ink-950">Connexion</a>
-              <a routerLink="/inscription" class="btn btn-primary py-1.5 text-[13px]">Créer un compte</a>
+              <a routerLink="/connexion" class="hidden px-2 text-[14px] font-medium text-ink-700 hover:text-ink-950 md:inline">
+                Connexion
+              </a>
+              <a routerLink="/inscription" class="btn btn-primary py-1.5 text-[13px]">Creer un compte</a>
             }
           </div>
         </header>
 
         <div class="flex min-h-0 flex-1 items-start gap-4">
-          <div class="scroll-quiet pointer-events-auto flex max-h-full flex-col gap-3 overflow-y-auto pb-1">
-            <nooks-filters [filters]="filters()" [counts]="counts()" (filtersChanged)="onFiltersChanged($event)" />
+          <!-- Filtres : colonne fixe sur grand ecran, feuille coulissante sur telephone. -->
+          <div
+            class="pointer-events-auto fixed inset-x-0 bottom-0 z-[1001] max-h-[80dvh] overflow-y-auto md:static md:z-auto md:flex md:max-h-full md:w-auto md:flex-col md:gap-3 md:overflow-visible"
+            [class.hidden]="!filtersOpen()"
+          >
+            <nooks-filters
+              class="block"
+              [filters]="filters()"
+              [counts]="counts()"
+              [dismissable]="true"
+              (filtersChanged)="onFiltersChanged($event)"
+              (dismissed)="filtersOpen.set(false)"
+            />
 
             @if (mode() === 'browse') {
-              <button type="button" class="btn btn-primary card-float w-80" (click)="startAdding()">
+              <button type="button" class="btn btn-primary card-float hidden w-80 md:inline-flex" (click)="startAdding()">
                 <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true">
                   <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
                 </svg>
@@ -99,9 +125,13 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
             }
           </div>
 
-          <div class="flex-1"></div>
+          <div class="hidden flex-1 md:block"></div>
 
-          <div class="pointer-events-auto flex max-h-full">
+          <!-- Fiche et formulaire : panneau lateral sur grand ecran, feuille en bas sur telephone. -->
+          <div
+            class="pointer-events-auto fixed inset-x-0 bottom-0 z-[1001] flex md:static md:z-auto md:max-h-full"
+            [class.hidden]="!detail() && mode() !== 'adding'"
+          >
             @if (mode() === 'adding') {
               <nooks-place-form
                 [position]="draft()"
@@ -126,9 +156,9 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
           </div>
         </div>
 
-        <footer class="flex items-end gap-3">
-          <!-- Sélecteur de fond de carte : replié en pastille, déplié en petite carte. -->
-          <div class="pointer-events-auto relative">
+        <footer class="flex items-end gap-3" [class.hidden]="sheetOpen()">
+          <!-- Selecteur de fond de carte : replie en pastille, deplie en petite carte. -->
+          <div class="pointer-events-auto relative shrink-0">
             @if (basemapOpen()) {
               <div class="card card-float animate-rise absolute bottom-12 left-0 w-44 p-1.5">
                 @for (option of basemaps; track option.id) {
@@ -166,14 +196,25 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
             </button>
           </div>
 
-          <div class="flex flex-1 justify-center">
+          <!-- Actions du bas, seulement sur telephone : filtres et ajout y sont hors flux. -->
+          <div class="pointer-events-auto flex flex-1 gap-2 md:hidden">
+            <button type="button" class="btn btn-secondary card-float flex-1" (click)="filtersOpen.set(true)">
+              Filtres
+              @if (activeFilterCount() > 0) {
+                <span class="rounded-full bg-ink-950 px-1.5 text-[11px] text-white">{{ activeFilterCount() }}</span>
+              }
+            </button>
+            <button type="button" class="btn btn-primary card-float flex-1" (click)="startAdding()">Proposer</button>
+          </div>
+
+          <div class="hidden flex-1 justify-center md:flex">
             @if (banner(); as text) {
               <p class="card card-float animate-rise pointer-events-auto rounded-full bg-ink-950 px-4 py-2 text-[13.5px] font-semibold text-white">
                 {{ text }}
               </p>
             } @else if (tooWide()) {
               <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
-                Zoomez pour découvrir les lieux
+                Zoomez pour decouvrir les lieux
               </p>
             } @else if (mode() === 'browse' && !detail()) {
               <p class="card pointer-events-auto rounded-full px-3.5 py-1.5 text-[13px] text-ink-500">
@@ -182,8 +223,17 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
             }
           </div>
 
-          <div class="w-10"></div>
+          <div class="hidden w-10 md:block"></div>
         </footer>
+
+        <!-- Sur telephone le bandeau passe au-dessus des actions, faute de place a cote. -->
+        @if (banner(); as text) {
+          <p
+            class="card card-float animate-rise pointer-events-auto absolute inset-x-3 bottom-20 mx-auto w-fit rounded-full bg-ink-950 px-4 py-2 text-center text-[13.5px] font-semibold text-white md:hidden"
+          >
+            {{ text }}
+          </p>
+        }
       </div>
     </div>
   `,
@@ -213,12 +263,25 @@ export class MapPage {
   protected readonly tooWide = signal(false);
   /** La fiche est ouverte mais son détail complet n'est pas encore arrivé. */
   protected readonly loadingDetail = signal(false);
+  /** Sur téléphone, les filtres sont une feuille qu'on ouvre. Toujours visibles au-dessus de md. */
+  protected readonly filtersOpen = signal(false);
 
   protected readonly basemaps = BASEMAPS;
   protected readonly basemapOpen = signal(false);
   protected readonly basemap = signal<Basemap>(basemapById(localStorage.getItem(BASEMAP_KEY)));
 
   private bounds: MapBounds | null = null;
+
+  /** Une feuille occupe le bas de l'écran : les actions du bas s'effacent derrière. */
+  protected readonly sheetOpen = computed(
+    () => this.filtersOpen() || this.mode() === 'adding' || this.detail() !== null,
+  );
+
+  /** Nombre de filtres actifs, pour la pastille du bouton sur téléphone. */
+  protected readonly activeFilterCount = computed(() => {
+    const filters = this.filters();
+    return filters.categories.length + (filters.minRating === null ? 0 : 1) + (filters.text ? 1 : 0);
+  });
 
   /** Répartition par catégorie des lieux visibles, affichée dans la légende. */
   protected readonly counts = computed(() => {
@@ -282,6 +345,7 @@ export class MapPage {
 
   protected openPlace(id: string): void {
     this.selectedId.set(id);
+    this.filtersOpen.set(false);
 
     // La carte connaît déjà le nom, la catégorie, la note et la vignette : on ouvre
     // la fiche avec ça sans rien attendre, et le reste se remplit à l'arrivée.
@@ -316,6 +380,7 @@ export class MapPage {
     }
 
     this.closeDetail();
+    this.filtersOpen.set(false);
     this.error.set(null);
     this.duplicates.set([]);
     this.draft.set(null);
@@ -437,6 +502,10 @@ export class MapPage {
     });
   }
 
+  protected initial(name: string): string {
+    return name.trim().charAt(0).toUpperCase();
+  }
+
   private flash(message: string): void {
     this.banner.set(message);
     setTimeout(() => this.banner.update((current) => (current === message ? null : current)), 4000);
@@ -488,3 +557,4 @@ function readError(response: unknown, fallback: string): string {
   const firstField = problem?.errors ? Object.values(problem.errors)[0] : undefined;
   return firstField?.[0] ?? fallback;
 }
+
