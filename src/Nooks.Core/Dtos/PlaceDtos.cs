@@ -69,4 +69,8 @@ public sealed record PlaceRatingDto(
     string? Comment,
     DateTimeOffset CreatedAt,
     DateTimeOffset UpdatedAt,
-    bool IsEdited);
+    bool IsEdited,
+    IReadOnlyList<RatingPhotoDto> Photos);
+
+/// <summary>Photo jointe à un avis par son auteur.</summary>
+public sealed record RatingPhotoDto(Guid Id, string Url, string ThumbnailUrl);

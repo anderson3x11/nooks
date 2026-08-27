@@ -8,8 +8,13 @@ namespace Nooks.Core.Common;
 /// </summary>
 public readonly record struct GeoBounds(double MinLon, double MinLat, double MaxLon, double MaxLat)
 {
-    /// <summary>Surface maximale acceptée, en degrés carrés. Au-delà, la requête ratisse trop large.</summary>
-    public const double MaxAreaInSquareDegrees = 100d;
+    /// <summary>
+    /// Surface maximale acceptée, en degrés carrés. Assez large pour afficher un pays
+    /// entier, voire l'Europe de l'Ouest : une vue France fait environ 120 degrés carrés,
+    /// et refuser ça n'avait aucun sens. Le nombre de résultats reste plafonné par
+    /// <see cref="Dtos.PlaceSearchQuery.MaxResults"/>, c'est lui qui borne la réponse.
+    /// </summary>
+    public const double MaxAreaInSquareDegrees = 2000d;
 
     public double AreaInSquareDegrees => (MaxLon - MinLon) * (MaxLat - MinLat);
 

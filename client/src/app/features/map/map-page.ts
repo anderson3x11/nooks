@@ -30,7 +30,8 @@ const BASEMAP_KEY = 'nooks.basemap';
  * Surface maximale interrogeable, en degrés carrés. Même valeur que côté serveur :
  * au-delà, on n'envoie même pas la requête et on invite à zoomer.
  */
-const MAX_AREA_IN_SQUARE_DEGREES = 100;
+// Doit rester en phase avec GeoBounds.MaxAreaInSquareDegrees côté serveur.
+const MAX_AREA_IN_SQUARE_DEGREES = 2000;
 
 @Component({
   selector: 'nooks-map-page',
@@ -141,6 +142,7 @@ const MAX_AREA_IN_SQUARE_DEGREES = 100;
                 (closed)="closeDetail()"
                 (rated)="rate($event)"
                 (photoPicked)="uploadPhoto($event)"
+                (ratingPhotoPicked)="uploadRatingPhoto($event)"
                 (favoriteToggled)="toggleFavorite()"
               />
             }
@@ -293,9 +295,10 @@ export class MapPage {
     }
 
     // ?lieu=<id> ouvre directement une fiche, depuis la page d'accueil par exemple.
+    // La carte doit suivre : le lieu est rarement dans la vue par défaut.
     const placeId = params.get('lieu');
     if (placeId) {
-      this.openPlace(placeId);
+      this.openPlace(placeId, true);
     }
 
     this.reload
@@ -334,7 +337,7 @@ export class MapPage {
     localStorage.setItem(BASEMAP_KEY, basemap.id);
   }
 
-  protected openPlace(id: string): void {
+  protected openPlace(id: string, recenter = false): void {
     this.selectedId.set(id);
     this.filtersOpen.set(false);
 
@@ -349,6 +352,9 @@ export class MapPage {
     this.api.detail(id).subscribe({
       next: (place) => {
         this.detail.set(place);
+        if (recenter) {
+          this.map()?.flyToPlace(place.latitude, place.longitude);
+        }
         this.loadingDetail.set(false);
       },
       error: () => {
@@ -454,6 +460,25 @@ export class MapPage {
       error: (response) => {
         this.saving.set(false);
         this.flash(readError(response, "La note n'a pas pu être enregistrée."));
+      },
+    });
+  }
+
+  protected uploadRatingPhoto(file: File): void {
+    const place = this.detail();
+    if (!place) {
+      return;
+    }
+
+    this.saving.set(true);
+    this.api.uploadRatingPhoto(place.id, file).subscribe({
+      next: (updated) => {
+        this.saving.set(false);
+        this.detail.set(updated);
+      },
+      error: (response) => {
+        this.saving.set(false);
+        this.flash(readError(response, "L'envoi de la photo a échoué."));
       },
     });
   }

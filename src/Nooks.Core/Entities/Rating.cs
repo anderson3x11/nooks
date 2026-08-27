@@ -12,6 +12,11 @@ public sealed class Rating
     public const int MaxStars = 5;
     public const int MaxCommentLength = 1000;
 
+    /// <summary>Au-delà, un avis devient un album : trois photos suffisent à illustrer une visite.</summary>
+    public const int MaxPhotos = 3;
+
+    private readonly List<RatingPhoto> _photos = [];
+
     private Rating() { }
 
     public Guid Id { get; private set; }
@@ -25,6 +30,8 @@ public sealed class Rating
     /// <summary>Date de retrait par la modération. Nulle tant que l'avis est visible.</summary>
     public DateTimeOffset? RemovedAt { get; private set; }
     public Guid? RemovedByUserId { get; private set; }
+
+    public IReadOnlyCollection<RatingPhoto> Photos => _photos;
 
     /// <summary>Un avis retiré disparaît de la fiche mais reste en base, restaurable.</summary>
     public bool IsRemoved => RemovedAt is not null;
@@ -69,6 +76,23 @@ public sealed class Rating
 
         Apply(stars, normalized);
         UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public RatingPhoto AddPhoto(string fileName, string thumbnailFileName)
+    {
+        if (IsRemoved)
+        {
+            throw new DomainException("Votre avis a été retiré par la modération et ne peut plus être illustré.");
+        }
+
+        if (_photos.Count >= MaxPhotos)
+        {
+            throw new DomainException($"Un avis ne peut pas porter plus de {MaxPhotos} photos.");
+        }
+
+        var photo = RatingPhoto.Create(Id, fileName, thumbnailFileName);
+        _photos.Add(photo);
+        return photo;
     }
 
     /// <summary>Retire l'avis de la fiche publique sans le détruire.</summary>

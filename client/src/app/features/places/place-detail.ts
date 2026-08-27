@@ -170,15 +170,31 @@ import { RatingStars } from './rating-stars';
                 (input)="comment.set($any($event.target).value)"
               ></textarea>
 
-              <div class="mt-3 flex items-center gap-3">
+              <div class="mt-3 flex flex-wrap items-center gap-3">
                 <label class="btn btn-secondary cursor-pointer">
                   Ajouter une photo
                   <input type="file" accept="image/*" class="hidden" (change)="pickPhoto($event)" />
                 </label>
+
+                @if (canIllustrate()) {
+                  <label class="btn btn-secondary cursor-pointer">
+                    Illustrer mon avis
+                    <input type="file" accept="image/*" class="hidden" (change)="pickRatingPhoto($event)" />
+                  </label>
+                }
+
                 @if (busy()) {
                   <span class="text-[13px] text-ink-500">Envoi…</span>
                 }
               </div>
+
+              @if (myRating(); as mine) {
+                @if (mine.photos.length >= maxRatingPhotos) {
+                  <p class="mt-2 text-[12.5px] text-ink-400">
+                    Votre avis porte déjà {{ maxRatingPhotos }} photos, le maximum.
+                  </p>
+                }
+              }
             } @else {
               <p class="text-[14px] text-ink-700">
                 <a routerLink="/connexion" class="font-semibold text-ink-900 underline underline-offset-2">Connectez-vous</a>
@@ -211,6 +227,21 @@ import { RatingStars } from './rating-stars';
                       @if (rating.comment) {
                         <p class="mt-0.5 text-[14px] leading-snug text-ink-700">{{ rating.comment }}</p>
                       }
+
+                      @if (rating.photos.length > 0) {
+                        <div class="mt-2 flex flex-wrap gap-1.5">
+                          @for (photo of rating.photos; track photo.id) {
+                            <button
+                              type="button"
+                              class="overflow-hidden rounded-lg transition-opacity hover:opacity-85"
+                              [attr.aria-label]="'Agrandir la photo de ' + rating.userDisplayName"
+                              (click)="zoomed.set(photo.url)"
+                            >
+                              <img [src]="photo.thumbnailUrl" alt="" class="size-16 object-cover" />
+                            </button>
+                          }
+                        </div>
+                      }
                     </div>
                   </li>
                 }
@@ -220,10 +251,25 @@ import { RatingStars } from './rating-stars';
         </div>
       </article>
     }
+
+    <!-- Une photo d'avis en grand. Les vignettes font 64 px, on n'y voit rien. -->
+    @if (zoomed(); as url) {
+      <button
+        type="button"
+        class="fixed inset-0 z-[1200] flex items-center justify-center bg-ink-950/80 p-6"
+        aria-label="Fermer la photo"
+        (click)="zoomed.set(null)"
+      >
+        <img [src]="url" alt="" class="max-h-full max-w-full rounded-xl object-contain" />
+      </button>
+    }
   `,
 })
 export class PlaceDetailPanel {
   protected readonly auth = inject(Auth);
+
+  /** Photo d'avis affichée en grand, nulle le reste du temps. */
+  protected readonly zoomed = signal<string | null>(null);
 
   readonly place = input<PlaceDetail | null>(null);
   readonly busy = input(false);
@@ -233,6 +279,7 @@ export class PlaceDetailPanel {
   readonly closed = output<void>();
   readonly rated = output<{ stars: number; comment: string | null }>();
   readonly photoPicked = output<File>();
+  readonly ratingPhotoPicked = output<File>();
   readonly favoriteToggled = output<void>();
 
   protected readonly comment = signal('');
@@ -254,6 +301,15 @@ export class PlaceDetailPanel {
   });
 
   /** L'avis déjà laissé par le membre connecté, s'il y en a un. */
+  /** Doit rester en phase avec Rating.MaxPhotos côté serveur. */
+  protected readonly maxRatingPhotos = 3;
+
+  /** On n'illustre que son propre avis, et seulement une fois qu'il existe. */
+  protected readonly canIllustrate = computed(() => {
+    const mine = this.myRating();
+    return mine !== null && mine.photos.length < this.maxRatingPhotos;
+  });
+
   protected readonly myRating = computed(() => {
     const userId = this.auth.user()?.id;
     return userId ? (this.place()?.ratings.find((rating) => rating.userId === userId) ?? null) : null;
@@ -281,10 +337,18 @@ export class PlaceDetailPanel {
   }
 
   protected pickPhoto(event: Event): void {
+    this.emitFile(event, this.photoPicked);
+  }
+
+  protected pickRatingPhoto(event: Event): void {
+    this.emitFile(event, this.ratingPhotoPicked);
+  }
+
+  private emitFile(event: Event, target: { emit(file: File): void }): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (file) {
-      this.photoPicked.emit(file);
+      target.emit(file);
     }
     input.value = '';
   }

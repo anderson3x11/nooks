@@ -131,6 +131,7 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
             .AsNoTracking()
             .Include(p => p.Photos)
             .Include(p => p.Ratings)
+                .ThenInclude(r => r.Photos)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         if (place is null || (!includeUnapproved && place.Status != PlaceStatus.Approved))
@@ -181,13 +182,20 @@ public sealed class PlaceRepository(NooksDbContext context) : IPlaceRepository
                     rating.Comment,
                     rating.CreatedAt,
                     rating.UpdatedAt,
-                    rating.IsEdited))]);
+                    rating.IsEdited,
+                    [.. rating.Photos
+                        .OrderBy(photo => photo.CreatedAt)
+                        .Select(photo => new RatingPhotoDto(
+                            photo.Id,
+                            PhotoUrls.For(place.Id, photo.FileName),
+                            PhotoUrls.For(place.Id, photo.ThumbnailFileName)))]))]);
     }
 
     public Task<Place?> GetForUpdateAsync(Guid id, CancellationToken cancellationToken)
         => context.Places
             .Include(p => p.Photos)
             .Include(p => p.Ratings)
+                .ThenInclude(r => r.Photos)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
     public async Task AddAsync(Place place, CancellationToken cancellationToken)

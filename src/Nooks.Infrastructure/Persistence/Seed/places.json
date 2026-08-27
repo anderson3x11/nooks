@@ -1,1015 +1,4070 @@
 [
- {
-  "name": "Musée des Arts Forains",
-  "description": "Une collection privée de manèges et d'attractions foraines du XIXe siècle, cachée dans les anciens chais de Bercy. On visite uniquement sur réservation, et on a le droit de monter sur les manèges.",
-  "category": "Museum",
-  "latitude": 48.834,
-  "longitude": 2.3865,
-  "address": "53 avenue des Terroirs de France",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Musée des Arts forains"
- },
- {
-  "name": "Petite Ceinture du 15e",
-  "description": "Un tronçon de l'ancienne ligne de chemin de fer qui faisait le tour de Paris, laissé à la végétation et ouvert aux promeneurs. Rails, tunnels et silence en plein 15e arrondissement.",
-  "category": "Abandoned",
-  "latitude": 48.836,
-  "longitude": 2.287,
-  "address": "Rue Olivier de Serres",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Ligne de Petite Ceinture"
- },
- {
-  "name": "Rue Crémieux",
-  "description": "Une ruelle pavée bordée de maisons aux façades peintes de toutes les couleurs, à deux pas de la gare de Lyon. Les habitants demandent de la discrétion, on regarde sans crier.",
-  "category": "Curiosity",
-  "latitude": 48.8471,
-  "longitude": 2.3706,
-  "address": "Rue Crémieux",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   3,
-   4
-  ],
-  "wikipedia": "Rue Crémieux"
- },
- {
-  "name": "Musée de la Chasse et de la Nature",
-  "description": "Un cabinet de curiosités moderne installé dans deux hôtels particuliers du Marais, où les animaux naturalisés côtoient l'art contemporain. La salle du hibou vaut le détour à elle seule.",
-  "category": "Museum",
-  "latitude": 48.8607,
-  "longitude": 2.3597,
-  "address": "62 rue des Archives",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Musée de la Chasse et de la Nature"
- },
- {
-  "name": "Galerie Vivienne",
-  "description": "Un passage couvert de 1823 avec ses mosaïques au sol, ses verrières et ses libraires. Le Paris d'avant les grands boulevards, conservé intact.",
-  "category": "Shop",
-  "latitude": 48.8665,
-  "longitude": 2.34,
-  "address": "4 rue des Petits Champs",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Galerie Vivienne"
- },
- {
-  "name": "Shakespeare and Company",
-  "description": "Librairie anglophone en face de Notre-Dame, avec ses lits cachés entre les rayonnages où dormaient les écrivains de passage. Ça craque, ça déborde, c'est parfait.",
-  "category": "Shop",
-  "latitude": 48.8526,
-  "longitude": 2.3471,
-  "address": "37 rue de la Bûcherie",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   5
-  ],
-  "wikipedia": "Shakespeare and Company (librairie)"
- },
- {
-  "name": "Le Mur des Je t'aime",
-  "description": "Un mur de lave émaillée où « je t'aime » est écrit dans plus de 250 langues, dans un petit square de Montmartre que la plupart des visiteurs traversent sans le voir.",
-  "category": "Curiosity",
-  "latitude": 48.8843,
-  "longitude": 2.3389,
-  "address": "Square Jehan Rictus, place des Abbesses",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   3,
-   4
-  ],
-  "wikipedia": "Le Mur des je t'aime"
- },
- {
-  "name": "Temple de la Sibylle",
-  "description": "Un petit temple perché sur un piton rocheux au milieu du parc des Buttes-Chaumont. La vue sur les toits du nord de Paris est l'une des plus belles de la ville, et elle est gratuite.",
-  "category": "Viewpoint",
-  "latitude": 48.8809,
-  "longitude": 2.3826,
-  "address": "Parc des Buttes-Chaumont",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Parc des Buttes-Chaumont"
- },
- {
-  "name": "Deyrolle",
-  "description": "Maison de taxidermie et de curiosités naturelles fondée en 1831. On monte un escalier discret et on tombe sur des lions, des ours et des vitrines d'insectes, au milieu d'un magasin toujours en activité.",
-  "category": "Shop",
-  "latitude": 48.8562,
-  "longitude": 2.326,
-  "address": "46 rue du Bac",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Deyrolle"
- },
- {
-  "name": "Musée Fragonard d'Alfort",
-  "description": "Le cabinet d'anatomie de l'école vétérinaire, avec ses fameux écorchés du XVIIIe siècle. Fascinant et franchement dérangeant, à réserver aux estomacs solides.",
-  "category": "Museum",
-  "latitude": 48.814,
-  "longitude": 2.42,
-  "address": "7 avenue du Général de Gaulle, Maisons-Alfort",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Musée Fragonard d'Alfort"
- },
- {
-  "name": "Cimetière des chiens d'Asnières",
-  "description": "Le plus ancien cimetière animalier du monde, ouvert en 1899. Des tombes fleuries pour des chiens, des chats, un lion et même un cheval de course.",
-  "category": "Curiosity",
-  "latitude": 48.9083,
-  "longitude": 2.286,
-  "address": "4 pont de Clichy, Asnières-sur-Seine",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   3
-  ],
-  "wikipedia": "Cimetière des chiens d'Asnières-sur-Seine"
- },
- {
-  "name": "La Pagode de la Maison Loo",
-  "description": "Une pagode chinoise rouge vif plantée au milieu des immeubles haussmanniens de la plaine Monceau. Un antiquaire l'a fait construire en 1926 pour y exposer ses collections d'art asiatique.",
-  "category": "Curiosity",
-  "latitude": 48.879,
-  "longitude": 2.308,
-  "address": "48 rue de Courcelles",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Maison Loo"
- },
- {
-  "name": "Musée Curie",
-  "description": "Le laboratoire de Marie Curie, conservé en l'état, dans le bâtiment de l'Institut du Radium. Petit, gratuit, et étonnamment émouvant.",
-  "category": "Museum",
-  "latitude": 48.844,
-  "longitude": 2.344,
-  "address": "1 rue Pierre et Marie Curie",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Musée Curie"
- },
- {
-  "name": "Longue Traboule du Vieux Lyon",
-  "description": "Un passage privé qui traverse quatre immeubles et quatre cours Renaissance pour relier deux rues. Poussez la porte, refermez-la doucement, des gens vivent ici.",
-  "category": "Curiosity",
-  "latitude": 45.763,
-  "longitude": 4.827,
-  "address": "54 rue Saint-Jean",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Traboule"
- },
- {
-  "name": "Mur des Canuts",
-  "description": "La plus grande fresque murale d'Europe, 1200 m² peints en trompe-l'oeil sur un pignon de la Croix-Rousse. Elle est repeinte tous les dix ans, les personnages vieillissent avec le quartier.",
-  "category": "StreetArt",
-  "latitude": 45.776,
-  "longitude": 4.833,
-  "address": "Boulevard des Canuts",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Mur des Canuts"
- },
- {
-  "name": "Fresque des Lyonnais",
-  "description": "Trente figures célèbres de Lyon peintes sur sept étages, des frères Lumière à Paul Bocuse. On met un bon quart d'heure à toutes les repérer.",
-  "category": "StreetArt",
-  "latitude": 45.766,
-  "longitude": 4.834,
-  "address": "2 rue de la Martinière",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   4
-  ],
-  "wikipedia": "Fresque des Lyonnais"
- },
- {
-  "name": "Jardin Rosa Mir",
-  "description": "Un jardin secret construit à la main par un maçon espagnol pendant vingt ans, entièrement décoré de coquillages et de galets. Ouvert seulement quelques heures par semaine.",
-  "category": "Curiosity",
-  "latitude": 45.777,
-  "longitude": 4.836,
-  "address": "83 grande rue de la Croix-Rousse",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   5,
-   5
-  ],
-  "wikipedia": "Jardin Rosa Mir"
- },
- {
-  "name": "Musée Cinéma et Miniature",
-  "description": "Des décors miniatures d'une précision folle au rez-de-chaussée, et à l'étage les vrais accessoires et créatures de tournage, du Gremlin à l'Alien.",
-  "category": "Museum",
-  "latitude": 45.7628,
-  "longitude": 4.8272,
-  "address": "60 rue Saint-Jean",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   4,
-   5,
-   4
-  ],
-  "wikipedia": "Musée Cinéma et Miniature"
- },
- {
-  "name": "Esplanade de Fourvière",
-  "description": "La vue de référence sur Lyon, avec les deux fleuves, les toits rouges et les Alpes par temps clair. Montez par les escaliers du jardin du Rosaire plutôt que par le funiculaire.",
-  "category": "Viewpoint",
-  "latitude": 45.762,
-  "longitude": 4.822,
-  "address": "8 place de Fourvière",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Basilique Notre-Dame de Fourvière"
- },
- {
-  "name": "Halles de Lyon Paul Bocuse",
-  "description": "Le ventre de Lyon : quenelles, saucissons, praline rose et bancs d'huîtres où l'on mange debout à onze heures du matin sans que personne trouve ça bizarre.",
-  "category": "FoodDrink",
-  "latitude": 45.762,
-  "longitude": 4.852,
-  "address": "102 cours Lafayette",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Halles de Lyon-Paul Bocuse"
- },
- {
-  "name": "Vallon des Auffes",
-  "description": "Un port de pêche minuscule coincé sous un pont routier, avec ses cabanons et ses barques colorées. On oublie complètement qu'on est dans la deuxième ville de France.",
-  "category": "Curiosity",
-  "latitude": 43.283,
-  "longitude": 5.356,
-  "address": "Vallon des Auffes",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Vallon des Auffes"
- },
- {
-  "name": "Calanque de Sugiton",
-  "description": "Une calanque à l'eau turquoise accessible seulement à pied depuis Luminy, environ une heure de marche. L'accès est régulé l'été, il faut réserver sa place à l'avance.",
-  "category": "Nature",
-  "latitude": 43.213,
-  "longitude": 5.453,
-  "address": "Parc national des Calanques",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   5,
-   5
-  ],
-  "wikipedia": "Calanque de Sugiton"
- },
- {
-  "name": "Cours Julien",
-  "description": "Un quartier entier transformé en galerie de street art à ciel ouvert, où les murs changent de tête tous les quelques mois. Les meilleures pièces sont dans les escaliers et les rues perpendiculaires.",
-  "category": "StreetArt",
-  "latitude": 43.293,
-  "longitude": 5.383,
-  "address": "Cours Julien",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   5
-  ],
-  "wikipedia": "Cours Julien"
- },
- {
-  "name": "Palais Longchamp",
-  "description": "Un château d'eau monumental déguisé en palais, avec sa colonnade, sa cascade et ses fontaines. Construit pour célébrer l'arrivée de l'eau à Marseille au XIXe siècle.",
-  "category": "Curiosity",
-  "latitude": 43.305,
-  "longitude": 5.395,
-  "address": "Boulevard Jardin Zoologique",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Palais Longchamp"
- },
- {
-  "name": "Parvis de Notre-Dame de la Garde",
-  "description": "Le point le plus haut de Marseille : toute la ville, les îles du Frioul et la rade d'un seul coup d'oeil. Venez au coucher du soleil, la lumière sur les toits est irréelle.",
-  "category": "Viewpoint",
-  "latitude": 43.284,
-  "longitude": 5.371,
-  "address": "Rue Fort du Sanctuaire",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Basilique Notre-Dame de la Garde"
- },
- {
-  "name": "Château d'If",
-  "description": "La prison insulaire du Comte de Monte-Cristo, à vingt minutes de bateau du Vieux-Port. Les cachots, les graffitis des prisonniers, et le retour en mer face à la ville.",
-  "category": "Curiosity",
-  "latitude": 43.28,
-  "longitude": 5.325,
-  "address": "Île d'If",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Château d'If"
- },
- {
-  "name": "Bassins des Lumières",
-  "description": "Des expositions numériques projetées sur les murs et l'eau d'une base sous-marine allemande de la Seconde Guerre mondiale. Le lieu écrase le contenu, et c'est très bien comme ça.",
-  "category": "Museum",
-  "latitude": 44.862,
-  "longitude": -0.554,
-  "address": "Impasse Brown de Colstoun",
-  "city": "Bordeaux",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Bassins des Lumières"
- },
- {
-  "name": "Marché des Capucins",
-  "description": "Le marché historique de Bordeaux, où l'on vient manger des huîtres au verre de blanc dès sept heures du matin le week-end. Bruyant, serré, authentique.",
-  "category": "FoodDrink",
-  "latitude": 44.83,
-  "longitude": -0.567,
-  "address": "Place des Capucins",
-  "city": "Bordeaux",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Marché des Capucins (Bordeaux)"
- },
- {
-  "name": "Miroir d'eau",
-  "description": "La plus grande étendue d'eau réfléchissante du monde, face à la place de la Bourse. Alternance de miroir et de brume toutes les vingt minutes, les enfants adorent.",
-  "category": "Curiosity",
-  "latitude": 44.841,
-  "longitude": -0.569,
-  "address": "Quai de la Douane",
-  "city": "Bordeaux",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   4
-  ],
-  "wikipedia": "Miroir d'eau (Bordeaux)"
- },
- {
-  "name": "Darwin Écosystème",
-  "description": "Une ancienne caserne militaire reconvertie en tiers-lieu : skatepark couvert, murs peints, cantine bio et bars. Le contre-pied exact du Bordeaux classique.",
-  "category": "StreetArt",
-  "latitude": 44.839,
-  "longitude": -0.554,
-  "address": "87 quai des Queyries",
-  "city": "Bordeaux",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Darwin (écosystème)"
- },
- {
-  "name": "Flèche Saint-Michel",
-  "description": "Le clocher isolé le plus haut du sud de la France. 228 marches en colimaçon et une vue à 360 degrés sur les toits de tuiles et la Garonne.",
-  "category": "Viewpoint",
-  "latitude": 44.836,
-  "longitude": -0.566,
-  "address": "Place Meynard",
-  "city": "Bordeaux",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Basilique Saint-Michel de Bordeaux"
- },
- {
-  "name": "Le Vieux-Lille souterrain",
-  "description": "Sous les pavés du Vieux-Lille, des caves voûtées du XVIIe reconverties en bars et en salles de concert. On y descend par des escaliers raides que rien ne signale depuis la rue.",
-  "category": "Curiosity",
-  "latitude": 50.641,
-  "longitude": 3.063,
-  "address": "Rue de la Monnaie",
-  "city": "Lille",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Vieux-Lille"
- },
- {
-  "name": "Maison Folie de Wazemmes",
-  "description": "Une ancienne filature textile devenue lieu culturel, avec sa cheminée d'usine conservée et son hammam d'époque. Programmation gratuite une bonne partie de l'année.",
-  "category": "Curiosity",
-  "latitude": 50.626,
-  "longitude": 3.051,
-  "address": "70 rue des Sarrazins",
-  "city": "Lille",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   3
-  ],
-  "wikipedia": "Maison folie de Wazemmes"
- },
- {
-  "name": "Marché de Wazemmes",
-  "description": "Le marché le plus mélangé de Lille, où les étals d'épices croisent les brocanteurs. Le dimanche matin, la place déborde jusque dans les rues adjacentes.",
-  "category": "FoodDrink",
-  "latitude": 50.628,
-  "longitude": 3.049,
-  "address": "Place de la Nouvelle Aventure",
-  "city": "Lille",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Wazemmes"
- },
- {
-  "name": "Beffroi de l'hôtel de ville",
-  "description": "104 mètres, un ascenseur puis 100 marches, et toute la plaine flamande sous les yeux. Par temps clair on distingue les terrils du bassin minier.",
-  "category": "Viewpoint",
-  "latitude": 50.627,
-  "longitude": 3.068,
-  "address": "Place Augustin Laurent",
-  "city": "Lille",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Beffroi de l'hôtel de ville de Lille"
- },
- {
-  "name": "Les Abattoirs",
-  "description": "Les anciens abattoirs de Toulouse transformés en musée d'art moderne, avec le rideau de scène peint par Picasso pour une pièce de Romain Rolland.",
-  "category": "Museum",
-  "latitude": 43.596,
-  "longitude": 1.43,
-  "address": "76 allees Charles de Fitte",
-  "city": "Toulouse",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Les Abattoirs"
- },
- {
-  "name": "La Cité de l'Espace",
-  "description": "Une fusée Ariane 5 grandeur nature plantée dans un parc, et le module Mir dans lequel on entre vraiment. Prévoir la journée entière.",
-  "category": "Museum",
-  "latitude": 43.586,
-  "longitude": 1.495,
-  "address": "Avenue Jean Gonord",
-  "city": "Toulouse",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Cité de l'espace"
- },
- {
-  "name": "Le Château d'Eau",
-  "description": "Un château d'eau de brique de 1822 devenu l'une des premières galeries photo d'Europe, à la tête du Pont-Neuf. Minuscule et pointu.",
-  "category": "Curiosity",
-  "latitude": 43.596,
-  "longitude": 1.44,
-  "address": "1 place Laganne",
-  "city": "Toulouse",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Galerie municipale du Château d'Eau"
- },
- {
-  "name": "Quai de la Daurade",
-  "description": "Les marches au bord de la Garonne où tout Toulouse vient boire un verre au coucher du soleil, avec la brique rose du Pont-Neuf en face.",
-  "category": "Viewpoint",
-  "latitude": 43.599,
-  "longitude": 1.44,
-  "address": "Quai de la Daurade",
-  "city": "Toulouse",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Pont-Neuf (Toulouse)"
- },
- {
-  "name": "Le Passage Pommeraye",
-  "description": "Une galerie marchande de 1843 sur trois niveaux reliés par un escalier monumental, éclairée par une verrière. Le décor de plusieurs films français.",
-  "category": "Shop",
-  "latitude": 47.213,
-  "longitude": -1.558,
-  "address": "Passage Pommeraye",
-  "city": "Nantes",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Passage Pommeraye"
- },
- {
-  "name": "Les Machines de l'Île",
-  "description": "Le Grand Éléphant de douze mètres qui promène quarante passagers sur l'ancien chantier naval, et la galerie où les machines s'essaient devant vous.",
-  "category": "Curiosity",
-  "latitude": 47.207,
-  "longitude": -1.565,
-  "address": "Parc des Chantiers, boulevard Leon Bureau",
-  "city": "Nantes",
-  "country": "France",
-  "ratings": [
-   5,
-   5
-  ],
-  "wikipedia": "Les Machines de l'île"
- },
- {
-  "name": "Le Lieu Unique",
-  "description": "L'ancienne biscuiterie LU, avec sa tour surmontée d'un dôme, devenue scène nationale. Bar, hammam, librairie et concerts dans le même bâtiment.",
-  "category": "Curiosity",
-  "latitude": 47.216,
-  "longitude": -1.546,
-  "address": "2 rue de la Biscuiterie",
-  "city": "Nantes",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   5
-  ],
-  "wikipedia": "Lieu unique"
- },
- {
-  "name": "Le Jardin des Plantes",
-  "description": "Sept hectares en plein centre, avec des sculptures d'enfants géants endormis dans les massifs et des serres tropicales gratuites.",
-  "category": "Nature",
-  "latitude": 47.219,
-  "longitude": -1.542,
-  "address": "Rue Stanislas Baudry",
-  "city": "Nantes",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Jardin des plantes de Nantes"
- },
- {
-  "name": "La Petite France",
-  "description": "Le quartier des tanneurs, avec ses maisons à colombages penchées sur les canaux et ses ponts couverts. Venez tôt, il se remplit vite.",
-  "category": "Curiosity",
-  "latitude": 48.58,
-  "longitude": 7.74,
-  "address": "Quartier de la Petite France",
-  "city": "Strasbourg",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Petite France (Strasbourg)"
- },
- {
-  "name": "Plateforme de la cathédrale",
-  "description": "330 marches jusqu'à la terrasse de la flèche, à 66 mètres. Les toits rouges, le Rhin, et la Forêt-Noire au loin.",
-  "category": "Viewpoint",
-  "latitude": 48.582,
-  "longitude": 7.751,
-  "address": "Place de la Cathedrale",
-  "city": "Strasbourg",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Cathédrale Notre-Dame de Strasbourg"
- },
- {
-  "name": "Le Palais Rohan",
-  "description": "Trois musées dans un palais épiscopal du XVIIIe : arts décoratifs, beaux-arts et archéologie. Les appartements des cardinaux valent à eux seuls la visite.",
-  "category": "Museum",
-  "latitude": 48.581,
-  "longitude": 7.752,
-  "address": "2 place du Chateau",
-  "city": "Strasbourg",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Palais Rohan (Strasbourg)"
- },
- {
-  "name": "Le Vieux-Nice au petit matin",
-  "description": "Les ruelles ocres avant l'ouverture des boutiques, quand les livreurs passent et que les volets s'ouvrent. Le vrai Nice dure environ deux heures.",
-  "category": "Curiosity",
-  "latitude": 43.697,
-  "longitude": 7.276,
-  "address": "Cours Saleya",
-  "city": "Nice",
-  "country": "France",
-  "ratings": [
-   4,
-   5,
-   4
-  ],
-  "wikipedia": "Vieux-Nice"
- },
- {
-  "name": "Colline du Château",
-  "description": "Une cascade artificielle, des ruines médiévales et la meilleure vue sur la baie des Anges. Ascenseur gratuit depuis la promenade.",
-  "category": "Viewpoint",
-  "latitude": 43.695,
-  "longitude": 7.28,
-  "address": "Montee Lesage",
-  "city": "Nice",
-  "country": "France",
-  "ratings": [
-   5,
-   5
-  ],
-  "wikipedia": "Colline du Château"
- },
- {
-  "name": "Musée Marc Chagall",
-  "description": "Un musée conçu avec le peintre de son vivant, autour du cycle du Message Biblique. Petit, lumineux, et jamais bondé.",
-  "category": "Museum",
-  "latitude": 43.705,
-  "longitude": 7.266,
-  "address": "36 avenue Docteur Menard",
-  "city": "Nice",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Musée national Marc-Chagall"
- },
- {
-  "name": "Les Portes Mordelaises",
-  "description": "L'ancienne entrée cérémonielle de Rennes, où les ducs de Bretagne prêtaient serment. Les remparts se longent gratuitement.",
-  "category": "Curiosity",
-  "latitude": 48.112,
-  "longitude": -1.683,
-  "address": "Rue des Portes Mordelaises",
-  "city": "Rennes",
-  "country": "France",
-  "ratings": [
-   4,
-   3
-  ],
-  "wikipedia": "Portes mordelaises"
- },
- {
-  "name": "Marché des Lices",
-  "description": "L'un des plus grands marchés de France le samedi matin, et la galette-saucisse qu'on mange debout entre deux étals.",
-  "category": "FoodDrink",
-  "latitude": 48.111,
-  "longitude": -1.682,
-  "address": "Place des Lices",
-  "city": "Rennes",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Place des Lices (Rennes)"
- },
- {
-  "name": "Le Thabor",
-  "description": "Un parc de dix hectares en plein Rennes, avec sa roseraie, sa grotte artificielle et sa volière. Les Rennais y déjeunent dès les premiers rayons.",
-  "category": "Nature",
-  "latitude": 48.1145,
-  "longitude": -1.672,
-  "address": "Place Saint-Mélaine",
-  "city": "Rennes",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Parc du Thabor"
- },
- {
-  "name": "La Maison Bleue",
-  "description": "Une maison entièrement recouverte de mosaïques, de coquillages et de miroirs, œuvre d'un seul homme pendant plus de trente ans.",
-  "category": "Curiosity",
-  "latitude": 48.105,
-  "longitude": -1.641,
-  "address": "Quartier de Villejean",
-  "city": "Rennes",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ]
- },
- {
-  "name": "Le Château des Ducs de Bretagne",
-  "description": "Une forteresse médiévale à l'extérieur, un palais Renaissance dans la cour. Le chemin de ronde se parcourt gratuitement.",
-  "category": "Museum",
-  "latitude": 47.216,
-  "longitude": -1.549,
-  "address": "4 place Marc Elder",
-  "city": "Nantes",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Château des ducs de Bretagne"
- },
- {
-  "name": "Le Jardin des Plantes de Montpellier",
-  "description": "Le plus ancien jardin botanique de France, fondé en 1593 pour la faculté de médecine. Serres, bassins et allées à l'ombre des platanes.",
-  "category": "Nature",
-  "latitude": 43.615,
-  "longitude": 3.871,
-  "address": "Boulevard Henri IV",
-  "city": "Montpellier",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Jardin des plantes de Montpellier"
- },
- {
-  "name": "La Place de la Canourgue",
-  "description": "Une petite place ombragée avec sa fontaine aux licornes et sa vue sur la cathédrale, à l'écart du flot de l'Écusson.",
-  "category": "Viewpoint",
-  "latitude": 43.612,
-  "longitude": 3.873,
-  "address": "Place de la Canourgue",
-  "city": "Montpellier",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ]
- },
- {
-  "name": "Le Marché du Lez",
-  "description": "D'anciens entrepôts au bord du fleuve reconvertis en halles, friperies et guinguettes. Le samedi soir, tout Montpellier y passe.",
-  "category": "FoodDrink",
-  "latitude": 43.593,
-  "longitude": 3.893,
-  "address": "2 avenue Nina Simone",
-  "city": "Montpellier",
-  "country": "France",
-  "ratings": [
-   4,
-   4,
-   5
-  ]
- },
- {
-  "name": "La Bastille de Grenoble",
-  "description": "Un fort perché au-dessus de la ville, accessible par des bulles transparentes suspendues au-dessus de l'Isère. Le massif de Belledonne en face.",
-  "category": "Viewpoint",
-  "latitude": 45.198,
-  "longitude": 5.725,
-  "address": "Fort de la Bastille",
-  "city": "Grenoble",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Bastille (Grenoble)"
- },
- {
-  "name": "Le Musée Dauphinois",
-  "description": "Un ancien couvent à flanc de colline, avec un cloître, une chapelle baroque et des expositions sur les gens de montagne. Gratuit.",
-  "category": "Museum",
-  "latitude": 45.195,
-  "longitude": 5.729,
-  "address": "30 rue Maurice Gignoux",
-  "city": "Grenoble",
-  "country": "France",
-  "ratings": [
-   4,
-   4
-  ],
-  "wikipedia": "Musée dauphinois"
- },
- {
-  "name": "Le Gros-Horloge",
-  "description": "Une horloge astronomique du XIVe siècle enjambant la rue, avec son cadran unique et son beffroi qu'on peut monter.",
-  "category": "Curiosity",
-  "latitude": 49.443,
-  "longitude": 1.091,
-  "address": "Rue du Gros-Horloge",
-  "city": "Rouen",
-  "country": "France",
-  "ratings": [
-   4,
-   5
-  ],
-  "wikipedia": "Gros-Horloge"
- },
- {
-  "name": "L'Aître Saint-Maclou",
-  "description": "Un ancien cimetière de pestiférés devenu cour à colombages, sculptée de crânes et d'ossements. Étrangement paisible aujourd'hui.",
-  "category": "Curiosity",
-  "latitude": 49.44,
-  "longitude": 1.098,
-  "address": "186 rue Martainville",
-  "city": "Rouen",
-  "country": "France",
-  "ratings": [
-   5,
-   5,
-   4
-  ],
-  "wikipedia": "Aître Saint-Maclou"
- },
- {
-  "name": "La Côte Sainte-Catherine",
-  "description": "La vue sur la boucle de la Seine et les flèches de Rouen, au bout d'une montée raide de vingt minutes.",
-  "category": "Viewpoint",
-  "latitude": 49.438,
-  "longitude": 1.114,
-  "address": "Côte Sainte-Catherine",
-  "city": "Rouen",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ]
- },
- {
-  "name": "Le Bar de la Marine",
-  "description": "Le comptoir du Vieux-Port où Pagnol a situé sa partie de cartes. Un lieu de cinéma devenu lieu tout court.",
-  "category": "FoodDrink",
-  "latitude": 43.294,
-  "longitude": 5.374,
-  "address": "15 quai de Rive Neuve",
-  "city": "Marseille",
-  "country": "France",
-  "ratings": [
-   4,
-   3
-  ]
- },
- {
-  "name": "Le Cimetière du Père-Lachaise",
-  "description": "Quarante-quatre hectares de sépultures sous les marronniers, entre chapelles néogothiques et tombes célèbres. On s'y perd volontiers.",
-  "category": "Curiosity",
-  "latitude": 48.861,
-  "longitude": 2.393,
-  "address": "16 rue du Repos",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   4,
-   5
-  ],
-  "wikipedia": "Cimetière du Père-Lachaise"
- },
- {
-  "name": "La Promenade Plantée",
-  "description": "Un viaduc ferroviaire transformé en jardin suspendu, de la Bastille au bois de Vincennes. Le modèle de la High Line new-yorkaise.",
-  "category": "Nature",
-  "latitude": 48.849,
-  "longitude": 2.381,
-  "address": "1 coulée verte René-Dumont",
-  "city": "Paris",
-  "country": "France",
-  "ratings": [
-   5,
-   4
-  ],
-  "wikipedia": "Coulée verte René-Dumont"
- },
- {
-  "name": "La Croix-Rousse en pente",
-  "description": "Les escaliers et les montées du plateau, entre ateliers de canuts et cours ouvertes. Une ville dans la ville, encore habitée.",
-  "category": "Curiosity",
-  "latitude": 45.774,
-  "longitude": 4.83,
-  "address": "Montée de la Grande-Côte",
-  "city": "Lyon",
-  "country": "France",
-  "ratings": [
-   4,
-   5,
-   4
-  ]
- }
+  {
+    "name": "Musée des Arts Forains",
+    "description": "Une collection privée de manèges et d'attractions foraines du XIXe siècle, cachée dans les anciens chais de Bercy. On visite uniquement sur réservation, et on a le droit de monter sur les manèges.",
+    "category": "Museum",
+    "latitude": 48.834,
+    "longitude": 2.3865,
+    "address": "53 avenue des Terroirs de France",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée des Arts forains",
+    "ratings": [
+      5,
+      4,
+      5,
+      4,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Petite Ceinture du 15e",
+    "description": "Un tronçon de l'ancienne ligne de chemin de fer qui faisait le tour de Paris, laissé à la végétation et ouvert aux promeneurs. Rails, tunnels et silence en plein 15e arrondissement.",
+    "category": "Abandoned",
+    "latitude": 48.836,
+    "longitude": 2.287,
+    "address": "Rue Olivier de Serres",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Ligne de Petite Ceinture",
+    "ratings": [
+      5,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Rue Crémieux",
+    "description": "Une ruelle pavée bordée de maisons aux façades peintes de toutes les couleurs, à deux pas de la gare de Lyon. Les habitants demandent de la discrétion, on regarde sans crier.",
+    "category": "Curiosity",
+    "latitude": 48.8471,
+    "longitude": 2.3706,
+    "address": "Rue Crémieux",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Rue Crémieux",
+    "ratings": [
+      3,
+      3,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Musée de la Chasse et de la Nature",
+    "description": "Un cabinet de curiosités moderne installé dans deux hôtels particuliers du Marais, où les animaux naturalisés côtoient l'art contemporain. La salle du hibou vaut le détour à elle seule.",
+    "category": "Museum",
+    "latitude": 48.8607,
+    "longitude": 2.3597,
+    "address": "62 rue des Archives",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée de la Chasse et de la Nature",
+    "ratings": [
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Galerie Vivienne",
+    "description": "Un passage couvert de 1823 avec ses mosaïques au sol, ses verrières et ses libraires. Le Paris d'avant les grands boulevards, conservé intact.",
+    "category": "Shop",
+    "latitude": 48.8665,
+    "longitude": 2.34,
+    "address": "4 rue des Petits Champs",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Galerie Vivienne",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Shakespeare and Company",
+    "description": "Librairie anglophone en face de Notre-Dame, avec ses lits cachés entre les rayonnages où dormaient les écrivains de passage. Ça craque, ça déborde, c'est parfait.",
+    "category": "Shop",
+    "latitude": 48.8526,
+    "longitude": 2.3471,
+    "address": "37 rue de la Bûcherie",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Shakespeare and Company (librairie)",
+    "ratings": [
+      4,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Mur des Je t'aime",
+    "description": "Un mur de lave émaillée où « je t'aime » est écrit dans plus de 250 langues, dans un petit square de Montmartre que la plupart des visiteurs traversent sans le voir.",
+    "category": "Curiosity",
+    "latitude": 48.8843,
+    "longitude": 2.3389,
+    "address": "Square Jehan Rictus, place des Abbesses",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Le Mur des je t'aime",
+    "ratings": [
+      3,
+      3,
+      3,
+      2,
+      4,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Temple de la Sibylle",
+    "description": "Un petit temple perché sur un piton rocheux au milieu du parc des Buttes-Chaumont. La vue sur les toits du nord de Paris est l'une des plus belles de la ville, et elle est gratuite.",
+    "category": "Viewpoint",
+    "latitude": 48.8809,
+    "longitude": 2.3826,
+    "address": "Parc des Buttes-Chaumont",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Parc des Buttes-Chaumont",
+    "ratings": [
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Deyrolle",
+    "description": "Maison de taxidermie et de curiosités naturelles fondée en 1831. On monte un escalier discret et on tombe sur des lions, des ours et des vitrines d'insectes, au milieu d'un magasin toujours en activité.",
+    "category": "Shop",
+    "latitude": 48.8562,
+    "longitude": 2.326,
+    "address": "46 rue du Bac",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Deyrolle",
+    "ratings": [
+      4,
+      3,
+      4,
+      4,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Musée Fragonard d'Alfort",
+    "description": "Le cabinet d'anatomie de l'école vétérinaire, avec ses fameux écorchés du XVIIIe siècle. Fascinant et franchement dérangeant, à réserver aux estomacs solides.",
+    "category": "Museum",
+    "latitude": 48.814,
+    "longitude": 2.42,
+    "address": "7 avenue du Général de Gaulle, Maisons-Alfort",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée Fragonard d'Alfort",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Cimetière des chiens d'Asnières",
+    "description": "Le plus ancien cimetière animalier du monde, ouvert en 1899. Des tombes fleuries pour des chiens, des chats, un lion et même un cheval de course.",
+    "category": "Curiosity",
+    "latitude": 48.9083,
+    "longitude": 2.286,
+    "address": "4 pont de Clichy, Asnières-sur-Seine",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Cimetière des chiens d'Asnières-sur-Seine",
+    "ratings": [
+      4,
+      5,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Pagode de la Maison Loo",
+    "description": "Une pagode chinoise rouge vif plantée au milieu des immeubles haussmanniens de la plaine Monceau. Un antiquaire l'a fait construire en 1926 pour y exposer ses collections d'art asiatique.",
+    "category": "Curiosity",
+    "latitude": 48.879,
+    "longitude": 2.308,
+    "address": "48 rue de Courcelles",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Maison Loo",
+    "ratings": [
+      4,
+      5,
+      5,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Musée Curie",
+    "description": "Le laboratoire de Marie Curie, conservé en l'état, dans le bâtiment de l'Institut du Radium. Petit, gratuit, et étonnamment émouvant.",
+    "category": "Museum",
+    "latitude": 48.844,
+    "longitude": 2.344,
+    "address": "1 rue Pierre et Marie Curie",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée Curie",
+    "ratings": [
+      4,
+      5,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Longue Traboule du Vieux Lyon",
+    "description": "Un passage privé qui traverse quatre immeubles et quatre cours Renaissance pour relier deux rues. Poussez la porte, refermez-la doucement, des gens vivent ici.",
+    "category": "Curiosity",
+    "latitude": 45.763,
+    "longitude": 4.827,
+    "address": "54 rue Saint-Jean",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Traboule",
+    "ratings": [
+      3,
+      4,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Mur des Canuts",
+    "description": "La plus grande fresque murale d'Europe, 1200 m² peints en trompe-l'oeil sur un pignon de la Croix-Rousse. Elle est repeinte tous les dix ans, les personnages vieillissent avec le quartier.",
+    "category": "StreetArt",
+    "latitude": 45.776,
+    "longitude": 4.833,
+    "address": "Boulevard des Canuts",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Mur des Canuts",
+    "ratings": [
+      5,
+      4,
+      5,
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Fresque des Lyonnais",
+    "description": "Trente figures célèbres de Lyon peintes sur sept étages, des frères Lumière à Paul Bocuse. On met un bon quart d'heure à toutes les repérer.",
+    "category": "StreetArt",
+    "latitude": 45.766,
+    "longitude": 4.834,
+    "address": "2 rue de la Martinière",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Fresque des Lyonnais",
+    "ratings": [
+      5,
+      3,
+      3,
+      4,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Jardin Rosa Mir",
+    "description": "Un jardin secret construit à la main par un maçon espagnol pendant vingt ans, entièrement décoré de coquillages et de galets. Ouvert seulement quelques heures par semaine.",
+    "category": "Curiosity",
+    "latitude": 45.777,
+    "longitude": 4.836,
+    "address": "83 grande rue de la Croix-Rousse",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Jardin Rosa Mir",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Musée Cinéma et Miniature",
+    "description": "Des décors miniatures d'une précision folle au rez-de-chaussée, et à l'étage les vrais accessoires et créatures de tournage, du Gremlin à l'Alien.",
+    "category": "Museum",
+    "latitude": 45.7628,
+    "longitude": 4.8272,
+    "address": "60 rue Saint-Jean",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Musée Cinéma et Miniature",
+    "ratings": [
+      4,
+      5,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Esplanade de Fourvière",
+    "description": "La vue de référence sur Lyon, avec les deux fleuves, les toits rouges et les Alpes par temps clair. Montez par les escaliers du jardin du Rosaire plutôt que par le funiculaire.",
+    "category": "Viewpoint",
+    "latitude": 45.762,
+    "longitude": 4.822,
+    "address": "8 place de Fourvière",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Basilique Notre-Dame de Fourvière",
+    "ratings": [
+      3,
+      4,
+      2,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Halles de Lyon Paul Bocuse",
+    "description": "Le ventre de Lyon : quenelles, saucissons, praline rose et bancs d'huîtres où l'on mange debout à onze heures du matin sans que personne trouve ça bizarre.",
+    "category": "FoodDrink",
+    "latitude": 45.762,
+    "longitude": 4.852,
+    "address": "102 cours Lafayette",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Halles de Lyon-Paul Bocuse",
+    "ratings": [
+      5,
+      4,
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Vallon des Auffes",
+    "description": "Un port de pêche minuscule coincé sous un pont routier, avec ses cabanons et ses barques colorées. On oublie complètement qu'on est dans la deuxième ville de France.",
+    "category": "Curiosity",
+    "latitude": 43.283,
+    "longitude": 5.356,
+    "address": "Vallon des Auffes",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Vallon des Auffes",
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Calanque de Sugiton",
+    "description": "Une calanque à l'eau turquoise accessible seulement à pied depuis Luminy, environ une heure de marche. L'accès est régulé l'été, il faut réserver sa place à l'avance.",
+    "category": "Nature",
+    "latitude": 43.213,
+    "longitude": 5.453,
+    "address": "Parc national des Calanques",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Calanque de Sugiton",
+    "ratings": [
+      1,
+      2
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Cours Julien",
+    "description": "Un quartier entier transformé en galerie de street art à ciel ouvert, où les murs changent de tête tous les quelques mois. Les meilleures pièces sont dans les escaliers et les rues perpendiculaires.",
+    "category": "StreetArt",
+    "latitude": 43.293,
+    "longitude": 5.383,
+    "address": "Cours Julien",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Cours Julien",
+    "ratings": [
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Palais Longchamp",
+    "description": "Un château d'eau monumental déguisé en palais, avec sa colonnade, sa cascade et ses fontaines. Construit pour célébrer l'arrivée de l'eau à Marseille au XIXe siècle.",
+    "category": "Curiosity",
+    "latitude": 43.305,
+    "longitude": 5.395,
+    "address": "Boulevard Jardin Zoologique",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Palais Longchamp",
+    "ratings": [
+      4,
+      5,
+      4,
+      4,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Parvis de Notre-Dame de la Garde",
+    "description": "Le point le plus haut de Marseille : toute la ville, les îles du Frioul et la rade d'un seul coup d'oeil. Venez au coucher du soleil, la lumière sur les toits est irréelle.",
+    "category": "Viewpoint",
+    "latitude": 43.284,
+    "longitude": 5.371,
+    "address": "Rue Fort du Sanctuaire",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Basilique Notre-Dame de la Garde",
+    "ratings": [
+      3,
+      3,
+      3
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Château d'If",
+    "description": "La prison insulaire du Comte de Monte-Cristo, à vingt minutes de bateau du Vieux-Port. Les cachots, les graffitis des prisonniers, et le retour en mer face à la ville.",
+    "category": "Curiosity",
+    "latitude": 43.28,
+    "longitude": 5.325,
+    "address": "Île d'If",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Château d'If",
+    "ratings": [
+      5,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Bassins des Lumières",
+    "description": "Des expositions numériques projetées sur les murs et l'eau d'une base sous-marine allemande de la Seconde Guerre mondiale. Le lieu écrase le contenu, et c'est très bien comme ça.",
+    "category": "Museum",
+    "latitude": 44.862,
+    "longitude": -0.554,
+    "address": "Impasse Brown de Colstoun",
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Bassins des Lumières",
+    "ratings": [
+      3,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Marché des Capucins",
+    "description": "Le marché historique de Bordeaux, où l'on vient manger des huîtres au verre de blanc dès sept heures du matin le week-end. Bruyant, serré, authentique.",
+    "category": "FoodDrink",
+    "latitude": 44.83,
+    "longitude": -0.567,
+    "address": "Place des Capucins",
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Marché des Capucins (Bordeaux)",
+    "ratings": [
+      4,
+      3,
+      5,
+      4,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Miroir d'eau",
+    "description": "La plus grande étendue d'eau réfléchissante du monde, face à la place de la Bourse. Alternance de miroir et de brume toutes les vingt minutes, les enfants adorent.",
+    "category": "Curiosity",
+    "latitude": 44.841,
+    "longitude": -0.569,
+    "address": "Quai de la Douane",
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Miroir d'eau (Bordeaux)",
+    "ratings": [],
+    "photos": 2
+  },
+  {
+    "name": "Darwin Écosystème",
+    "description": "Une ancienne caserne militaire reconvertie en tiers-lieu : skatepark couvert, murs peints, cantine bio et bars. Le contre-pied exact du Bordeaux classique.",
+    "category": "StreetArt",
+    "latitude": 44.839,
+    "longitude": -0.554,
+    "address": "87 quai des Queyries",
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Darwin (écosystème)",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Flèche Saint-Michel",
+    "description": "Le clocher isolé le plus haut du sud de la France. 228 marches en colimaçon et une vue à 360 degrés sur les toits de tuiles et la Garonne.",
+    "category": "Viewpoint",
+    "latitude": 44.836,
+    "longitude": -0.566,
+    "address": "Place Meynard",
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Basilique Saint-Michel de Bordeaux",
+    "ratings": [
+      4,
+      5,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Vieux-Lille souterrain",
+    "description": "Sous les pavés du Vieux-Lille, des caves voûtées du XVIIe reconverties en bars et en salles de concert. On y descend par des escaliers raides que rien ne signale depuis la rue.",
+    "category": "Curiosity",
+    "latitude": 50.641,
+    "longitude": 3.063,
+    "address": "Rue de la Monnaie",
+    "city": "Lille",
+    "country": "France",
+    "wikipedia": "Vieux-Lille",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Maison Folie de Wazemmes",
+    "description": "Une ancienne filature textile devenue lieu culturel, avec sa cheminée d'usine conservée et son hammam d'époque. Programmation gratuite une bonne partie de l'année.",
+    "category": "Curiosity",
+    "latitude": 50.626,
+    "longitude": 3.051,
+    "address": "70 rue des Sarrazins",
+    "city": "Lille",
+    "country": "France",
+    "wikipedia": "Maison folie de Wazemmes",
+    "ratings": [
+      5,
+      4,
+      5,
+      5,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Marché de Wazemmes",
+    "description": "Le marché le plus mélangé de Lille, où les étals d'épices croisent les brocanteurs. Le dimanche matin, la place déborde jusque dans les rues adjacentes.",
+    "category": "FoodDrink",
+    "latitude": 50.628,
+    "longitude": 3.049,
+    "address": "Place de la Nouvelle Aventure",
+    "city": "Lille",
+    "country": "France",
+    "wikipedia": "Wazemmes",
+    "ratings": [
+      5,
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Beffroi de l'hôtel de ville",
+    "description": "104 mètres, un ascenseur puis 100 marches, et toute la plaine flamande sous les yeux. Par temps clair on distingue les terrils du bassin minier.",
+    "category": "Viewpoint",
+    "latitude": 50.627,
+    "longitude": 3.068,
+    "address": "Place Augustin Laurent",
+    "city": "Lille",
+    "country": "France",
+    "wikipedia": "Beffroi de l'hôtel de ville de Lille",
+    "ratings": [
+      4,
+      5,
+      3,
+      5,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Abattoirs",
+    "description": "Les anciens abattoirs de Toulouse transformés en musée d'art moderne, avec le rideau de scène peint par Picasso pour une pièce de Romain Rolland.",
+    "category": "Museum",
+    "latitude": 43.596,
+    "longitude": 1.43,
+    "address": "76 allees Charles de Fitte",
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Les Abattoirs",
+    "ratings": [
+      4,
+      3,
+      5,
+      4,
+      5,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cité de l'Espace",
+    "description": "Une fusée Ariane 5 grandeur nature plantée dans un parc, et le module Mir dans lequel on entre vraiment. Prévoir la journée entière.",
+    "category": "Museum",
+    "latitude": 43.586,
+    "longitude": 1.495,
+    "address": "Avenue Jean Gonord",
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Cité de l'espace",
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Château d'Eau",
+    "description": "Un château d'eau de brique de 1822 devenu l'une des premières galeries photo d'Europe, à la tête du Pont-Neuf. Minuscule et pointu.",
+    "category": "Curiosity",
+    "latitude": 43.596,
+    "longitude": 1.44,
+    "address": "1 place Laganne",
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Galerie municipale du Château d'Eau",
+    "ratings": [],
+    "photos": 2
+  },
+  {
+    "name": "Quai de la Daurade",
+    "description": "Les marches au bord de la Garonne où tout Toulouse vient boire un verre au coucher du soleil, avec la brique rose du Pont-Neuf en face.",
+    "category": "Viewpoint",
+    "latitude": 43.599,
+    "longitude": 1.44,
+    "address": "Quai de la Daurade",
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Pont-Neuf (Toulouse)",
+    "ratings": [
+      4,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Passage Pommeraye",
+    "description": "Une galerie marchande de 1843 sur trois niveaux reliés par un escalier monumental, éclairée par une verrière. Le décor de plusieurs films français.",
+    "category": "Shop",
+    "latitude": 47.213,
+    "longitude": -1.558,
+    "address": "Passage Pommeraye",
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": "Passage Pommeraye",
+    "ratings": [
+      3,
+      5,
+      5,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Machines de l'Île",
+    "description": "Le Grand Éléphant de douze mètres qui promène quarante passagers sur l'ancien chantier naval, et la galerie où les machines s'essaient devant vous.",
+    "category": "Curiosity",
+    "latitude": 47.207,
+    "longitude": -1.565,
+    "address": "Parc des Chantiers, boulevard Leon Bureau",
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": "Les Machines de l'île",
+    "ratings": [
+      4,
+      4,
+      5,
+      3,
+      3,
+      5,
+      4,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Lieu Unique",
+    "description": "L'ancienne biscuiterie LU, avec sa tour surmontée d'un dôme, devenue scène nationale. Bar, hammam, librairie et concerts dans le même bâtiment.",
+    "category": "Curiosity",
+    "latitude": 47.216,
+    "longitude": -1.546,
+    "address": "2 rue de la Biscuiterie",
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": "Lieu unique",
+    "ratings": [
+      5,
+      5,
+      4,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Jardin des Plantes",
+    "description": "Sept hectares en plein centre, avec des sculptures d'enfants géants endormis dans les massifs et des serres tropicales gratuites.",
+    "category": "Nature",
+    "latitude": 47.219,
+    "longitude": -1.542,
+    "address": "Rue Stanislas Baudry",
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": "Jardin des plantes de Nantes",
+    "ratings": [
+      5,
+      4,
+      4,
+      5,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Petite France",
+    "description": "Le quartier des tanneurs, avec ses maisons à colombages penchées sur les canaux et ses ponts couverts. Venez tôt, il se remplit vite.",
+    "category": "Curiosity",
+    "latitude": 48.58,
+    "longitude": 7.74,
+    "address": "Quartier de la Petite France",
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": "Petite France (Strasbourg)",
+    "ratings": [
+      3,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Plateforme de la cathédrale",
+    "description": "330 marches jusqu'à la terrasse de la flèche, à 66 mètres. Les toits rouges, le Rhin, et la Forêt-Noire au loin.",
+    "category": "Viewpoint",
+    "latitude": 48.582,
+    "longitude": 7.751,
+    "address": "Place de la Cathedrale",
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": "Cathédrale Notre-Dame de Strasbourg",
+    "ratings": [
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Palais Rohan",
+    "description": "Trois musées dans un palais épiscopal du XVIIIe : arts décoratifs, beaux-arts et archéologie. Les appartements des cardinaux valent à eux seuls la visite.",
+    "category": "Museum",
+    "latitude": 48.581,
+    "longitude": 7.752,
+    "address": "2 place du Chateau",
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": "Palais Rohan (Strasbourg)",
+    "ratings": [
+      4,
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Vieux-Nice au petit matin",
+    "description": "Les ruelles ocres avant l'ouverture des boutiques, quand les livreurs passent et que les volets s'ouvrent. Le vrai Nice dure environ deux heures.",
+    "category": "Curiosity",
+    "latitude": 43.697,
+    "longitude": 7.276,
+    "address": "Cours Saleya",
+    "city": "Nice",
+    "country": "France",
+    "wikipedia": "Vieux-Nice",
+    "ratings": [
+      4,
+      5,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Colline du Château",
+    "description": "Une cascade artificielle, des ruines médiévales et la meilleure vue sur la baie des Anges. Ascenseur gratuit depuis la promenade.",
+    "category": "Viewpoint",
+    "latitude": 43.695,
+    "longitude": 7.28,
+    "address": "Montee Lesage",
+    "city": "Nice",
+    "country": "France",
+    "wikipedia": "Colline du Château",
+    "ratings": [
+      5,
+      4,
+      5,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Musée Marc Chagall",
+    "description": "Un musée conçu avec le peintre de son vivant, autour du cycle du Message Biblique. Petit, lumineux, et jamais bondé.",
+    "category": "Museum",
+    "latitude": 43.705,
+    "longitude": 7.266,
+    "address": "36 avenue Docteur Menard",
+    "city": "Nice",
+    "country": "France",
+    "wikipedia": "Musée national Marc-Chagall",
+    "ratings": [
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Les Portes Mordelaises",
+    "description": "L'ancienne entrée cérémonielle de Rennes, où les ducs de Bretagne prêtaient serment. Les remparts se longent gratuitement.",
+    "category": "Curiosity",
+    "latitude": 48.112,
+    "longitude": -1.683,
+    "address": "Rue des Portes Mordelaises",
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": "Portes mordelaises",
+    "ratings": [
+      4,
+      4,
+      4,
+      5
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Marché des Lices",
+    "description": "L'un des plus grands marchés de France le samedi matin, et la galette-saucisse qu'on mange debout entre deux étals.",
+    "category": "FoodDrink",
+    "latitude": 48.111,
+    "longitude": -1.682,
+    "address": "Place des Lices",
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": "Place des Lices (Rennes)",
+    "ratings": [
+      4,
+      4,
+      5,
+      4,
+      5,
+      5,
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Thabor",
+    "description": "Un parc de dix hectares en plein Rennes, avec sa roseraie, sa grotte artificielle et sa volière. Les Rennais y déjeunent dès les premiers rayons.",
+    "category": "Nature",
+    "latitude": 48.1145,
+    "longitude": -1.672,
+    "address": "Place Saint-Mélaine",
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": "Parc du Thabor",
+    "ratings": [
+      3,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison Bleue",
+    "description": "Une maison entièrement recouverte de mosaïques, de coquillages et de miroirs, œuvre d'un seul homme pendant plus de trente ans.",
+    "category": "Curiosity",
+    "latitude": 48.105,
+    "longitude": -1.641,
+    "address": "Quartier de Villejean",
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Château des Ducs de Bretagne",
+    "description": "Une forteresse médiévale à l'extérieur, un palais Renaissance dans la cour. Le chemin de ronde se parcourt gratuitement.",
+    "category": "Museum",
+    "latitude": 47.216,
+    "longitude": -1.549,
+    "address": "4 place Marc Elder",
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": "Château des ducs de Bretagne",
+    "ratings": [
+      1,
+      3,
+      1,
+      1
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Jardin des Plantes de Montpellier",
+    "description": "Le plus ancien jardin botanique de France, fondé en 1593 pour la faculté de médecine. Serres, bassins et allées à l'ombre des platanes.",
+    "category": "Nature",
+    "latitude": 43.615,
+    "longitude": 3.871,
+    "address": "Boulevard Henri IV",
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": "Jardin des plantes de Montpellier",
+    "ratings": [
+      2,
+      2,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Place de la Canourgue",
+    "description": "Une petite place ombragée avec sa fontaine aux licornes et sa vue sur la cathédrale, à l'écart du flot de l'Écusson.",
+    "category": "Viewpoint",
+    "latitude": 43.612,
+    "longitude": 3.873,
+    "address": "Place de la Canourgue",
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Marché du Lez",
+    "description": "D'anciens entrepôts au bord du fleuve reconvertis en halles, friperies et guinguettes. Le samedi soir, tout Montpellier y passe.",
+    "category": "FoodDrink",
+    "latitude": 43.593,
+    "longitude": 3.893,
+    "address": "2 avenue Nina Simone",
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Bastille de Grenoble",
+    "description": "Un fort perché au-dessus de la ville, accessible par des bulles transparentes suspendues au-dessus de l'Isère. Le massif de Belledonne en face.",
+    "category": "Viewpoint",
+    "latitude": 45.198,
+    "longitude": 5.725,
+    "address": "Fort de la Bastille",
+    "city": "Grenoble",
+    "country": "France",
+    "wikipedia": "Bastille (Grenoble)",
+    "ratings": [
+      4,
+      3,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Musée Dauphinois",
+    "description": "Un ancien couvent à flanc de colline, avec un cloître, une chapelle baroque et des expositions sur les gens de montagne. Gratuit.",
+    "category": "Museum",
+    "latitude": 45.195,
+    "longitude": 5.729,
+    "address": "30 rue Maurice Gignoux",
+    "city": "Grenoble",
+    "country": "France",
+    "wikipedia": "Musée dauphinois",
+    "ratings": [
+      3,
+      3,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Gros-Horloge",
+    "description": "Une horloge astronomique du XIVe siècle enjambant la rue, avec son cadran unique et son beffroi qu'on peut monter.",
+    "category": "Curiosity",
+    "latitude": 49.443,
+    "longitude": 1.091,
+    "address": "Rue du Gros-Horloge",
+    "city": "Rouen",
+    "country": "France",
+    "wikipedia": "Gros-Horloge",
+    "ratings": [
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "L'Aître Saint-Maclou",
+    "description": "Un ancien cimetière de pestiférés devenu cour à colombages, sculptée de crânes et d'ossements. Étrangement paisible aujourd'hui.",
+    "category": "Curiosity",
+    "latitude": 49.44,
+    "longitude": 1.098,
+    "address": "186 rue Martainville",
+    "city": "Rouen",
+    "country": "France",
+    "wikipedia": "Aître Saint-Maclou",
+    "ratings": [
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Côte Sainte-Catherine",
+    "description": "La vue sur la boucle de la Seine et les flèches de Rouen, au bout d'une montée raide de vingt minutes.",
+    "category": "Viewpoint",
+    "latitude": 49.438,
+    "longitude": 1.114,
+    "address": "Côte Sainte-Catherine",
+    "city": "Rouen",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      5,
+      4,
+      3,
+      4,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Bar de la Marine",
+    "description": "Le comptoir du Vieux-Port où Pagnol a situé sa partie de cartes. Un lieu de cinéma devenu lieu tout court.",
+    "category": "FoodDrink",
+    "latitude": 43.294,
+    "longitude": 5.374,
+    "address": "15 quai de Rive Neuve",
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetière du Père-Lachaise",
+    "description": "Quarante-quatre hectares de sépultures sous les marronniers, entre chapelles néogothiques et tombes célèbres. On s'y perd volontiers.",
+    "category": "Curiosity",
+    "latitude": 48.861,
+    "longitude": 2.393,
+    "address": "16 rue du Repos",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Cimetière du Père-Lachaise",
+    "ratings": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Promenade Plantée",
+    "description": "Un viaduc ferroviaire transformé en jardin suspendu, de la Bastille au bois de Vincennes. Le modèle de la High Line new-yorkaise.",
+    "category": "Nature",
+    "latitude": 48.849,
+    "longitude": 2.381,
+    "address": "1 coulée verte René-Dumont",
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Coulée verte René-Dumont",
+    "ratings": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Croix-Rousse en pente",
+    "description": "Les escaliers et les montées du plateau, entre ateliers de canuts et cours ouvertes. Une ville dans la ville, encore habitée.",
+    "category": "Curiosity",
+    "latitude": 45.774,
+    "longitude": 4.83,
+    "address": "Montée de la Grande-Côte",
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Petite Ceinture du 15e",
+    "description": "Un troncon de l'ancienne ligne ferroviaire de Paris, rendu a la vegetation et ouvert a la promenade. Les rails sont toujours la, sous les ronces.",
+    "category": "Nature",
+    "latitude": 48.836,
+    "longitude": 2.287,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Petite Ceinture",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Musee de la Chasse et de la Nature",
+    "description": "Un hotel particulier du Marais ou les animaux naturalises cohabitent avec l'art contemporain. La salle du cerf vaut le detour a elle seule.",
+    "category": "Museum",
+    "latitude": 48.8613,
+    "longitude": 2.36,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée de la chasse et de la nature",
+    "ratings": [
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Pagode de Chinatown",
+    "description": "Un temple bouddhiste installe dans un parking en sous-sol d'une dalle des annees soixante-dix. Le contraste est saisissant.",
+    "category": "Curiosity",
+    "latitude": 48.8232,
+    "longitude": 2.362,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Passage Brady",
+    "description": "Un passage couvert entierement occupe par des restaurants et epiceries indiennes et pakistanaises. On y entre pour l'odeur.",
+    "category": "Shop",
+    "latitude": 48.871,
+    "longitude": 2.354,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Passage Brady",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison Loo",
+    "description": "Une pagode rouge vif plantee au milieu des immeubles haussmanniens de la plaine Monceau. Un antiquaire chinois l'a fait construire dans les annees vingt.",
+    "category": "Curiosity",
+    "latitude": 48.8792,
+    "longitude": 2.3105,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Maison Loo",
+    "ratings": [
+      4,
+      3,
+      4,
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Square des Peupliers",
+    "description": "Une impasse pavee bordee de maisons couvertes de glycine, a deux pas de la place d'Italie. On se croirait dans un village.",
+    "category": "Curiosity",
+    "latitude": 48.8248,
+    "longitude": 2.351,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      5,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Musee Fragonard d'Alfort",
+    "description": "Le cabinet d'anatomie de l'ecole veterinaire, avec ses ecorches du XVIIIe siecle. Ce n'est pas pour tout le monde.",
+    "category": "Museum",
+    "latitude": 48.814,
+    "longitude": 2.42,
+    "address": null,
+    "city": "Maisons-Alfort",
+    "country": "France",
+    "wikipedia": "Musée Fragonard d'Alfort",
+    "ratings": [
+      3,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cite Florale",
+    "description": "Un lotissement de rues aux noms de fleurs, construit sur un ancien marecage. Les maisons basses tiennent debout sur des pilotis.",
+    "category": "Curiosity",
+    "latitude": 48.8225,
+    "longitude": 2.3475,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Cité florale",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Reservoir de Montsouris",
+    "description": "Une cathedrale souterraine qui alimente encore Paris en eau potable. On ne la visite pas, mais la butte au-dessus se promene.",
+    "category": "Curiosity",
+    "latitude": 48.8215,
+    "longitude": 2.335,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      3,
+      2,
+      4,
+      2
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Villa Leandre",
+    "description": "Une allee de maisons de brique a l'anglaise, sur le flanc nord de Montmartre. Rarement plus de trois personnes a la fois.",
+    "category": "Curiosity",
+    "latitude": 48.889,
+    "longitude": 2.337,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Villa Léandre",
+    "ratings": [
+      3,
+      4,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Musee Curie",
+    "description": "L'ancien laboratoire de Marie Curie, conserve tel quel. Le bureau et le jardin se visitent librement.",
+    "category": "Museum",
+    "latitude": 48.844,
+    "longitude": 2.344,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée Curie",
+    "ratings": [
+      4,
+      4,
+      3,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Passage de l'Ancre",
+    "description": "Une ruelle privee bordee de pots de fleurs, ou survit le dernier reparateur de parapluies de Paris.",
+    "category": "Curiosity",
+    "latitude": 48.865,
+    "longitude": 2.354,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      3,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Jardin Naturel Pierre-Emmanuel",
+    "description": "Un jardin volontairement laisse en friche, contre le mur du Pere-Lachaise. Une mare, des herbes hautes, aucune allee droite.",
+    "category": "Nature",
+    "latitude": 48.86,
+    "longitude": 2.399,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison de Verre",
+    "description": "Une maison en pave de verre et acier construite en 1931 dans une cour du 7e. Visite sur rendez-vous uniquement.",
+    "category": "Curiosity",
+    "latitude": 48.854,
+    "longitude": 2.326,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Maison de verre",
+    "ratings": [
+      4,
+      5,
+      4,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Marche aux Puces de Saint-Ouen",
+    "description": "Le plus grand marche d'antiquites du monde, un labyrinthe de quinze marches accoles. On s'y perd volontiers.",
+    "category": "Shop",
+    "latitude": 48.902,
+    "longitude": 2.342,
+    "address": null,
+    "city": "Saint-Ouen",
+    "country": "France",
+    "wikipedia": "Marché aux puces de Saint-Ouen",
+    "ratings": [
+      5,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Grands Voisins",
+    "description": "L'ancien hopital Saint-Vincent-de-Paul devenu lieu de vie collectif. Le site a beaucoup change, une partie reste ouverte.",
+    "category": "Curiosity",
+    "latitude": 48.8355,
+    "longitude": 2.337,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [],
+    "photos": 4
+  },
+  {
+    "name": "Le Musee des Egouts",
+    "description": "La visite se fait sous la chaussee, dans les galeries en service. L'odeur fait partie de l'experience.",
+    "category": "Museum",
+    "latitude": 48.8635,
+    "longitude": 2.305,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée des égouts de Paris",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetiere des Chiens",
+    "description": "Le plus ancien cimetiere animalier au monde, ouvert en 1899. Rin Tin Tin y est enterre.",
+    "category": "Curiosity",
+    "latitude": 48.908,
+    "longitude": 2.286,
+    "address": null,
+    "city": "Asnières-sur-Seine",
+    "country": "France",
+    "wikipedia": "Cimetière des chiens d'Asnières",
+    "ratings": [
+      4,
+      3,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Butte Bergeyre",
+    "description": "Une colline de cinq rues au-dessus des Buttes-Chaumont, avec une vigne et une vue degagee sur le Sacre-Coeur.",
+    "category": "Viewpoint",
+    "latitude": 48.879,
+    "longitude": 2.38,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Butte Bergeyre",
+    "ratings": [
+      4,
+      5,
+      3,
+      5,
+      4,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Deyrolle",
+    "description": "Maison de taxidermie et de curiosites naturelles fondee en 1831. On monte un escalier discret et on tombe sur des lions et des ours.",
+    "category": "Shop",
+    "latitude": 48.857,
+    "longitude": 2.326,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Deyrolle",
+    "ratings": [
+      4,
+      3,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Chateau de la Reine Blanche",
+    "description": "Un batiment medieval cache au fond d'une cour du quartier des Gobelins, longtemps utilise comme teinturerie.",
+    "category": "Curiosity",
+    "latitude": 48.833,
+    "longitude": 2.352,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Rue Cremieux",
+    "description": "Une rue pavee aux facades peintes de couleurs vives. Les habitants demandent qu'on la photographie discretement.",
+    "category": "StreetArt",
+    "latitude": 48.847,
+    "longitude": 2.372,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Rue Crémieux",
+    "ratings": [
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Musee Dupuytren",
+    "description": "Une collection d'anatomie pathologique constituee au XIXe siecle. L'acces est devenu tres restreint.",
+    "category": "Museum",
+    "latitude": 48.848,
+    "longitude": 2.341,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Musée Dupuytren",
+    "ratings": [
+      3,
+      2
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Cite Verte",
+    "description": "Un ensemble de logements sociaux entierement couvert de vegetation, dans le 13e. Une experience d'architecture des annees soixante-dix.",
+    "category": "Nature",
+    "latitude": 48.818,
+    "longitude": 2.366,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      5,
+      3,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Bassin de la Villette a la nuit",
+    "description": "Les quais du bassin, une fois les peniches eclairees. Le pont levant de la rue de Crimee se leve encore plusieurs fois par jour.",
+    "category": "Viewpoint",
+    "latitude": 48.888,
+    "longitude": 2.372,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [],
+    "photos": 4
+  },
+  {
+    "name": "La Ferme de Paris",
+    "description": "Une vraie ferme en agriculture biologique dans le bois de Vincennes, avec vaches, moutons et poules.",
+    "category": "Nature",
+    "latitude": 48.833,
+    "longitude": 2.462,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      5,
+      3,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Musee des Moulages",
+    "description": "Les moulages dermatologiques de l'hopital Saint-Louis, cires du XIXe siecle d'un realisme derangeant.",
+    "category": "Museum",
+    "latitude": 48.876,
+    "longitude": 2.369,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      5
+    ],
+    "photos": 4
+  },
+  {
+    "name": "La Petite Alsace",
+    "description": "Une cour de maisons a colombages construites en 1912 pour loger des familles ouvrieres, butte-aux-Cailles.",
+    "category": "Curiosity",
+    "latitude": 48.8265,
+    "longitude": 2.348,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Viaduc des Arts",
+    "description": "Les arches d'un ancien viaduc ferroviaire transformees en ateliers d'artisans, sous la coulee verte.",
+    "category": "Shop",
+    "latitude": 48.848,
+    "longitude": 2.376,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Viaduc des Arts",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Puits d'Amour de Meudon",
+    "description": "Un puits de la foret domaniale entoure de legendes locales. La promenade jusqu'a l'observatoire vaut le detour.",
+    "category": "Curiosity",
+    "latitude": 48.813,
+    "longitude": 2.235,
+    "address": null,
+    "city": "Meudon",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      4,
+      4,
+      5,
+      3,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "L'Ile aux Cygnes",
+    "description": "Une digue artificielle plantee d'arbres au milieu de la Seine, avec sa reproduction de la statue de la Liberte.",
+    "category": "Nature",
+    "latitude": 48.85,
+    "longitude": 2.279,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": "Île aux Cygnes",
+    "ratings": [],
+    "photos": 1
+  },
+  {
+    "name": "La Pagode de Vincennes",
+    "description": "Le plus grand bouddha d'Europe, abrite dans un ancien pavillon colonial au bord du lac Daumesnil.",
+    "category": "Curiosity",
+    "latitude": 48.833,
+    "longitude": 2.44,
+    "address": null,
+    "city": "Paris",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [],
+    "photos": 2
+  },
+  {
+    "name": "Le Jardin Extraordinaire",
+    "description": "Une ancienne carriere transformee en jardin luxuriant, avec une cascade de vingt-cinq metres au fond du trou.",
+    "category": "Nature",
+    "latitude": 47.205,
+    "longitude": -1.582,
+    "address": null,
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Hangar a Bananes",
+    "description": "Un ancien entrepot de mûrissement de bananes devenu enfilade de bars, face aux anneaux de Buren.",
+    "category": "FoodDrink",
+    "latitude": 47.203,
+    "longitude": -1.572,
+    "address": null,
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison Radieuse de Reze",
+    "description": "L'unite d'habitation de Le Corbusier, toujours habitee. Le toit-terrasse se visite lors des journees du patrimoine.",
+    "category": "Curiosity",
+    "latitude": 47.183,
+    "longitude": -1.558,
+    "address": null,
+    "city": "Rezé",
+    "country": "France",
+    "wikipedia": "Maison radieuse",
+    "ratings": [
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Village de Trentemoult",
+    "description": "Un ancien village de pecheurs aux maisons peintes de couleurs franches, relie a Nantes par navette fluviale.",
+    "category": "Curiosity",
+    "latitude": 47.195,
+    "longitude": -1.586,
+    "address": null,
+    "city": "Rezé",
+    "country": "France",
+    "wikipedia": "Trentemoult",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cairn de Barnenez",
+    "description": "Un tumulus de plus de six mille ans, l'un des plus anciens monuments d'Europe. On le surnomme le Parthenon megalithique.",
+    "category": "Curiosity",
+    "latitude": 48.668,
+    "longitude": -3.857,
+    "address": null,
+    "city": "Plouezoc'h",
+    "country": "France",
+    "wikipedia": "Cairn de Barnenez",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Vallee des Saints",
+    "description": "Un champ ou l'on dresse des statues monumentales en granit, une par saint breton. Le chantier n'est pas fini.",
+    "category": "Curiosity",
+    "latitude": 48.372,
+    "longitude": -3.279,
+    "address": null,
+    "city": "Carnoët",
+    "country": "France",
+    "wikipedia": "Vallée des Saints",
+    "ratings": [
+      4,
+      4,
+      4,
+      4,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Halles de Rennes",
+    "description": "Les halles centrales et leur marche du samedi, l'un des plus grands de France par le nombre d'exposants.",
+    "category": "FoodDrink",
+    "latitude": 48.11,
+    "longitude": -1.679,
+    "address": null,
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      4,
+      5,
+      3,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Musee des Beaux-Arts de Rennes",
+    "description": "Un cabinet de curiosites du XVIIIe siecle conserve au milieu des collections de peinture.",
+    "category": "Museum",
+    "latitude": 48.109,
+    "longitude": -1.674,
+    "address": null,
+    "city": "Rennes",
+    "country": "France",
+    "wikipedia": "Musée des beaux-arts de Rennes",
+    "ratings": [],
+    "photos": 1
+  },
+  {
+    "name": "Le Phare du Petit Minou",
+    "description": "Un phare relie a la cote par un pont de pierre, spectaculaire quand la mer se leve.",
+    "category": "Viewpoint",
+    "latitude": 48.336,
+    "longitude": -4.612,
+    "address": null,
+    "city": "Plouzané",
+    "country": "France",
+    "wikipedia": "Phare du Petit Minou",
+    "ratings": [
+      3,
+      3,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Abers",
+    "description": "Des rias bretonnes ou la mer remonte dans les terres. A maree basse, le paysage change completement.",
+    "category": "Nature",
+    "latitude": 48.59,
+    "longitude": -4.59,
+    "address": null,
+    "city": "Lannilis",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Fort du Chateau du Taureau",
+    "description": "Une forteresse posee sur un ilot au milieu de la baie de Morlaix, accessible en bateau seulement.",
+    "category": "Curiosity",
+    "latitude": 48.672,
+    "longitude": -3.885,
+    "address": null,
+    "city": "Carantec",
+    "country": "France",
+    "wikipedia": "Château du Taureau",
+    "ratings": [
+      5,
+      5,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Memorial des Fusilles",
+    "description": "Un lieu de memoire discret, en bord de Loire, souvent traverse sans etre remarque.",
+    "category": "Curiosity",
+    "latitude": 47.217,
+    "longitude": -1.534,
+    "address": null,
+    "city": "Nantes",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cite de la Mer",
+    "description": "Un sous-marin nucleaire lanceur d'engins ouvert a la visite, dans l'ancienne gare maritime transatlantique.",
+    "category": "Museum",
+    "latitude": 49.645,
+    "longitude": -1.619,
+    "address": null,
+    "city": "Cherbourg-en-Cotentin",
+    "country": "France",
+    "wikipedia": "Cité de la Mer",
+    "ratings": [
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Jardins Suspendus du Havre",
+    "description": "Un fort du XIXe siecle transforme en jardin botanique, avec vue sur l'estuaire.",
+    "category": "Nature",
+    "latitude": 49.501,
+    "longitude": 0.109,
+    "address": null,
+    "city": "Le Havre",
+    "country": "France",
+    "wikipedia": "Jardins suspendus du Havre",
+    "ratings": [],
+    "photos": 1
+  },
+  {
+    "name": "L'Appartement Temoin Perret",
+    "description": "Un appartement des annees cinquante conserve dans son etat d'origine, temoin de la reconstruction du Havre.",
+    "category": "Museum",
+    "latitude": 49.493,
+    "longitude": 0.106,
+    "address": null,
+    "city": "Le Havre",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      3,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Panorama XXL",
+    "description": "Une rotonde qui abrite des panoramas peints de trente metres de haut, changes tous les deux ans.",
+    "category": "Viewpoint",
+    "latitude": 49.439,
+    "longitude": 1.087,
+    "address": null,
+    "city": "Rouen",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      5,
+      5,
+      4,
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Falaises d'Etretat au lever du jour",
+    "description": "Les aiguilles et l'arche, avant l'arrivee des cars. Il faut se lever tot, ca en vaut la peine.",
+    "category": "Viewpoint",
+    "latitude": 49.707,
+    "longitude": 0.201,
+    "address": null,
+    "city": "Étretat",
+    "country": "France",
+    "wikipedia": "Étretat",
+    "ratings": [
+      4,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetiere Marin de Sainte-Adresse",
+    "description": "Un cimetiere en pente face a la Manche, d'ou l'on voit passer les porte-conteneurs.",
+    "category": "Viewpoint",
+    "latitude": 49.512,
+    "longitude": 0.079,
+    "address": null,
+    "city": "Sainte-Adresse",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison de Victor Hugo a Villequier",
+    "description": "La maison des Vacquerie, en bord de Seine, ou Hugo perdit sa fille Leopoldine.",
+    "category": "Museum",
+    "latitude": 49.517,
+    "longitude": 0.669,
+    "address": null,
+    "city": "Rives-en-Seine",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Beffroi de Lille",
+    "description": "Cent quatre metres de beton et de brique, avec un ascenseur puis un escalier. La vue porte jusqu'en Belgique.",
+    "category": "Viewpoint",
+    "latitude": 50.628,
+    "longitude": 3.073,
+    "address": null,
+    "city": "Lille",
+    "country": "France",
+    "wikipedia": "Beffroi de l'hôtel de ville de Lille",
+    "ratings": [
+      3,
+      5,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Piscine de Roubaix",
+    "description": "Un musee installe dans une piscine art deco de 1932. Le bassin sert de galerie centrale.",
+    "category": "Museum",
+    "latitude": 50.691,
+    "longitude": 3.181,
+    "address": null,
+    "city": "Roubaix",
+    "country": "France",
+    "wikipedia": "La Piscine (musée)",
+    "ratings": [
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Villa Cavrois",
+    "description": "Une villa moderniste de 1932 signee Mallet-Stevens, sauvee de la ruine et restauree a l'identique.",
+    "category": "Curiosity",
+    "latitude": 50.679,
+    "longitude": 3.144,
+    "address": null,
+    "city": "Croix",
+    "country": "France",
+    "wikipedia": "Villa Cavrois",
+    "ratings": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Fort de Mons-en-Baroeul",
+    "description": "Un fort Séré de Rivières en partie reconverti, en partie laisse a l'abandon derriere ses talus.",
+    "category": "Abandoned",
+    "latitude": 50.642,
+    "longitude": 3.113,
+    "address": null,
+    "city": "Mons-en-Barœul",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Terrils Jumeaux de Loos",
+    "description": "Les deux plus hauts terrils d'Europe, classes au patrimoine mondial. On monte a pied, ca grimpe.",
+    "category": "Viewpoint",
+    "latitude": 50.446,
+    "longitude": 2.788,
+    "address": null,
+    "city": "Loos-en-Gohelle",
+    "country": "France",
+    "wikipedia": "Terrils jumeaux 11/19",
+    "ratings": [
+      4,
+      4,
+      4,
+      5,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Coupole d'Helfaut",
+    "description": "Un bunker allemand destine aux V2, creuse dans une carriere de craie. Le dome fait cinq metres d'epaisseur.",
+    "category": "Museum",
+    "latitude": 50.705,
+    "longitude": 2.25,
+    "address": null,
+    "city": "Helfaut",
+    "country": "France",
+    "wikipedia": "La Coupole",
+    "ratings": [
+      4,
+      3,
+      5,
+      5
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Carillon de Douai",
+    "description": "Le beffroi et son carillon de soixante-deux cloches, joue en concert le samedi matin.",
+    "category": "Curiosity",
+    "latitude": 50.37,
+    "longitude": 3.079,
+    "address": null,
+    "city": "Douai",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      1,
+      2,
+      1,
+      1,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Citadelle d'Arras",
+    "description": "Une citadelle de Vauban surnommee la Belle Inutile, jamais attaquee de son histoire.",
+    "category": "Curiosity",
+    "latitude": 50.286,
+    "longitude": 2.757,
+    "address": null,
+    "city": "Arras",
+    "country": "France",
+    "wikipedia": "Citadelle d'Arras",
+    "ratings": [
+      5,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Boves d'Arras",
+    "description": "Des carrieres de craie sous la ville, utilisees comme abris et comme caserne souterraine pendant la Grande Guerre.",
+    "category": "Curiosity",
+    "latitude": 50.291,
+    "longitude": 2.777,
+    "address": null,
+    "city": "Arras",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      4,
+      3,
+      4,
+      3,
+      2,
+      2,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Musee de la Mine de Lewarde",
+    "description": "L'ancienne fosse Delloye, avec galeries reconstituees et visite guidee par d'anciens mineurs.",
+    "category": "Museum",
+    "latitude": 50.363,
+    "longitude": 3.16,
+    "address": null,
+    "city": "Lewarde",
+    "country": "France",
+    "wikipedia": "Centre historique minier de Lewarde",
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Baie de Somme a maree basse",
+    "description": "Des kilometres de vasieres, des phoques sur les bancs de sable, et une lumiere qui change toutes les heures.",
+    "category": "Nature",
+    "latitude": 50.22,
+    "longitude": 1.58,
+    "address": null,
+    "city": "Le Crotoy",
+    "country": "France",
+    "wikipedia": "Baie de Somme",
+    "ratings": [
+      3,
+      4,
+      4,
+      4,
+      5,
+      5
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Le Chateau de Pierrefonds",
+    "description": "Une forteresse medievale entierement reinventee par Viollet-le-Duc au XIXe siecle. Plus vraie que nature.",
+    "category": "Curiosity",
+    "latitude": 49.348,
+    "longitude": 2.98,
+    "address": null,
+    "city": "Pierrefonds",
+    "country": "France",
+    "wikipedia": "Château de Pierrefonds",
+    "ratings": [
+      3,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Clairiere de l'Armistice",
+    "description": "Le wagon de l'armistice de 1918, dans une clairiere de la foret de Compiegne.",
+    "category": "Curiosity",
+    "latitude": 49.427,
+    "longitude": 2.906,
+    "address": null,
+    "city": "Compiègne",
+    "country": "France",
+    "wikipedia": "Clairière de l'Armistice",
+    "ratings": [
+      4,
+      3,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Familistere de Guise",
+    "description": "Le palais social de Godin, une utopie ouvriere du XIXe siecle avec ses cours vitrees monumentales.",
+    "category": "Curiosity",
+    "latitude": 49.9,
+    "longitude": 3.628,
+    "address": null,
+    "city": "Guise",
+    "country": "France",
+    "wikipedia": "Familistère de Guise",
+    "ratings": [
+      3,
+      2,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Maison de Jules Verne",
+    "description": "La maison a la tour ou Verne a ecrit une grande partie de son oeuvre, meublee dans son etat d'epoque.",
+    "category": "Museum",
+    "latitude": 49.889,
+    "longitude": 2.299,
+    "address": null,
+    "city": "Amiens",
+    "country": "France",
+    "wikipedia": "Maison de Jules Verne",
+    "ratings": [
+      5,
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Hortillonnages",
+    "description": "Des jardins maraichers sur trois cents hectares de canaux, parcourus en barque a cornet.",
+    "category": "Nature",
+    "latitude": 49.895,
+    "longitude": 2.316,
+    "address": null,
+    "city": "Amiens",
+    "country": "France",
+    "wikipedia": "Hortillonnages d'Amiens",
+    "ratings": [
+      5,
+      3,
+      4,
+      3,
+      5,
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Barrage Vauban",
+    "description": "Une terrasse panoramique au-dessus de l'Ill, avec un depot de sculptures gothiques dans la galerie couverte.",
+    "category": "Viewpoint",
+    "latitude": 48.58,
+    "longitude": 7.737,
+    "address": null,
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": "Barrage Vauban",
+    "ratings": [
+      5,
+      4,
+      3,
+      5,
+      4,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cave Historique des Hospices",
+    "description": "Une cave a vin sous l'hopital civil, avec un tonneau rempli en 1472 encore conserve.",
+    "category": "FoodDrink",
+    "latitude": 48.581,
+    "longitude": 7.748,
+    "address": null,
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      5,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Musee Vodou",
+    "description": "Une collection d'objets rituels ouest-africains installee dans un ancien chateau d'eau.",
+    "category": "Museum",
+    "latitude": 48.592,
+    "longitude": 7.744,
+    "address": null,
+    "city": "Strasbourg",
+    "country": "France",
+    "wikipedia": "Château d'eau de Strasbourg",
+    "ratings": [],
+    "photos": 3
+  },
+  {
+    "name": "Le Mont Sainte-Odile",
+    "description": "Un monastere en surplomb de la plaine d'Alsace, ceint d'un mur paien de dix kilometres.",
+    "category": "Viewpoint",
+    "latitude": 48.438,
+    "longitude": 7.403,
+    "address": null,
+    "city": "Ottrott",
+    "country": "France",
+    "wikipedia": "Mont Sainte-Odile",
+    "ratings": [
+      3,
+      5,
+      4,
+      5
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Struthof",
+    "description": "L'ancien camp de concentration, seul camp nazi sur le territoire francais actuel. Lieu de memoire.",
+    "category": "Curiosity",
+    "latitude": 48.459,
+    "longitude": 7.256,
+    "address": null,
+    "city": "Natzwiller",
+    "country": "France",
+    "wikipedia": "Camp de concentration de Natzweiler-Struthof",
+    "ratings": [
+      3,
+      4,
+      4,
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Maison Pfister",
+    "description": "Une maison Renaissance de 1537 a l'angle de la rue des Marchands, avec sa loggia et sa tourelle.",
+    "category": "Curiosity",
+    "latitude": 48.074,
+    "longitude": 7.358,
+    "address": null,
+    "city": "Colmar",
+    "country": "France",
+    "wikipedia": "Maison Pfister",
+    "ratings": [
+      2,
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Petite Venise de Colmar",
+    "description": "Le quartier des maraichers, le long de la Lauch. Barques a fond plat en saison.",
+    "category": "Curiosity",
+    "latitude": 48.072,
+    "longitude": 7.36,
+    "address": null,
+    "city": "Colmar",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Musee de l'Ecole de Nancy",
+    "description": "Une villa art nouveau meublee de la cave au grenier par Galle, Majorelle et Daum.",
+    "category": "Museum",
+    "latitude": 48.68,
+    "longitude": 6.172,
+    "address": null,
+    "city": "Nancy",
+    "country": "France",
+    "wikipedia": "Musée de l'École de Nancy",
+    "ratings": [
+      4,
+      4,
+      3,
+      3,
+      3,
+      4,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Place Stanislas la nuit",
+    "description": "Les grilles dorees de Jean Lamour, eclairees. La place est fermee a la circulation.",
+    "category": "Viewpoint",
+    "latitude": 48.693,
+    "longitude": 6.183,
+    "address": null,
+    "city": "Nancy",
+    "country": "France",
+    "wikipedia": "Place Stanislas",
+    "ratings": [],
+    "photos": 3
+  },
+  {
+    "name": "La Cathedrale de Metz",
+    "description": "Six mille cinq cents metres carres de vitraux, dont ceux de Chagall. On la surnomme la lanterne du Bon Dieu.",
+    "category": "Curiosity",
+    "latitude": 49.12,
+    "longitude": 6.175,
+    "address": null,
+    "city": "Metz",
+    "country": "France",
+    "wikipedia": "Cathédrale Saint-Étienne de Metz",
+    "ratings": [
+      4,
+      4,
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Centre Pompidou-Metz",
+    "description": "Une charpente en bois lamelle-colle inspiree d'un chapeau chinois, posee sur trois galeries.",
+    "category": "Museum",
+    "latitude": 49.109,
+    "longitude": 6.181,
+    "address": null,
+    "city": "Metz",
+    "country": "France",
+    "wikipedia": "Centre Pompidou-Metz",
+    "ratings": [
+      5,
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Citadelle de Besancon",
+    "description": "Une citadelle de Vauban perchee sur un meandre du Doubs, qui abrite aussi un zoo et trois musees.",
+    "category": "Curiosity",
+    "latitude": 47.231,
+    "longitude": 6.033,
+    "address": null,
+    "city": "Besançon",
+    "country": "France",
+    "wikipedia": "Citadelle de Besançon",
+    "ratings": [
+      5,
+      4,
+      4,
+      5,
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Saline Royale d'Arc-et-Senans",
+    "description": "Une usine ideale en demi-cercle imaginee par Ledoux au XVIIIe siecle, jamais achevee comme prevu.",
+    "category": "Curiosity",
+    "latitude": 47.033,
+    "longitude": 5.777,
+    "address": null,
+    "city": "Arc-et-Senans",
+    "country": "France",
+    "wikipedia": "Saline royale d'Arc-et-Senans",
+    "ratings": [
+      5,
+      3,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Source du Lison",
+    "description": "Une resurgence qui sort d'une grotte au pied d'une falaise. Le site a inspire la premiere loi de protection de la nature.",
+    "category": "Nature",
+    "latitude": 46.976,
+    "longitude": 6.025,
+    "address": null,
+    "city": "Nans-sous-Sainte-Anne",
+    "country": "France",
+    "wikipedia": "Source du Lison",
+    "ratings": [
+      5,
+      4,
+      3,
+      4,
+      5,
+      3,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Hospices de Beaune",
+    "description": "L'Hotel-Dieu et ses toits de tuiles vernissees, avec la grande salle des poves conservee.",
+    "category": "Museum",
+    "latitude": 47.022,
+    "longitude": 4.837,
+    "address": null,
+    "city": "Beaune",
+    "country": "France",
+    "wikipedia": "Hospices de Beaune",
+    "ratings": [
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Puits de Moise",
+    "description": "Un socle de calvaire sculpte par Claus Sluter a la fin du XIVe siecle, dans l'enceinte d'un hopital psychiatrique.",
+    "category": "Curiosity",
+    "latitude": 47.326,
+    "longitude": 4.984,
+    "address": null,
+    "city": "Dijon",
+    "country": "France",
+    "wikipedia": "Puits de Moïse",
+    "ratings": [
+      5,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Jardin Darcy",
+    "description": "Le premier jardin public de Dijon, avec son ours blanc en pierre a l'entree.",
+    "category": "Nature",
+    "latitude": 47.323,
+    "longitude": 5.033,
+    "address": null,
+    "city": "Dijon",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Chateau de Guedelon",
+    "description": "Un chateau fort en construction depuis 1997, uniquement avec les techniques du XIIIe siecle.",
+    "category": "Curiosity",
+    "latitude": 47.579,
+    "longitude": 3.156,
+    "address": null,
+    "city": "Treigny-Perreuse-Sainte-Colombe",
+    "country": "France",
+    "wikipedia": "Guédelon",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Colline Eternelle de Vezelay",
+    "description": "La basilique romane et sa nef eclairee au solstice, au sommet d'un village perche.",
+    "category": "Viewpoint",
+    "latitude": 47.466,
+    "longitude": 3.747,
+    "address": null,
+    "city": "Vézelay",
+    "country": "France",
+    "wikipedia": "Basilique Sainte-Marie-Madeleine de Vézelay",
+    "ratings": [
+      3,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Grottes d'Arcy-sur-Cure",
+    "description": "Des peintures parietales vieilles de vingt-huit mille ans, longtemps recouvertes de suie.",
+    "category": "Nature",
+    "latitude": 47.596,
+    "longitude": 3.763,
+    "address": null,
+    "city": "Arcy-sur-Cure",
+    "country": "France",
+    "wikipedia": "Grottes d'Arcy-sur-Cure",
+    "ratings": [
+      3,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Chateau de Chambord vu du toit",
+    "description": "Les terrasses hautes, avec leur foret de cheminees et de lucarnes. On y monte par l'escalier a double revolution.",
+    "category": "Viewpoint",
+    "latitude": 47.616,
+    "longitude": 1.517,
+    "address": null,
+    "city": "Chambord",
+    "country": "France",
+    "wikipedia": "Château de Chambord",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Maison de la Magie",
+    "description": "Un musee de l'illusion avec des dragons qui sortent des fenetres toutes les demi-heures.",
+    "category": "Museum",
+    "latitude": 47.586,
+    "longitude": 1.334,
+    "address": null,
+    "city": "Blois",
+    "country": "France",
+    "wikipedia": "Maison de la Magie Robert-Houdin",
+    "ratings": [
+      5,
+      5,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Prieure Saint-Cosme",
+    "description": "Les ruines du prieure ou vecut Ronsard, avec un jardin de roses anciennes.",
+    "category": "Curiosity",
+    "latitude": 47.366,
+    "longitude": 0.636,
+    "address": null,
+    "city": "La Riche",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Caves de Bourre",
+    "description": "Une ville souterraine sculptee dans le tuffeau, et une champignonniere dans les memes galeries.",
+    "category": "Curiosity",
+    "latitude": 47.339,
+    "longitude": 1.152,
+    "address": null,
+    "city": "Bourré",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      2,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cathedrale de Bourges",
+    "description": "Une cathedrale sans transept, d'une hauteur inhabituelle, avec une crypte du XIIe siecle.",
+    "category": "Curiosity",
+    "latitude": 47.082,
+    "longitude": 2.399,
+    "address": null,
+    "city": "Bourges",
+    "country": "France",
+    "wikipedia": "Cathédrale Saint-Étienne de Bourges",
+    "ratings": [
+      3,
+      4,
+      4,
+      4,
+      5,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Marais de Bourges",
+    "description": "Cent trente-cinq hectares de jardins maraichers en pleine ville, parcourus de canaux.",
+    "category": "Nature",
+    "latitude": 47.09,
+    "longitude": 2.405,
+    "address": null,
+    "city": "Bourges",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      3,
+      4,
+      3,
+      5,
+      4,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Puy de Dome au coucher du soleil",
+    "description": "Le sommet et son temple de Mercure, avec la chaine des Puys alignee vers le sud.",
+    "category": "Viewpoint",
+    "latitude": 45.772,
+    "longitude": 2.964,
+    "address": null,
+    "city": "Orcines",
+    "country": "France",
+    "wikipedia": "Puy de Dôme",
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Grotte de Vulcania",
+    "description": "Un parc scientifique sur le volcanisme, en partie enterre dans le sol.",
+    "category": "Museum",
+    "latitude": 45.825,
+    "longitude": 2.954,
+    "address": null,
+    "city": "Saint-Ours",
+    "country": "France",
+    "wikipedia": "Vulcania",
+    "ratings": [
+      5,
+      3,
+      5,
+      4,
+      5,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Sources Petrifiantes de Saint-Nectaire",
+    "description": "Une fontaine qui recouvre de calcaire les objets qu'on y suspend. Le procede est toujours exploite.",
+    "category": "Curiosity",
+    "latitude": 45.585,
+    "longitude": 2.997,
+    "address": null,
+    "city": "Saint-Nectaire",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      2,
+      4,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Viaduc de Garabit",
+    "description": "Un viaduc ferroviaire rouge de Gustave Eiffel, jete a cent vingt metres au-dessus de la Truyere.",
+    "category": "Viewpoint",
+    "latitude": 44.97,
+    "longitude": 3.18,
+    "address": null,
+    "city": "Ruynes-en-Margeride",
+    "country": "France",
+    "wikipedia": "Viaduc de Garabit",
+    "ratings": [
+      5,
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Chaise-Dieu",
+    "description": "Une abbatiale gothique avec une danse macabre peinte sur vingt-six metres de mur.",
+    "category": "Curiosity",
+    "latitude": 45.323,
+    "longitude": 3.696,
+    "address": null,
+    "city": "La Chaise-Dieu",
+    "country": "France",
+    "wikipedia": "Abbaye de la Chaise-Dieu",
+    "ratings": [
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Puy-en-Velay et son rocher",
+    "description": "Une chapelle du Xe siecle posee sur une aiguille volcanique, accessible par deux cent soixante-huit marches.",
+    "category": "Viewpoint",
+    "latitude": 45.047,
+    "longitude": 3.888,
+    "address": null,
+    "city": "Le Puy-en-Velay",
+    "country": "France",
+    "wikipedia": "Rocher Saint-Michel d'Aiguilhe",
+    "ratings": [
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Musee d'Art Roger-Quilliot",
+    "description": "Un musee installe dans un ancien couvent des Ursulines, sur cinq niveaux.",
+    "category": "Museum",
+    "latitude": 45.79,
+    "longitude": 3.1,
+    "address": null,
+    "city": "Clermont-Ferrand",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      4,
+      4,
+      5,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Cathedrale Noire de Clermont",
+    "description": "Entierement batie en pierre de Volvic, d'un noir profond. La couleur surprend au premier regard.",
+    "category": "Curiosity",
+    "latitude": 45.779,
+    "longitude": 3.086,
+    "address": null,
+    "city": "Clermont-Ferrand",
+    "country": "France",
+    "wikipedia": "Cathédrale Notre-Dame-de-l'Assomption de Clermont-Ferrand",
+    "ratings": [
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Panoramique des Dômes",
+    "description": "Un train a cremaillere qui monte au sommet du puy de Dome en quinze minutes.",
+    "category": "Viewpoint",
+    "latitude": 45.775,
+    "longitude": 2.97,
+    "address": null,
+    "city": "Orcines",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Traboules de la Croix-Rousse",
+    "description": "Des passages prives qui traversent les immeubles de canuts. Certains sont ouverts, il faut pousser les portes.",
+    "category": "Curiosity",
+    "latitude": 45.774,
+    "longitude": 4.833,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Traboule",
+    "ratings": [
+      5,
+      5,
+      3,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Mur des Canuts",
+    "description": "La plus grande fresque murale d'Europe, repeinte trois fois depuis 1987 pour faire vieillir ses personnages.",
+    "category": "StreetArt",
+    "latitude": 45.776,
+    "longitude": 4.829,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Mur des Canuts",
+    "ratings": [
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "L'Amphitheatre des Trois Gaules",
+    "description": "Les vestiges d'un amphitheatre romain coinces entre deux immeubles, en contrebas de la rue.",
+    "category": "Curiosity",
+    "latitude": 45.772,
+    "longitude": 4.83,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Amphithéâtre des Trois Gaules",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetiere de Loyasse",
+    "description": "Le Pere-Lachaise lyonnais, sur la colline de Fourviere, avec une vue inattendue sur la ville.",
+    "category": "Curiosity",
+    "latitude": 45.759,
+    "longitude": 4.814,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      3,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Grand Hotel-Dieu",
+    "description": "Un hopital du XVIIIe siecle reconverti, avec un dome de trente-deux metres et de vastes cours.",
+    "category": "Curiosity",
+    "latitude": 45.76,
+    "longitude": 4.836,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": "Hôtel-Dieu de Lyon",
+    "ratings": [
+      4,
+      5
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Les Subsistances",
+    "description": "Un ancien couvent puis magasin militaire, devenu laboratoire de creation artistique en bord de Saone.",
+    "category": "Curiosity",
+    "latitude": 45.771,
+    "longitude": 4.818,
+    "address": null,
+    "city": "Lyon",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      3,
+      3,
+      5,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Vallon des Auffes",
+    "description": "Un port de peche minuscule sous un viaduc, avec ses cabanons et ses barques serrees.",
+    "category": "FoodDrink",
+    "latitude": 43.283,
+    "longitude": 5.354,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Vallon des Auffes",
+    "ratings": [
+      4,
+      4,
+      5,
+      5,
+      5,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cite Radieuse",
+    "description": "L'unite d'habitation de Le Corbusier, avec sa rue commercante interieure et son toit-terrasse.",
+    "category": "Curiosity",
+    "latitude": 43.261,
+    "longitude": 5.396,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Cité radieuse de Marseille",
+    "ratings": [
+      4,
+      5,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Calanques de Sormiou",
+    "description": "Une calanque accessible a pied depuis le col, avec ses cabanons et son eau translucide.",
+    "category": "Nature",
+    "latitude": 43.211,
+    "longitude": 5.418,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Calanque de Sormiou",
+    "ratings": [
+      4,
+      5,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Palais Longchamp",
+    "description": "Un chateau d'eau monumental deguise en palais, celebrant l'arrivee de l'eau de la Durance.",
+    "category": "Curiosity",
+    "latitude": 43.305,
+    "longitude": 5.395,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Palais Longchamp",
+    "ratings": [
+      3,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cours Julien",
+    "description": "Un quartier entierement recouvert de fresques, renouvelees en permanence.",
+    "category": "StreetArt",
+    "latitude": 43.294,
+    "longitude": 5.383,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      5,
+      5,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Fort Saint-Jean",
+    "description": "Relie au MuCEM par une passerelle suspendue, avec un jardin des migrations sur les remparts.",
+    "category": "Viewpoint",
+    "latitude": 43.296,
+    "longitude": 5.361,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Fort Saint-Jean (Marseille)",
+    "ratings": [
+      5,
+      4,
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Villa Mediterranee",
+    "description": "Un porte-a-faux de quarante metres au-dessus d'un bassin, spectaculaire vu de dessous.",
+    "category": "Curiosity",
+    "latitude": 43.296,
+    "longitude": 5.362,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      4,
+      5,
+      5,
+      4,
+      3,
+      5
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Le Chateau d'If",
+    "description": "La prison d'Etat rendue celebre par Dumas, sur un ilot a vingt minutes de bateau du Vieux-Port.",
+    "category": "Curiosity",
+    "latitude": 43.28,
+    "longitude": 5.325,
+    "address": null,
+    "city": "Marseille",
+    "country": "France",
+    "wikipedia": "Château d'If",
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Baux-de-Provence",
+    "description": "Un village accroche a un eperon rocheux, avec les ruines de sa forteresse au sommet.",
+    "category": "Viewpoint",
+    "latitude": 43.744,
+    "longitude": 4.795,
+    "address": null,
+    "city": "Les Baux-de-Provence",
+    "country": "France",
+    "wikipedia": "Les Baux-de-Provence",
+    "ratings": [
+      3,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Les Carrieres des Lumieres",
+    "description": "Une ancienne carriere de calcaire ou l'on projette des oeuvres sur des parois de vingt metres.",
+    "category": "Museum",
+    "latitude": 43.748,
+    "longitude": 4.796,
+    "address": null,
+    "city": "Les Baux-de-Provence",
+    "country": "France",
+    "wikipedia": "Carrières de Lumières",
+    "ratings": [
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Pont du Gard",
+    "description": "Un aqueduc romain a trois niveaux, quarante-huit metres au-dessus du Gardon.",
+    "category": "Curiosity",
+    "latitude": 43.947,
+    "longitude": 4.535,
+    "address": null,
+    "city": "Vers-Pont-du-Gard",
+    "country": "France",
+    "wikipedia": "Pont du Gard",
+    "ratings": [
+      4,
+      4,
+      3,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Arenes de Nimes",
+    "description": "L'amphitheatre romain le mieux conserve au monde, toujours utilise.",
+    "category": "Curiosity",
+    "latitude": 43.835,
+    "longitude": 4.36,
+    "address": null,
+    "city": "Nîmes",
+    "country": "France",
+    "wikipedia": "Arènes de Nîmes",
+    "ratings": [
+      2,
+      2,
+      4,
+      3,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "La Tour Magne",
+    "description": "Une tour gallo-romaine au sommet du mont Cavalier, dans les jardins de la Fontaine.",
+    "category": "Viewpoint",
+    "latitude": 43.84,
+    "longitude": 4.354,
+    "address": null,
+    "city": "Nîmes",
+    "country": "France",
+    "wikipedia": "Tour Magne",
+    "ratings": [
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Palais des Papes",
+    "description": "Le plus grand palais gothique d'Europe, avec ses chapelles peintes et ses salles vides.",
+    "category": "Curiosity",
+    "latitude": 43.951,
+    "longitude": 4.808,
+    "address": null,
+    "city": "Avignon",
+    "country": "France",
+    "wikipedia": "Palais des papes",
+    "ratings": [
+      3,
+      1,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Fontaine de Vaucluse",
+    "description": "La plus puissante resurgence de France, au pied d'une falaise de deux cent trente metres.",
+    "category": "Nature",
+    "latitude": 43.92,
+    "longitude": 5.128,
+    "address": null,
+    "city": "Fontaine-de-Vaucluse",
+    "country": "France",
+    "wikipedia": "Fontaine de Vaucluse",
+    "ratings": [
+      3,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Sentier des Ocres",
+    "description": "Un parcours dans d'anciennes carrieres d'ocre, entre falaises rouges et pins.",
+    "category": "Nature",
+    "latitude": 43.902,
+    "longitude": 5.293,
+    "address": null,
+    "city": "Roussillon",
+    "country": "France",
+    "wikipedia": "Roussillon (Vaucluse)",
+    "ratings": [
+      2,
+      2
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Cours Mirabeau",
+    "description": "Une allee de platanes bordee de fontaines et de cafes, dont un alimente en eau thermale a trente-quatre degres.",
+    "category": "FoodDrink",
+    "latitude": 43.528,
+    "longitude": 5.447,
+    "address": null,
+    "city": "Aix-en-Provence",
+    "country": "France",
+    "wikipedia": "Cours Mirabeau",
+    "ratings": [
+      5,
+      5,
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "L'Atelier Cezanne",
+    "description": "L'atelier du peintre, laisse tel qu'il etait a sa mort, avec ses objets de nature morte.",
+    "category": "Museum",
+    "latitude": 43.539,
+    "longitude": 5.447,
+    "address": null,
+    "city": "Aix-en-Provence",
+    "country": "France",
+    "wikipedia": "Atelier Cézanne",
+    "ratings": [
+      3,
+      1,
+      2
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Villa Kerylos",
+    "description": "Une reconstitution de villa grecque antique, batie au debut du XXe siecle au bord de la mer.",
+    "category": "Curiosity",
+    "latitude": 43.705,
+    "longitude": 7.329,
+    "address": null,
+    "city": "Beaulieu-sur-Mer",
+    "country": "France",
+    "wikipedia": "Villa Kérylos",
+    "ratings": [
+      2,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Sentier du Littoral au Cap Ferrat",
+    "description": "Un chemin de ronde autour de la presqu'ile, entre pins et rochers.",
+    "category": "Nature",
+    "latitude": 43.687,
+    "longitude": 7.335,
+    "address": null,
+    "city": "Saint-Jean-Cap-Ferrat",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Colline du Chateau",
+    "description": "Une cascade artificielle et un panorama sur la baie des Anges, la ou se trouvait la vieille ville.",
+    "category": "Viewpoint",
+    "latitude": 43.695,
+    "longitude": 7.28,
+    "address": null,
+    "city": "Nice",
+    "country": "France",
+    "wikipedia": "Colline du Château",
+    "ratings": [
+      4,
+      4,
+      2,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetiere du Chateau",
+    "description": "Trois cimetieres accoles au sommet de la colline, avec des tombeaux monumentaux face a la mer.",
+    "category": "Curiosity",
+    "latitude": 43.696,
+    "longitude": 7.281,
+    "address": null,
+    "city": "Nice",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      3,
+      5,
+      5,
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Village de Saorge",
+    "description": "Un village en amphitheatre au-dessus des gorges de la Roya, sans voiture.",
+    "category": "Curiosity",
+    "latitude": 43.988,
+    "longitude": 7.551,
+    "address": null,
+    "city": "Saorge",
+    "country": "France",
+    "wikipedia": "Saorge",
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Cite de Carcassonne au petit matin",
+    "description": "Cinquante-deux tours et une double enceinte, avant l'arrivee des groupes.",
+    "category": "Viewpoint",
+    "latitude": 43.206,
+    "longitude": 2.364,
+    "address": null,
+    "city": "Carcassonne",
+    "country": "France",
+    "wikipedia": "Cité de Carcassonne",
+    "ratings": [
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Canal du Midi a Beziers",
+    "description": "Les neuf ecluses de Fonseranes, un escalier d'eau de vingt-cinq metres de denivele.",
+    "category": "Nature",
+    "latitude": 43.348,
+    "longitude": 3.217,
+    "address": null,
+    "city": "Béziers",
+    "country": "France",
+    "wikipedia": "Écluses de Fonseranes",
+    "ratings": [
+      2,
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Couvent des Jacobins",
+    "description": "Un palmier de pierre a vingt-deux nervures soutient la voute du choeur. On s'allonge au sol pour le regarder.",
+    "category": "Curiosity",
+    "latitude": 43.603,
+    "longitude": 1.44,
+    "address": null,
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Couvent des Jacobins de Toulouse",
+    "ratings": [
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Halle de la Machine",
+    "description": "Un minotaure mecanique de quatorze metres et toute une ecurie de machines animees.",
+    "category": "Museum",
+    "latitude": 43.586,
+    "longitude": 1.477,
+    "address": null,
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": "Halle de La Machine",
+    "ratings": [
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Canal de Brienne",
+    "description": "Un canal borde d'une double rangee de platanes, moins frequente que le canal du Midi.",
+    "category": "Nature",
+    "latitude": 43.608,
+    "longitude": 1.434,
+    "address": null,
+    "city": "Toulouse",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [],
+    "photos": 1
+  },
+  {
+    "name": "La Grotte de Niaux",
+    "description": "Des peintures magdaleniennes visibles dans leur etat d'origine, visite a la lampe torche.",
+    "category": "Curiosity",
+    "latitude": 42.821,
+    "longitude": 1.595,
+    "address": null,
+    "city": "Niaux",
+    "country": "France",
+    "wikipedia": "Grotte de Niaux",
+    "ratings": [
+      5,
+      5,
+      4
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Pont Valentre",
+    "description": "Un pont fortifie du XIVe siecle a trois tours, avec sa legende du diable sculptee dans la pierre.",
+    "category": "Curiosity",
+    "latitude": 44.444,
+    "longitude": 1.429,
+    "address": null,
+    "city": "Cahors",
+    "country": "France",
+    "wikipedia": "Pont Valentré",
+    "ratings": [
+      3,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Gouffre de Padirac",
+    "description": "Un puits de trente-cinq metres de diametre, puis une riviere souterraine parcourue en barque.",
+    "category": "Nature",
+    "latitude": 44.857,
+    "longitude": 1.75,
+    "address": null,
+    "city": "Padirac",
+    "country": "France",
+    "wikipedia": "Gouffre de Padirac",
+    "ratings": [],
+    "photos": 1
+  },
+  {
+    "name": "Rocamadour de nuit",
+    "description": "Le village accroche a la falaise, eclaire. Le point de vue de l'Hospitalet est le bon.",
+    "category": "Viewpoint",
+    "latitude": 44.799,
+    "longitude": 1.618,
+    "address": null,
+    "city": "Rocamadour",
+    "country": "France",
+    "wikipedia": "Rocamadour",
+    "ratings": [
+      4,
+      3,
+      3,
+      5,
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Grotte de Lascaux IV",
+    "description": "Le fac-simile integral de la grotte, dans un batiment enterre au pied de la colline.",
+    "category": "Museum",
+    "latitude": 45.049,
+    "longitude": 1.167,
+    "address": null,
+    "city": "Montignac-Lascaux",
+    "country": "France",
+    "wikipedia": "Lascaux",
+    "ratings": [
+      4,
+      4,
+      5
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Village Troglodytique de la Madeleine",
+    "description": "Un village creuse dans la falaise au-dessus de la Vezere, habite du Moyen Age au XIXe siecle.",
+    "category": "Curiosity",
+    "latitude": 44.945,
+    "longitude": 1.025,
+    "address": null,
+    "city": "Tursac",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 4
+  },
+  {
+    "name": "La Dune du Pilat au lever du jour",
+    "description": "Cent dix metres de sable, l'ocean d'un cote, la foret des Landes de l'autre.",
+    "category": "Viewpoint",
+    "latitude": 44.588,
+    "longitude": -1.213,
+    "address": null,
+    "city": "La Teste-de-Buch",
+    "country": "France",
+    "wikipedia": "Dune du Pilat",
+    "ratings": [
+      3,
+      2,
+      3
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Bassin des Lumieres",
+    "description": "Une ancienne base sous-marine transformee en centre d'art numerique, avec projections sur l'eau.",
+    "category": "Museum",
+    "latitude": 44.862,
+    "longitude": -0.551,
+    "address": null,
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Bassins des Lumières",
+    "ratings": [
+      2,
+      1,
+      1,
+      1,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Base Sous-Marine de Bordeaux",
+    "description": "Un bunker de six cent mille tonnes de beton, impossible a detruire, reconverti en partie seulement.",
+    "category": "Abandoned",
+    "latitude": 44.863,
+    "longitude": -0.552,
+    "address": null,
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      5,
+      3
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Miroir d'Eau",
+    "description": "Une lame d'eau de deux centimetres qui reflete la place de la Bourse, avec brumisation toutes les vingt minutes.",
+    "category": "Curiosity",
+    "latitude": 44.841,
+    "longitude": -0.569,
+    "address": null,
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Miroir d'eau",
+    "ratings": [
+      5,
+      5,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Cite du Vin",
+    "description": "Un batiment en forme de carafe, avec un belvedere au huitieme etage et un verre offert.",
+    "category": "Museum",
+    "latitude": 44.862,
+    "longitude": -0.55,
+    "address": null,
+    "city": "Bordeaux",
+    "country": "France",
+    "wikipedia": "Cité du Vin",
+    "ratings": [
+      5,
+      4,
+      4,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Villa Arnaga",
+    "description": "La maison d'Edmond Rostand, avec ses jardins a la francaise et son interieur intact.",
+    "category": "Museum",
+    "latitude": 43.369,
+    "longitude": -1.462,
+    "address": null,
+    "city": "Cambo-les-Bains",
+    "country": "France",
+    "wikipedia": "Villa Arnaga",
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 2
+  },
+  {
+    "name": "La Rhune",
+    "description": "Un train a cremaillere de 1924 monte au sommet, entre pottoks et brebis, avec vue sur l'ocean.",
+    "category": "Viewpoint",
+    "latitude": 43.309,
+    "longitude": -1.635,
+    "address": null,
+    "city": "Sare",
+    "country": "France",
+    "wikipedia": "Rhune",
+    "ratings": [
+      5,
+      4,
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Halles de Biarritz",
+    "description": "Deux halles de 1885 et les bars a tapas qui debordent sur la rue le soir.",
+    "category": "FoodDrink",
+    "latitude": 43.482,
+    "longitude": -1.559,
+    "address": null,
+    "city": "Biarritz",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      2,
+      3,
+      3,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Marais Poitevin",
+    "description": "La Venise verte, un labyrinthe de canaux sous les frenes tetards, parcouru en barque.",
+    "category": "Nature",
+    "latitude": 46.32,
+    "longitude": -0.7,
+    "address": null,
+    "city": "Coulon",
+    "country": "France",
+    "wikipedia": "Marais poitevin",
+    "ratings": [
+      3,
+      5
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Tours de La Rochelle",
+    "description": "Les trois tours du vieux port, dont celle de la Lanterne et ses graffitis de prisonniers.",
+    "category": "Viewpoint",
+    "latitude": 46.156,
+    "longitude": -1.152,
+    "address": null,
+    "city": "La Rochelle",
+    "country": "France",
+    "wikipedia": "Tours de La Rochelle",
+    "ratings": [
+      3,
+      5,
+      4,
+      5,
+      5,
+      5,
+      4,
+      4
+    ],
+    "photos": 4
+  },
+  {
+    "name": "Le Bunker de La Rochelle",
+    "description": "Un abri anti-aerien allemand conserve sous un immeuble du centre-ville.",
+    "category": "Museum",
+    "latitude": 46.158,
+    "longitude": -1.151,
+    "address": null,
+    "city": "La Rochelle",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Mer de Glace",
+    "description": "Le plus grand glacier de France, accessible par un train a cremaillere. Le recul se voit d'annee en annee.",
+    "category": "Nature",
+    "latitude": 45.89,
+    "longitude": 6.921,
+    "address": null,
+    "city": "Chamonix-Mont-Blanc",
+    "country": "France",
+    "wikipedia": "Mer de Glace",
+    "ratings": [
+      3,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Lac d'Annecy depuis le Semnoz",
+    "description": "Une route de montagne qui domine tout le lac. Meilleur en fin d'apres-midi.",
+    "category": "Viewpoint",
+    "latitude": 45.834,
+    "longitude": 6.103,
+    "address": null,
+    "city": "Annecy",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Palais de l'Isle",
+    "description": "Une ancienne prison en forme de proue de navire, posee au milieu du Thiou.",
+    "category": "Curiosity",
+    "latitude": 45.899,
+    "longitude": 6.128,
+    "address": null,
+    "city": "Annecy",
+    "country": "France",
+    "wikipedia": "Palais de l'Isle",
+    "ratings": [
+      1,
+      2,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Fort l'Ecluse",
+    "description": "Une forteresse a cheval sur le defile du Rhone, avec un escalier souterrain de mille cent marches.",
+    "category": "Curiosity",
+    "latitude": 46.13,
+    "longitude": 5.879,
+    "address": null,
+    "city": "Léaz",
+    "country": "France",
+    "wikipedia": "Fort l'Écluse",
+    "ratings": [
+      4,
+      5,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Gorges du Verdon depuis la Route des Cretes",
+    "description": "Sept cents metres de vide sous les pieds, sur une route en sens unique.",
+    "category": "Viewpoint",
+    "latitude": 43.79,
+    "longitude": 6.26,
+    "address": null,
+    "city": "La Palud-sur-Verdon",
+    "country": "France",
+    "wikipedia": "Gorges du Verdon",
+    "ratings": [
+      4,
+      5
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Village Abandonne de Celles",
+    "description": "Un village vide depuis les annees soixante-dix, expropriés pour un barrage qui n'a jamais monte assez haut.",
+    "category": "Abandoned",
+    "latitude": 43.64,
+    "longitude": 3.36,
+    "address": null,
+    "city": "Celles",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      5
+    ],
+    "photos": 3
+  },
+  {
+    "name": "Le Cirque de Navacelles",
+    "description": "Un meandre abandonne creuse de trois cents metres, avec un hameau au fond.",
+    "category": "Viewpoint",
+    "latitude": 43.89,
+    "longitude": 3.504,
+    "address": null,
+    "city": "Blandas",
+    "country": "France",
+    "wikipedia": "Cirque de Navacelles",
+    "ratings": [
+      5,
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "La Serre Amazonienne",
+    "description": "Une serre tropicale du zoo, avec deux mille cinq cents especes et une humidite de quatre-vingts pour cent.",
+    "category": "Nature",
+    "latitude": 43.611,
+    "longitude": 3.872,
+    "address": null,
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      3,
+      1,
+      2
+    ],
+    "photos": 2
+  },
+  {
+    "name": "Le Mikve de Montpellier",
+    "description": "Un bain rituel juif du XIIe siecle, l'un des mieux conserves d'Europe, sous une maison du centre.",
+    "category": "Curiosity",
+    "latitude": 43.611,
+    "longitude": 3.876,
+    "address": null,
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      4,
+      3
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Les Arceaux",
+    "description": "Le marche sous l'aqueduc Saint-Clement, le mardi et le samedi matin.",
+    "category": "FoodDrink",
+    "latitude": 43.611,
+    "longitude": 3.868,
+    "address": null,
+    "city": "Montpellier",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      5,
+      5,
+      3,
+      5,
+      4,
+      5
+    ],
+    "photos": 3
+  },
+  {
+    "name": "L'Etang de Thau",
+    "description": "Les tables conchylicoles a perte de vue, et les degustations d'huitres directement chez les producteurs.",
+    "category": "Nature",
+    "latitude": 43.41,
+    "longitude": 3.66,
+    "address": null,
+    "city": "Bouzigues",
+    "country": "France",
+    "wikipedia": null,
+    "ratings": [
+      4,
+      4
+    ],
+    "photos": 1
+  },
+  {
+    "name": "Le Cimetiere Marin de Sete",
+    "description": "Le cimetiere ou repose Paul Valery, en terrasses au-dessus de la Mediterranee.",
+    "category": "Viewpoint",
+    "latitude": 43.397,
+    "longitude": 3.693,
+    "address": null,
+    "city": "Sète",
+    "country": "France",
+    "wikipedia": "Cimetière marin",
+    "ratings": [
+      4,
+      4,
+      4
+    ],
+    "photos": 1
+  }
 ]

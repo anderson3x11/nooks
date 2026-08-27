@@ -30,16 +30,25 @@ public static class SeedPhotoFactory
         [PlaceCategory.Other] = (SKColor.Parse("#5f5f5f"), "M6 3.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 1 0 0-5.4Z"),
     };
 
-    /// <summary>PNG d'illustration, déterministe : le même lieu produit toujours la même image.</summary>
-    public static byte[] Create(PlaceCategory category, string placeName)
+    /// <summary>
+    /// PNG d'illustration, déterministe : le même lieu et la même variante produisent
+    /// toujours la même image. La variante sert aux lieux qui portent plusieurs photos,
+    /// pour que le carrousel ne montre pas trois fois la même chose.
+    /// </summary>
+    public static byte[] Create(PlaceCategory category, string placeName, int variant = 0)
     {
         var (color, pathData) = Styles.TryGetValue(category, out var style) ? style : Styles[PlaceCategory.Other];
 
         // Le nom du lieu décale la teinte et la composition, pour que deux lieux
         // d'une même catégorie ne donnent pas exactement la même image.
-        var seed = Math.Abs(placeName.GetHashCode(StringComparison.Ordinal));
+        var seed = Math.Abs(HashCode.Combine(placeName, variant));
         var angle = (seed % 60) - 30;
         var lift = 0.10f + (seed % 7) * 0.03f;
+
+        // Chaque variante décale la teinte, sans quitter la famille de couleur de la
+        // catégorie : deux photos du même lieu doivent se distinguer d'un coup d'oeil,
+        // pas se faire passer pour deux catégories différentes.
+        color = ShiftHue(color, (seed % 37) - 18);
 
         using var surface = SKSurface.Create(new SKImageInfo(Width, Height));
         var canvas = surface.Canvas;
@@ -102,6 +111,12 @@ public static class SeedPhotoFactory
         using var image = surface.Snapshot();
         using var data = image.Encode(SKEncodedImageFormat.Png, 90);
         return data.ToArray();
+    }
+
+    private static SKColor ShiftHue(SKColor color, float degrees)
+    {
+        color.ToHsl(out var h, out var s, out var l);
+        return SKColor.FromHsl((h + degrees + 360f) % 360f, s, l);
     }
 
     private static SKColor Lighten(SKColor color, float amount)

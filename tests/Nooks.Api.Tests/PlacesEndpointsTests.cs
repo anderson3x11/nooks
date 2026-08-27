@@ -12,6 +12,16 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
     private const string ParisBbox = "bbox=2.20,48.78,2.45,48.92";
     private const string LyonBbox = "bbox=4.75,45.70,4.90,45.80";
 
+    /// <summary>
+    /// Le rectangle parisien déborde sur la petite couronne : ce qu'on vérifie est
+    /// bien la position, pas le nom de la ville.
+    /// </summary>
+    private static void AssertInside(PlaceSummaryDto place, double minLon, double minLat, double maxLon, double maxLat)
+    {
+        Assert.InRange(place.Longitude, minLon, maxLon);
+        Assert.InRange(place.Latitude, minLat, maxLat);
+    }
+
     [Fact]
     public async Task La_recherche_par_rectangle_ne_renvoie_que_les_lieux_dedans()
     {
@@ -20,7 +30,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
         var places = await (await client.GetAsync($"/api/places?{ParisBbox}")).ReadAsync<List<PlaceSummaryDto>>();
 
         Assert.NotEmpty(places);
-        Assert.All(places, place => Assert.Equal("Paris", place.City));
+        Assert.All(places, place => AssertInside(place, 2.20, 48.78, 2.45, 48.92));
         Assert.All(places, place => Assert.Equal(PlaceStatus.Approved, place.Status));
     }
 
@@ -32,7 +42,7 @@ public class PlacesEndpointsTests(NooksApiFactory factory)
         var paris = await (await client.GetAsync($"/api/places?{ParisBbox}")).ReadAsync<List<PlaceSummaryDto>>();
         var lyon = await (await client.GetAsync($"/api/places?{LyonBbox}")).ReadAsync<List<PlaceSummaryDto>>();
 
-        Assert.All(lyon, place => Assert.Equal("Lyon", place.City));
+        Assert.All(lyon, place => AssertInside(place, 4.75, 45.70, 4.90, 45.80));
         Assert.Empty(paris.Select(p => p.Id).Intersect(lyon.Select(p => p.Id)));
     }
 

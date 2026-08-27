@@ -30,6 +30,7 @@ public static class PlacesEndpoints
         group.MapPost("/", CreateAsync).RequireAuthorization().DisableAntiforgery();
         group.MapPut("/{id:guid}/rating", RateAsync).RequireAuthorization();
         group.MapPost("/{id:guid}/photos", UploadPhotoAsync).RequireAuthorization().DisableAntiforgery();
+        group.MapPost("/{id:guid}/rating/photos", UploadRatingPhotoAsync).RequireAuthorization().DisableAntiforgery();
 
         return app;
     }
@@ -216,6 +217,42 @@ public static class PlacesEndpoints
         }
 
         place.AddOrUpdateRating(principal.GetUserId(), request.Stars, request.Comment);
+        await repository.SaveChangesAsync(cancellationToken);
+
+        return Results.Ok(await repository.GetDetailAsync(id, includeUnapproved: false, cancellationToken));
+    }
+
+    /// <summary>
+    /// Illustre son propre avis. La photo est rangée avec celles du lieu, puisque c'en est
+    /// une, mais elle reste rattachée à l'avis et disparaît avec lui.
+    /// </summary>
+    private static async Task<IResult> UploadRatingPhotoAsync(
+        Guid id,
+        IFormFile file,
+        ClaimsPrincipal principal,
+        IPlaceRepository repository,
+        IPhotoStorage storage,
+        CancellationToken cancellationToken)
+    {
+        var place = await repository.GetForUpdateAsync(id, cancellationToken);
+        if (place is null || place.Status != PlaceStatus.Approved)
+        {
+            return Results.NotFound();
+        }
+
+        var rating = place.Ratings.SingleOrDefault(r => r.UserId == principal.GetUserId());
+        if (rating is null)
+        {
+            return Results.ValidationProblem(new Dictionary<string, string[]>
+            {
+                ["rating"] = ["Laissez d'abord un avis, vous pourrez ensuite l'illustrer."]
+            });
+        }
+
+        await using var stream = file.OpenReadStream();
+        var stored = await storage.SaveAsync(place.Id, stream, cancellationToken);
+        rating.AddPhoto(stored.FileName, stored.ThumbnailFileName);
+
         await repository.SaveChangesAsync(cancellationToken);
 
         return Results.Ok(await repository.GetDetailAsync(id, includeUnapproved: false, cancellationToken));

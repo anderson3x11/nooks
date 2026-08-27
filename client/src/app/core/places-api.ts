@@ -82,6 +82,13 @@ export class PlacesApi {
     return this.http.post<PlaceDetail>(`/api/places/${id}/photos`, body);
   }
 
+  /** Illustre son propre avis : il faut l'avoir publié d'abord. */
+  uploadRatingPhoto(id: string, file: File): Observable<PlaceDetail> {
+    const body = new FormData();
+    body.append('file', file, file.name);
+    return this.http.post<PlaceDetail>(`/api/places/${id}/rating/photos`, body);
+  }
+
   geocode(query: string): Observable<GeocodeResult[]> {
     return this.http.get<GeocodeResult[]>('/api/geocode', { params: new HttpParams().set('q', query) });
   }

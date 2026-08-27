@@ -47,6 +47,14 @@ export interface PlaceRating {
   updatedAt: string;
   /** L'avis a été retouché après sa publication. */
   isEdited: boolean;
+  photos: RatingPhoto[];
+}
+
+/** Photo jointe à un avis par son auteur. */
+export interface RatingPhoto {
+  id: string;
+  url: string;
+  thumbnailUrl: string;
 }
 
 export interface PlaceDetail {

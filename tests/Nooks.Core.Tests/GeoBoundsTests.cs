@@ -43,6 +43,14 @@ public class GeoBoundsTests
     }
 
     [Fact]
+    public void Une_vue_sur_la_France_entiere_est_acceptee()
+    {
+        // Environ 120 degrés carrés : c'est le dézoom naturel d'une carte nationale.
+        Assert.True(GeoBounds.TryParse("-5,42,10,52", out _, out var error));
+        Assert.Null(error);
+    }
+
+    [Fact]
     public void Une_latitude_hors_bornes_est_refusee()
     {
         Assert.False(GeoBounds.TryParse("2.20,-95,2.45,48.92", out _, out var error));

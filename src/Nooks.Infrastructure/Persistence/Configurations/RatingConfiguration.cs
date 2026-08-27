@@ -17,6 +17,13 @@ public sealed class RatingConfiguration : IEntityTypeConfiguration<Rating>
         builder.Ignore(r => r.IsRemoved);
         builder.HasIndex(r => r.RemovedAt);
 
+        builder.HasMany(r => r.Photos)
+            .WithOne()
+            .HasForeignKey(photo => photo.RatingId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Navigation(r => r.Photos).UsePropertyAccessMode(PropertyAccessMode.Field);
+
         // Un membre ne peut noter un lieu qu'une seule fois.
         builder.HasIndex(r => new { r.PlaceId, r.UserId }).IsUnique();
         builder.HasIndex(r => r.UserId);

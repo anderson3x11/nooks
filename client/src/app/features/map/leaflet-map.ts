@@ -88,6 +88,11 @@ export class LeafletMap implements OnDestroy {
     });
   }
 
+  /** Amène la carte sur un point précis, quand une fiche est ouverte par son lien. */
+  flyToPlace(latitude: number, longitude: number): void {
+    this.map?.flyTo([latitude, longitude], Math.max(this.map.getZoom(), 15), { duration: 0.8 });
+  }
+
   /** Épingle provisoire montrant où sera posé le lieu en cours de création. */
   showDraftPin(position: { latitude: number; longitude: number } | null): void {
     if (!this.map) {

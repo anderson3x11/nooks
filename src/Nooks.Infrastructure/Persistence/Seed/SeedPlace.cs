@@ -13,7 +13,14 @@ public sealed class SeedPlace
     public string? Address { get; set; }
     public string City { get; set; } = null!;
     public string Country { get; set; } = null!;
+    /// <summary>Notes laissées sur le lieu, dans l'ordre. Les commentaires en découlent.</summary>
     public int[] Ratings { get; set; } = [];
+
+    /// <summary>
+    /// Nombre total de photos portées par le lieu. Au moins une, sinon il n'aurait pas
+    /// de marqueur ; au-delà de une, les suivantes alimentent le carrousel.
+    /// </summary>
+    public int Photos { get; set; } = 1;
 
     /// <summary>
     /// Titre de l'article Wikipédia, quand il en existe un : c'est de là que vient

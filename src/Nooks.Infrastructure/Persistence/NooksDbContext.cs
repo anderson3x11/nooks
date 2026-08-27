@@ -13,6 +13,7 @@ public sealed class NooksDbContext(DbContextOptions<NooksDbContext> options)
     public DbSet<Place> Places => Set<Place>();
     public DbSet<PlacePhoto> PlacePhotos => Set<PlacePhoto>();
     public DbSet<Rating> Ratings => Set<Rating>();
+    public DbSet<RatingPhoto> RatingPhotos => Set<RatingPhoto>();
     public DbSet<Favorite> Favorites => Set<Favorite>();
     public DbSet<StoredImage> StoredImages => Set<StoredImage>();
 
